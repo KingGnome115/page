@@ -22,7 +22,7 @@
         methods: {
             async saveTask(){
                 const res = await createTask(this.task)
-                console.log(res)
+                this.$router.push({name:'tasks'})
             }
         }
     })
