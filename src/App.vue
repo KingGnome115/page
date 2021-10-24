@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <p>Sigo vivo</p>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
