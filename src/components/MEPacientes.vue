@@ -2,40 +2,40 @@
     <div>
         <h1>Detalles de tareas</h1>
         <form @submit.prevent="handleUpdate()">
-            <input type="text" v-model="currentTask.titulo">
-            <textarea rows="3" v-model="currentTask.descripcion"></textarea>
+            <input type="text" v-model="pacienteActual.titulo">
+            <textarea rows="3" v-model="pacienteActual.descripcion"></textarea>
             <button type="">Actualizar</button>
         </form>
         <button @click="handleDelete()">Eliminar</button>
     </div>
 </template>
 <script lang="ts">
-    import { Task } from "@/interfaces/Task";
-    import { getTask, updateTask, deleteTask } from "@/services/TaskServices";
+    import { Paciente } from "@/interfaces/Paciente";
+    import { consultarPaciente, modificarPaciente, eliminarPaciente } from "@/services/PacienteServices";
     import { defineComponent } from "@vue/runtime-core";    
     export default defineComponent({
         data(){
             return{
-                currentTask: {} as Task
+                pacienteActual: {} as Paciente
             }
         },
         methods:{
-            async loadTask(id: string){
-               const res = await getTask(id)
-               this.currentTask = res.data
+            async buscarPaciente(id: string){
+               const res = await consultarPaciente(id)
+               this.pacienteActual = res.data
             },
             async handleUpdate(){
-                updateTask(this.currentTask._id,this.currentTask)
+                modificarPaciente(this.pacienteActual._id,this.pacienteActual)
                 this.$router.push("/")
             },
             async handleDelete(){
-                deleteTask(this.currentTask._id)
+                eliminarPaciente(this.pacienteActual._id)
                 this.$router.push("/")
             }
         },
         mounted(){
             if(typeof this.$route.params.id === 'string'){
-                this.loadTask(this.$route.params.id)
+                this.buscarPaciente(this.$route.params.id)
             }
         }
     })

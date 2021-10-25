@@ -3,19 +3,19 @@ import {RouteRecordRaw, createRouter, createWebHistory} from 'vue-router'
 const routes: RouteRecordRaw[] = [
     {
         path:'/',
-        alias:'/tasks',
-        name: 'tasks',
-        component: () => import('@/components/TaskList.vue'),
+        alias:'/pacientes',
+        name: 'pacientes',
+        component: () => import('@/components/ListaPacientes.vue'),
     },
     {
-        path:'/tasks/new',
-        name: 'tasks-new',
-        component: () => import('@/components/TaskForm.vue'),
+        path:'/pacientes/agregar',
+        name: 'pacientes-new',
+        component: () => import('@/components/AltasPacientes.vue'),
     },
     {
-        path:'/tasks/:id',
-        name: 'tasks-details',
-        component: () => import('@/components/TaskDetail.vue'),
+        path:'/pacientes/:id',
+        name: 'pacientes-modificar',
+        component: () => import('@/components/MEPacientes.vue'),
     },
 ]
 

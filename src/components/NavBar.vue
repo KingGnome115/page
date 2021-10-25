@@ -2,10 +2,10 @@
     <nav>
         <ul>
             <li>
-                <router-link to="/">Tareas</router-link>
+                <router-link to="/">Pacientes</router-link>
             </li>
             <li>
-                <router-link to="/tasks/new">Nueva Tarea</router-link>
+                <router-link to="/pacientes/agregar">Nuevo Paciente</router-link>
             </li>
         </ul>
     </nav>

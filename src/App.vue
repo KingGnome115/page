@@ -15,7 +15,5 @@ export default defineComponent({
 </script>
 
 <style>
-#app {
 
-}
 </style>
