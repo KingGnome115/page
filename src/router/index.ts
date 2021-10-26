@@ -17,6 +17,18 @@ const routes: RouteRecordRaw[] = [
         name: 'pacientes-modificar',
         component: () => import('@/components/MEPacientes.vue'),
     },
+    {
+        path:'/protocolo/agregar',
+        name: 'protocolo-new',
+        component: () => import ('@/components/AltaProtocolo.vue'),
+    },
+    {
+        path: '/protocolo/:id',
+        name: 'protocolo-modificar',
+        component: () => import('@/components/MEProtocolo.vue') //Aun no esta el archivo
+
+    }
+   
 ]
 
 const router = createRouter({
