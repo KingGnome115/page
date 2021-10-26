@@ -2,7 +2,12 @@ import {RouteRecordRaw, createRouter, createWebHistory} from 'vue-router'
 
 const routes: RouteRecordRaw[] = [
     {
-        path:'/',
+        path:"/",
+        name:'principal',
+        component:() => import('@/components/Principal.vue')
+    },
+    {
+        path:'/listapacientes',
         alias:'/pacientes',
         name: 'pacientes',
         component: () => import('@/components/ListaPacientes.vue'),
@@ -22,8 +27,13 @@ const routes: RouteRecordRaw[] = [
         name: 'protocolo-new',
         component: () => import ('@/components/AltaProtocolo.vue'),
     },
+    {
+        path:'/listaprotocolos',
+        name: 'protocolos',
+        component: () => import('@/components/ListaProtocolo.vue'),
+    }
     /**{
-        path: '/protocolo/:id',
+        path: '/protocolos/:id',
         name: 'protocolo-modificar',
         component: () => import('@/components/MEProtocolo.vue') //Aun no esta el archivo
 
