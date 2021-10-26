@@ -1,49 +1,37 @@
 <template>
-    <div>
-        <h1>Detalles </h1>
-        <form @submit.prevent="handleUpdate()">
-            <input type="text" v-model="protocoloActual.titulo">
-            <textarea rows="3" v-model="protocoloActual.descripcion"></textarea>
-            <button type="">Actualizar</button>
+    <div class="Contenido"> 
+        <h1>Detalles de Pacientes</h1>
+        <div class="col-md-12 ">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <th>Nombre pila</th>
+                    <th>CURP</th>
+                    <th>No. Identificacion</th>
+                    <th>Genero</th> 
+                    <th>Raza</th>
+                    <th>Etnia</th>
+                    <th>Telefono</th>
+                    <th>Domicilio</th>
+                    <th>Fecha realizado</th>
+                    <th>Lugar origen</th>
+                    <th>Hospital referencia</th>
+                </thead>
+                <tr>
+                    
+                </tr>
+            </table>
 
-        </form>
-        <button @click="handleDelete()">Eliminar</button>
+            <div class="botones">
+                <button class="btn btn-primary mb-4" type="">Eliminar</button>
+                <button class="btn btn-primary mb-4" type="">Modificar</button>
+            </div>
+
+        </div>
     </div>
 </template>
 
 <script lang="ts">
-    import {Protocolo} from "@/interfaces/Protocolos"
-    import{consultarProtocolo, modificarProtocolo, eliminarProtocolo} from "@/services/ProtocoloServices";
-    import { defineComponent } from '@vue/runtime-core';
-
-    export default defineComponent({
-        data() {
-            return{
-                protocoloActual:{} as Protocolo
-            }
-            
-        },
-        methods:{
-            async buscarProtocolo(id: string){
-                const res = await consultarProtocolo(id)
-                this.protocoloActual = res.data
-            },
-            async handleUpdate(){
-                modificarProtocolo(this.protocoloActual._id, this.protocoloActual)
-                this.$router.push("/")
-            },
-            async handleDelete(){
-                eliminarProtocolo(this.protocoloActual._id)
-                this.$router.push("/")
-            }
-
-        },
-        mounted(){
-            if(typeof this.$route.params.id === 'string'){
-                this.buscarProtocolo(this.$route.params.id)
-            }
-        }
-    })
+    
 </script>
 
 <style scoped>

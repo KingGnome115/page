@@ -31,13 +31,13 @@ const routes: RouteRecordRaw[] = [
         path:'/listaprotocolos',
         name: 'protocolos',
         component: () => import('@/components/ListaProtocolo.vue'),
-    }
-    /**{
+    },
+    {
         path: '/protocolos/:id',
         name: 'protocolo-modificar',
         component: () => import('@/components/MEProtocolo.vue') //Aun no esta el archivo
 
-    }*/
+    }
    
 ]
 

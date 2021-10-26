@@ -4,52 +4,52 @@
             REGISTRO DE PACIENTES
         </h4>
         <!------->
-        <form class="row g-3" action="REGISTROPACIENTE.html" method="get" id="contenedor">
+        <form class="row g-3" @submit.prevent="guardarPaciente()">
             <div class="col-mid-1 pnomap">
                 <div class="col-md-3 nomap">
                     <label for="Name" class="form-label"> Nombre de pila</label>
-                    <input type="text" class="form-control" id="nombre" >
+                    <input type="text" class="form-control" v-model="paciente.nomPila" >
                 </div>   
 
                 <div class="col-md-3 nomap">
                     <label for="apellido" class="form-label"> Primer apellido</label>
-                    <input type="text" class="form-control" id="PrimeApellido" >
+                    <input type="text" class="form-control" v-model="paciente.primApellido" >
                 </div>
 
                 <div class="col-md-3 nomap">
                     <label for="apellido2" class="form-laabel">Segundo apellido</label>
-                    <input type="text" id="seapel" name="segapellido" class="form-control">
+                    <input type="text" class="form-control" v-model="paciente.segApellido" >
                 </div>
             </div>
 
             <div>
                 <div class="col-md-3 cin">
                 <label for="name">CURP:</label>
-                <input type="text" id="name" name="paciente" class="form-control">
+                <input type="text" class="form-control" v-model="paciente.curp">
                 </div>
 
                 <div class="col-md-2 cin">
                     <label for="inicial">Iniciales:</label>
-                    <input type="text" id="incilaes" name="inipaciente" class="form-control">
+                    <input type="text" class="form-control" v-model="paciente.iniciales">
                 </div>
 
                 <div class="col-md-3 cin">
                     <label for="name">No.Identificacion:</label>
-                    <input type="number" id="name" name="paciente" class="form-control">
+                    <input type="number" class="form-control" v-model="paciente.noIdent">
                 </div>
             </div>
 
             <div>
-    <label for="fechaNac">Fecha Nacimiento</label>
+                <label for="fechaNac">Fecha Nacimiento</label>
                 <li>
-                    <input type="date" id="start" name="trip-start"
-                    value="2018-07-22"
-                    min="1920-01-01" max="2023-12-31">
+                    <input type="date"
+                    min="1920-01-01" max="2023-12-31"
+                    v-model="paciente.fechaNac">
                 </li>
 
                 <div class="col-md-4">
                 <label for="estadoCi">Estado Civil</label>
-                    <select name="ECivil" size="1"> 
+                    <select name="ECivil" size="1" v-model="paciente.estadoCivil"> 
                         <option value="default" selected class="form-control"> 
                             --- seleccione su estado civil --- 
                         </option> 
@@ -70,7 +70,7 @@
 
                 <div class="col-md-4">
                     <label for="estadoCi">Genero</label>
-                        <select name="genero" size="1"> 
+                        <select name="genero" size="1" v-model="paciente.genero"> 
                             <option value="default" selected> 
                                     --- sleccione su genero--- 
                             </option> 
@@ -91,18 +91,18 @@
             <div>
                 <div class="col-md-2">
                     <label for="name">RAZA :</label>
-                    <input type="text" id="name" name="paciente" class="form-control">
+                    <input type="text" class="form-control" v-model="paciente.raza">
                 </div>
             
                 <div class="col-md-2">
                     <label for="name">ETNIA :</label>
-                    <input type="text" id="name" name="paciente" class="form-control">
+                    <input type="text" class="form-control" v-model="paciente.etnia">
                 </div>
             </div>
             
             <div class="col-md-4">
                 <label for="Escolaridad"> Escolaridad</label>
-                <select name="escolaridad" size="1"> 
+                <select name="escolaridad" size="1" v-model="paciente.escolaridad"> 
                 <option value="default" selected> 
                     --- sleccione--- 
                 </option> 
@@ -124,17 +124,17 @@
             <div class="col-md-4">
                 <div class="col-md-4">
                 <label for="telefono">Ocupación </label>
-                <input type="text" id="ocupacion" name="Ocuppaciente" class="form-control">
+                <input type="text" class="form-control" v-model="paciente.ocupacion">
                 </div>
                 
                 <div class="col-md-4">
                 <label for="telefono">Telefono:</label>
-                <input type="number" id="tel" size="10" name="Telfpaciente" class="form-control">
+                <input type="number" size="10" class="form-control" v-model="paciente.telefono">
                 </div>
                 
                 <div class="col-md-4">
                 <label for="name">Domicilio:</label>
-                <input type="text" id="name" name="paciente" class="form-control">
+                <input type="text" class="form-control" v-model="paciente.domicilio">
                 </div>
             </div>
 
@@ -142,36 +142,39 @@
             <div>
                 <div  class="col-md-4">
                     <label for="fechaR">Fecha realizado</label>
-                <input type="date" id="start" name="trip-start"
-                            value="2018-07-22"
-                            min="1920-01-01" max="2023-12-31">
+                <input type="date"
+                            min="1920-01-01" max="2023-12-31" v-model="paciente.fechaRea">
                 </div>
                 
                 <div class="col-md-4">
                     <label for="name">Lugar origen:</label>
-                    <input type="text" id="name" name="paciente" class="form-control">
+                    <input type="text" class="form-control" v-model="paciente.lugarOrigen">
                 </div>
             
                 <div class="col-md-4">
                     <label for="name">Hospital referencia:</label>
-                    <input type="text" id="name" name="paciente" class="form-control">
+                    <input type="text" class="form-control" v-model="paciente.hospitalRef">
                 </div>
-
             </div>
+
+            <hr>
             
             <div class="col-md-4">
                 <p>Contacto referencia</p>
                 <label for="name">Nombre de pila :</label>
-                <input type="text" id="name" name="paciente" class="form-control">
+                <input type="text" class="form-control" v-model="paciente.nomPilaCon">
                 
                 <label for="apellido">Primer apellido:</label>
-                <input type="text" id="PA" name="primap" class="form-control">
+                <input type="text" class="form-control" v-model="paciente.primApellidoCon">
 
                 <label for="apellido2">Segundo apellido:</label>
-                <input type="text" id="seapel" name="segapellido" class="form-control">
+                <input type="text" class="form-control" v-model="paciente.segApellidoCon">
 
-                <label for="name">parentesco:</label>
-                <input type="text" id="name" name="paciParentesco" class="form-control">
+                <label for="name">Parentesco:</label>
+                <input type="text" class="form-control" v-model="paciente.parentesco">
+
+                <label for="name">Telefono:</label>
+                <input type="text" class="form-control" v-model="paciente.telefonoCon">
             </div>
 
             <div class="col-auto" style="text-align: right;width:1235px">
