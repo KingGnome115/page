@@ -18,3 +18,7 @@
         name:"Navbar"
     })
 </script>
+
+<style scoped>
+    
+</style>
