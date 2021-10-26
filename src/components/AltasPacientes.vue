@@ -5,85 +5,88 @@
         </h4>
         <!------->
         <form class="row g-3" action="REGISTROPACIENTE.html" method="get" id="contenedor">
-            <div class="col-mid-1">
-                <div class="col-md-3">
+            <div class="col-mid-1 pnomap">
+                <div class="col-md-3 nomap">
                     <label for="Name" class="form-label"> Nombre de pila</label>
                     <input type="text" class="form-control" id="nombre" >
                 </div>   
 
-                <div class="col-md-3">
+                <div class="col-md-3 nomap">
                     <label for="apellido" class="form-label"> Primer apellido</label>
                     <input type="text" class="form-control" id="PrimeApellido" >
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-3 nomap">
                     <label for="apellido2" class="form-laabel">Segundo apellido</label>
                     <input type="text" id="seapel" name="segapellido" class="form-control">
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div>
+                <div class="col-md-3 cin">
                 <label for="name">CURP:</label>
                 <input type="text" id="name" name="paciente" class="form-control">
+                </div>
+
+                <div class="col-md-2 cin">
+                    <label for="inicial">Iniciales:</label>
+                    <input type="text" id="incilaes" name="inipaciente" class="form-control">
+                </div>
+
+                <div class="col-md-3 cin">
+                    <label for="name">No.Identificacion:</label>
+                    <input type="number" id="name" name="paciente" class="form-control">
+                </div>
             </div>
 
-            <div class="col-md-1">
-                <label for="inicial">Iniciales:</label>
-                <input type="text" id="incilaes" name="inipaciente" class="form-control">
-            </div>
+            <div>
+    <label for="fechaNac">Fecha Nacimiento</label>
+                <li>
+                    <input type="date" id="start" name="trip-start"
+                    value="2018-07-22"
+                    min="1920-01-01" max="2023-12-31">
+                </li>
 
-            <div class="col-md-3">
-                <label for="name">No.Identificacion:</label>
-                <input type="number" id="name" name="paciente" class="form-control">
-            </div>
-
-            <div  class="col-md-1">
-            </div>
-            <label for="fechaNac">Fecha Nacimiento</label>
-            <li>
-                <input type="date" id="start" name="trip-start"
-                value="2018-07-22"
-                min="1920-01-01" max="2023-12-31">
-            </li>
-
-            <div class="col-md-4">
-            <label for="estadoCi">Estado Civil</label>
-                <select name="ECivil" size="1"> 
-                    <option value="default" selected class="form-control"> 
-                        --- seleccione su estado civil --- 
-                    </option> 
-                    <option value="soltero"> 
-                        soltero
-                    </option> 
-                    <option value="Casado"> 
-                        casado 
-                    </option> 
-                    <option value="divorciado"> 
-                        Divoricado
-                    </option> 
-                    <option value="Viudo"> 
-                        Viudo
-                    </option> 
-                </select> 
-            </div>
-
-            <div class="col-md-4">
-                <label for="estadoCi">Genero</label>
-                    <select name="genero" size="1"> 
-                        <option value="default" selected> 
-                                --- sleccione su genero--- 
+                <div class="col-md-4">
+                <label for="estadoCi">Estado Civil</label>
+                    <select name="ECivil" size="1"> 
+                        <option value="default" selected class="form-control"> 
+                            --- seleccione su estado civil --- 
                         </option> 
-                        <option value="Hombre"> 
-                                HOMBRE
+                        <option value="soltero"> 
+                            soltero
                         </option> 
-                        <option value="Mujer"> 
-                                MUJER
+                        <option value="Casado"> 
+                            casado 
                         </option> 
-                        <option value="ND"> 
-                            NO DEFINIDO
+                        <option value="divorciado"> 
+                            Divoricado
+                        </option> 
+                        <option value="Viudo"> 
+                            Viudo
                         </option> 
                     </select> 
+                </div>
+
+                <div class="col-md-4">
+                    <label for="estadoCi">Genero</label>
+                        <select name="genero" size="1"> 
+                            <option value="default" selected> 
+                                    --- sleccione su genero--- 
+                            </option> 
+                            <option value="Hombre"> 
+                                    HOMBRE
+                            </option> 
+                            <option value="Mujer"> 
+                                    MUJER
+                            </option> 
+                            <option value="ND"> 
+                                NO DEFINIDO
+                            </option> 
+                        </select> 
+                </div>
             </div>
+            
             
             <div>
                 <div class="col-md-2">
@@ -206,5 +209,16 @@
 <style scoped>
     .Contenido{
         padding: 10px;
+    }
+
+    div{
+        display: inline-block;
+        text-align: center;
+        margin: auto;
+    }
+
+    .nomap, .cin{
+        display: inline-block;
+        margin: 10px;
     }
 </style>
