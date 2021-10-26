@@ -11,7 +11,7 @@
                     <input type="text" class="form-control" v-model="paciente.nomPila" >
                 </div>   
 
-                <div class="col-md-3 nomap">
+                <div class="col-md-4 nomap">
                     <label for="apellido" class="form-label"> Primer apellido</label>
                     <input type="text" class="form-control" v-model="paciente.primApellido" >
                 </div>
@@ -23,7 +23,7 @@
             </div>
 
             <div>
-                <div class="col-md-3 cin">
+                <div class="col-md-6 cin">
                 <label for="name">CURP:</label>
                 <input type="text" class="form-control" v-model="paciente.curp">
                 </div>
@@ -38,7 +38,6 @@
                     <input type="number" class="form-control" v-model="paciente.noIdent">
                 </div>
             </div>
-
             <div>
                 <label for="fechaNac">Fecha Nacimiento</label>
                 <li>
@@ -67,7 +66,7 @@
                         </option> 
                     </select> 
                 </div>
-
+                         
                 <div class="col-md-4">
                     <label for="estadoCi">Genero</label>
                         <select name="genero" size="1" v-model="paciente.genero"> 
@@ -87,19 +86,19 @@
                 </div>
             </div>
             
-            
-            <div>
-                <div class="col-md-2">
+            <div class="col-md-9 nomap cin">
+
+                <div class="col-md-4 cin nomap">
                     <label for="name">RAZA :</label>
                     <input type="text" class="form-control" v-model="paciente.raza">
                 </div>
-            
-                <div class="col-md-2">
+
+                <div class="col-md-4 cin nomap">
                     <label for="name">ETNIA :</label>
                     <input type="text" class="form-control" v-model="paciente.etnia">
                 </div>
+                
             </div>
-            
             <div class="col-md-4">
                 <label for="Escolaridad"> Escolaridad</label>
                 <select name="escolaridad" size="1" v-model="paciente.escolaridad"> 
@@ -120,19 +119,20 @@
                 </option> 
                 </select> 
             </div>
+            
 
-            <div class="col-md-4">
-                <div class="col-md-4">
+            <div>
+                <div class="col-md-3 nomap">
                 <label for="telefono">Ocupación </label>
                 <input type="text" class="form-control" v-model="paciente.ocupacion">
                 </div>
                 
-                <div class="col-md-4">
+                <div class="col-md-3 nomap">
                 <label for="telefono">Telefono:</label>
                 <input type="number" size="10" class="form-control" v-model="paciente.telefono">
                 </div>
                 
-                <div class="col-md-4">
+                <div class="col-md-5 nomap">
                 <label for="name">Domicilio:</label>
                 <input type="text" class="form-control" v-model="paciente.domicilio">
                 </div>
@@ -160,7 +160,9 @@
             <hr>
             
             <div class="col-md-4">
-                <p>Contacto referencia</p>
+                <br>
+                <legend class="col-form-label col-sm-0 pt-0">Contacto de referencia</legend>
+
                 <label for="name">Nombre de pila :</label>
                 <input type="text" class="form-control" v-model="paciente.nomPilaCon">
                 
@@ -191,8 +193,8 @@
 
 <script lang="ts">
     import {defineComponent} from 'vue'
-    import {Paciente} from '@/interfaces/Paciente'
-    import {agregarPaciente} from '@/services/PacienteServices'
+    import {Paciente} from '../interfaces/Paciente'
+    import {agregarPaciente} from '../services/PacienteServices'
 
     export default defineComponent({
         data(){

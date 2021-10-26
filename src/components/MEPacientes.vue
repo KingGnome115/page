@@ -43,8 +43,8 @@
 </template>
 
 <script lang="ts">
-    import { Paciente } from "@/interfaces/Paciente";
-    import { consultarPaciente, modificarPaciente, eliminarPaciente } from "@/services/PacienteServices";
+    import { Paciente } from "../interfaces/Paciente";
+    import { consultarPaciente, modificarPaciente, eliminarPaciente } from "../services/PacienteServices";
     import { defineComponent } from "@vue/runtime-core";    
     export default defineComponent({
         data(){

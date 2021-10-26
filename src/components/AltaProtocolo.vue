@@ -84,8 +84,8 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-import {Protocolo} from '@/interfaces/Protocolos'
-import { agregarProtocolo } from '@/services/ProtocoloServices'
+import {Protocolo} from '../interfaces/Protocolos'
+import { agregarProtocolo } from '../services/ProtocoloServices'
 
 export default defineComponent({
     data() {

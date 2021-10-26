@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-    import { consultarPacientes } from '@/services/PacienteServices'
+    import { consultarPacientes } from '../services/PacienteServices'
     import {defineComponent} from 'vue'
     import { Paciente } from '../interfaces/Paciente';
 
