@@ -57,7 +57,7 @@
 
             <div class="col-md-4">
                 <label class="form-label">Dias (Despues) de ventana en cada cita/visita:</label>
-                <input type="number" class="form-control" min="0" max="3" placeholder="Ej. 2 dias/semanas" v-model.number="protocolo.DCC" >
+                <input type="number" class="form-control" min="0" max="3" placeholder="Ej. 2 dias/semanas" v-model.number="protocolo.diasDCC" >
             </div>
 
             <div class="col-md-4">
@@ -90,28 +90,15 @@ import { agregarProtocolo } from '@/services/ProtocoloServices'
 export default defineComponent({
     data() {
         return{
-            protocolo:{
-                nomProtocolo:"" as string,
-                numeroProtocolo: 0 as number,
-                numeroVisitas: 0 as number,
-                nomeclatura:"" as string,
-                tipoDePeriodo:"" as string,
-                tamanioPeriodo: 0 as number,
-                visitaCero: 0 as number,
-                numeroSemanas: 0 as number,
-                diasACC: 0 as number,
-                diasDCC: 0 as number,
-                eotEstudio:"" as string,
-                eotTratamiento:"" as string,
-                color:"" as string,
-            }
+            protocolo:{} as Protocolo,
         }
     },
     methods:{
         async guardarProtocolo(){
-            //const res = await agregarProtocolo(this.protocolo)
+            const res = await agregarProtocolo(this.protocolo)
             console.log(this.protocolo)
-            //this.$router.push('/')
+            console.log(res)
+            this.$router.push('/')
         }
 
     }

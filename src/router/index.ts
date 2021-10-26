@@ -22,12 +22,12 @@ const routes: RouteRecordRaw[] = [
         name: 'protocolo-new',
         component: () => import ('@/components/AltaProtocolo.vue'),
     },
-    {
+    /**{
         path: '/protocolo/:id',
         name: 'protocolo-modificar',
         component: () => import('@/components/MEProtocolo.vue') //Aun no esta el archivo
 
-    }
+    }*/
    
 ]
 
