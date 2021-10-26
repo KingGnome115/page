@@ -3,32 +3,32 @@
         <h4 align="center" id="titulo">
             FORMULARIO ALTA DE PROTOCOLOS
         </h4>
-        <form class="row g-3" action="Protocolo.html" method="get" id="contenedor">
+        <form class="row g-3" action="Protocolo.html" method="get" id="contenedor" @sumbit.prevent="guardarProtocolo()">
             <div class="col-md-6">
                 <label for="nombreProtocolo" class="form-label"> Nombre del nuevo protocolo: </label>
-                <input type="text" class="form-control" id="nombreProtocolo" placeholder="Ej. Protocolo 1 ">
+                <input type="text" class="form-control" id="nombreProtocolo" placeholder="Ej. Protocolo 1 " v-model="protocolo.nomProtocolo">
             </div>
 
             <div class="col-md-3">
                 <label for="numeroProtocolo" class="form-label"> Numero de protocolo: </label>
-                <input type="text" class="form-control" id="numeroProtocolo" placeholder="Ej. 10 ">
+                <input type="text" class="form-control" id="numeroProtocolo" placeholder="Ej. 10 " v-model="protocolo.numeroProtocolo">
             </div>
 
             <div class="col-md-3">
                 <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
-                <input type="number" class="form-control" id="numeroVisitas" size="10" placeholder="Ej. 15 visitas" min="1">
+                <input type="number" class="form-control" id="numeroVisitas" size="10" placeholder="Ej. 15 visitas" min="1" v-model="protocolo.numeroVisitas">
             </div>
 
             <div class="col-md-3">
                 <label for="tipoNomenclatura" class="form-label"> Tipo de Nomenclatura: </label>
-                <input type="text" class="form-control" id="tipoNomenclatura" placeholder="Ej. V1,V2,...Vn ">
+                <input type="text" class="form-control" id="tipoNomenclatura" placeholder="Ej. V1,V2,...Vn " v-model="protocolo.nomeclatura">
             </div>
 
             <!--Radio Buttons Periodo-->
             <legend class="col-form-label col-sm-1 pt-0">Tipo de Periodo:</legend>
             <div class="col-md-2">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="tipoPeriodo" id="periodo1" value="option1" checked>
+                    <input class="form-check-input" type="radio" name="tipoPeriodo" id="periodo1" value="option1" checked v-model="protocolo.nomeclatura">
                     <label class="form-check-label" for="periodo1">
                         Dias
                     </label>
@@ -88,26 +88,24 @@
             <div class="col-auto">
                 <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
             </div>
-
         </form>
-
     </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
-//import {Protocolo} from '@/interfaces/Protocolo'
-//import { protocoloN } from '@services/ProtocoloService'
+import {Protocolo} from '@/interfaces/Protocolos'
+import { agregarProtocolo } from '@/services/ProtocoloServices'
 
 export default defineComponent({
     data() {
         return{
-            //protocolo: {} as Protocolo
+            protocolo: {} as Protocolo
         }
     },
     methods:{
         async guardarProtocolo(){
-            //const res = await agregarProtocolo(this.protocolo)
+            const res = await agregarProtocolo(this.protocolo)
             this.$router.push('/')
         }
 

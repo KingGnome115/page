@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-    //import {Protocolo} from "@/interfaces/Protocolo"
+    import {Protocolo} from "@/interfaces/Protocolos"
     import{consultarProtocolo, modificarProtocolo, eliminarProtocolo} from "@/services/ProtocoloServices";
     import { defineComponent } from '@vue/runtime-core';
 

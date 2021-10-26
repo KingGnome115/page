@@ -7,6 +7,9 @@
             <li>
                 <router-link to="/pacientes/agregar">Nuevo Paciente</router-link>
             </li>
+            <li>
+                <router-link to="/protocolo/agregar">Nuevo Protocolo</router-link>
+            </li>
         </ul>
     </nav>
 </template>
