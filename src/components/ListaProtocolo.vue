@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div class="Contenido">
         <h1>Lista de protocolos</h1>
         <ul>
             <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
@@ -37,5 +37,8 @@
 <style scoped>
     ul{
         display: inline-block;
+    }
+    .Contenido{
+        padding: 10px;
     }
 </style>

@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div class="Contenido">
         <h4 align="center" id="titulo">
             REGISTRO DE PACIENTES
         </h4>
@@ -204,5 +204,7 @@
 </script>
 
 <style scoped>
-    
+    .Contenido{
+        padding: 10px;
+    }
 </style>

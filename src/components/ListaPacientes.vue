@@ -1,5 +1,5 @@
 <template lang="">
-    <div>
+    <div class="Contenido">
         <h1>Lista de pacientes</h1>
         <ul>
             <li v-for="(paciente, index) in pacientes" :key="index" @click="this.$router.push(`/pacientes/${paciente._id}`)">
@@ -37,5 +37,8 @@
 <style scoped>
     ul{
         display: inline-block;
+    }
+    .Contenido{
+        padding: 10px;
     }
 </style>

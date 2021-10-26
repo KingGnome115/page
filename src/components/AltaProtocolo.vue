@@ -1,12 +1,12 @@
 <template lang="">
-    <div>
+    <div class="Contenido">
         <h4 align="center" id="titulo">
             FORMULARIO ALTA DE PROTOCOLOS
         </h4>
         <form class="row g-3" @submit.prevent="guardarProtocolo()">
             <div class="col-md-6">
                 <label class="form-label"> Nombre del nuevo protocolo: </label>
-                <input type="text" class="form-control" placeholder="Ej. Protocolo 1" v-model="protocolo.nomProtocolo">
+                <input type="text" class="form-control" placeholder="Ej. Protocolo 1" v-model="protocolo.nomProtocolo"> <!--Si el tipo es texto solo se toma-->
             </div>
 
             <div class="col-md-3">
@@ -16,7 +16,7 @@
 
             <div class="col-md-3">
                 <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
-                <input type="number" class="form-control" size="10" placeholder="Ej. 15 visitas" min="1" v-model.number="protocolo.numeroVisitas">
+                <input type="number" class="form-control" size="10" placeholder="Ej. 15 visitas" min="1" v-model.number="protocolo.numeroVisitas"> <!--Si el tipo es numero al v-model se le explica esto-->
             </div>
 
             <div class="col-md-3">
@@ -24,11 +24,11 @@
                 <input type="text" class="form-control" placeholder="Ej. V1,V2,...Vn " v-model="protocolo.nomeclatura">
             </div>
 
-            <!--Radio Buttons Periodo-->
+            <!--Cambie los radio por un combobox-->
             <legend class="col-form-label col-sm-1 pt-0">Tipo de Periodo:</legend>
             <div class="col-md-2">
                 <div class="form-check">
-                    <select v-model="protocolo.tipoDePeriodo">
+                    <select v-model="protocolo.tipoDePeriodo"> <!--El select toma la opcion-->
                         <option value="Dia" selected >Dia</option>
                         <option value="Semana">Semana</option>
                     </select>
@@ -72,7 +72,7 @@
 
             <div  class="col-md-4">
                 <label class="form-label"> Color de identificacion de protocolo: </label> 
-                <input type="color" class="form-control form-control-color" v-model="protocolo.color"> <br>
+                <input type="color" class="form-control form-control-color" v-model="protocolo.color"> <br> <!--El color se toma como string-->
             </div>
 
             <div class="col-auto" style="text-align: right;width:1235px">
@@ -106,6 +106,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+    .Contenido{
+        margin: 10px;
+    }
+
     #contenedor {
         width: 1355px;
         margin: 6px auto;
