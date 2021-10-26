@@ -43,42 +43,42 @@
                 
             <div class="col-md-3">
                 <label for="tamPeriodo" class="form-label"> Tamaño del periodo: </label>
-                <input type="number" class="form-control" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas">
+                <input type="number" class="form-control" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas" v-model="protocolo.tamPeriodo">
             </div>
 
             <div class="col-md-3">
                 <label for="visita0" class="form-label"> Visita 0: </label>
-                <input type="number" class="form-control" id="visita0" min="2" placeholder="Ej. 3ra vista">
+                <input type="number" class="form-control" id="visita0" min="2" placeholder="Ej. 3ra vista" v-model="protocolo.visita0">
             </div>
 
             <div class="col-md-4">
                 <label for="numViSemAnterior" class="form-label"> Numero de semanas que contiene cada visita anterior:</label>
-                <input type="number" class="form-control" id="numViSemAnterior" min="1" placeholder="Ej. 5 semanas">
+                <input type="number" class="form-control" id="numViSemAnterior" min="1" placeholder="Ej. 5 semanas" v-model="protocolo.numViSemAnterior">
             </div>
 
             <div class="col-md-4">
                 <label for="ventanaAntes" class="form-label">Dias (Antes) de ventana en cada cita/visita:</label>
-                <input type="number" class="form-control" id="ventanaAntes" min="0" max="3" placeholder="Ej. 2 dias/semanas">
+                <input type="number" class="form-control" id="ventanaAntes" min="0" max="3" placeholder="Ej. 2 dias/semanas" v-model="protocolo.ventanaAntes">
             </div>
 
             <div class="col-md-4">
                 <label for="ventanaDespues" class="form-label">Dias (Despues) de ventana en cada cita/visita:</label>
-                <input type="number" class="form-control" id="ventanaDespues" min="0" max="3" placeholder="Ej. 2 dias/semanas">
+                <input type="number" class="form-control" id="ventanaDespues" min="0" max="3" placeholder="Ej. 2 dias/semanas" v-model="protocolo.ventanaDespues">
             </div>
 
             <div class="col-md-4">
                 <label for="visitaEOS" class="form-label">Visita EOS (Fin de Estudio):</label> 
-                <input type="number" class="form-control" id="visitaEOS" min="2" placeholder="Ej. 3ra vista">
+                <input type="number" class="form-control" id="visitaEOS" min="2" placeholder="Ej. 3ra vista" v-model="protocolo.visitaEOS">
             </div>
 
             <div class="col-md-4">
                 <label for="visitaEOT" class="form-label">Visita EOT (Fin de Tratamiento):</label> 
-                <input type="number" class="form-control" id="visitaEOT" min="2" placeholder="Ej. 3ra vista">
+                <input type="number" class="form-control" id="visitaEOT" min="2" placeholder="Ej. 3ra vista" v-model="protocolo.visitaEOT">
             </div>
 
             <div  class="col-md-4">
                 <label for="color" class="form-label"> Color de identificacion de protocolo: </label> 
-                <input type="color" class="form-control form-control-color" value="#0d6efd" id="muestrario"> <br>
+                <input type="color" class="form-control form-control-color" value="#0d6efd" id="muestrario" v-model="protocolo.color"> <br>
             </div>
 
             <div class="col-auto" style="text-align: right;width:1235px">
@@ -96,6 +96,7 @@
 import {defineComponent} from 'vue'
 import {Protocolo} from '@/interfaces/Protocolos'
 import { agregarProtocolo } from '@/services/ProtocoloServices'
+import { model } from 'mongoose';
 
 export default defineComponent({
     data() {
