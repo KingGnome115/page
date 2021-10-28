@@ -27,7 +27,7 @@ import { Protocolo } from '../interfaces/Protocolos';
             </table>
 
             <div class="botones">
-                <button class="btn btn-primary mb-4" type="">Eliminar</button>
+                <button class="btn btn-primary mb-4" type="" @click="handleDelete()">Eliminar</button>
                 <button class="btn btn-primary mb-4" type="">Modificar</button>
             </div>
 
