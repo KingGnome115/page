@@ -11,7 +11,7 @@
 
 <script lang="ts">
     import {defineComponent} from 'vue'
-    import { consultarProtocolos } from '@/services/ProtocoloServices'
+    import { consultarProtocolos } from '../services/ProtocoloServices'
     import { Protocolo } from '../interfaces/Protocolos';
 
     export default defineComponent({

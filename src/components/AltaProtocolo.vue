@@ -78,11 +78,14 @@
             <div class="col-auto" style="text-align: right;width:1235px">
                 <button type="submit" class="btn btn-primary mb-4">Guardar</button>
             </div>
+
+            <!--Hola-->>
         </form>
     </div>
 </template>
 
 <script lang="ts">
+//import {defineComponent} from '../vue'
 import {defineComponent} from 'vue'
 import {Protocolo} from '../interfaces/Protocolos'
 import { agregarProtocolo } from '../services/ProtocoloServices'
@@ -100,7 +103,6 @@ export default defineComponent({
             console.log(res)
             this.$router.push('/')
         }
-
     }
 })
 </script>
