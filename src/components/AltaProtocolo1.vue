@@ -36,7 +36,7 @@
                 Se supone debe enviar a la segunda parte de alta de protocolo
                 la de por visitas-->
                 <div class="d-flex gap-2 justify-content-end">
-                    <button type="submit" class="btn btn-primary" src="C:/Users/HP/OneDrive/Escritorio/Servicio Social/Borradores1/AVProtocolo.html">Siguiente</button>
+                    <button type="submit" class="btn btn-primary" @click="generarFormularios()">Siguiente</button>
                     <!--
                     <a href="AVProtocolo.html"><input type="submit" class="btn btn-primary" value="Ir"></a>
                     -->
@@ -64,6 +64,9 @@ export default defineComponent({
             console.log(this.protocolo)
             console.log(res)
             this.$router.push('/')
+        },
+        generarFormularios(){
+            //Crear metodo para generar los formularios de cada visita
         }
     }
 })

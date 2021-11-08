@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
     {
         path:'/protocolo/agregar',
         name: 'protocolo-new',
-        component: () => import ('@/components/AltaProtocolo.vue'),
+        component: () => import ('@/components/AltaProtocolo1.vue'),
     },
     {
         path:'/listaprotocolos',
