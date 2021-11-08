@@ -13,6 +13,7 @@
                 <label class="form-label"> Numero de protocolo: </label>
                 <input type="text" class="form-control"  placeholder="Ej. 10" v-model.number="protocolo.numeroProtocolo">
             </div>
+            <p>Pastrana</p>
 
             <div class="col-md-3">
                 <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
