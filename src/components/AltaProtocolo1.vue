@@ -33,13 +33,11 @@
                 </div>
 
                 <!--El boton no redirecciona, pero si valida 
-                Se supone debe enviar a la segunda parte de alta de protocolo
+                Se supone debe enviar a la segunda parte de alta de praotocolo
                 la de por visitas-->
                 <div class="d-flex gap-2 justify-content-end">
-                    <button type="submit" class="btn btn-primary" @click="generarFormularios()">Siguiente</button>
-                    <!--
-                    <a href="AVProtocolo.html"><input type="submit" class="btn btn-primary" value="Ir"></a>
-                    -->
+                    <button type="submit" class="btn btn-primary" v-on:click="generarFormularios()">Siguiente</button>
+                    
                 </div>
             </form>
         </div>
@@ -60,13 +58,14 @@ export default defineComponent({
     },
     methods:{
         async guardarProtocolo(){
+            this.protocolo.visitas = [];
             const res = await agregarProtocolo(this.protocolo)
-            console.log(this.protocolo)
-            console.log(res)
+            //console.log(this.protocolo)
+            console.table(res.data)
             this.$router.push('/')
         },
         generarFormularios(){
-            //Crear metodo para generar los formularios de cada visita
+            console.log("El número de visitas seran de "+this.protocolo.numeroVisitas)
         }
     }
 })
