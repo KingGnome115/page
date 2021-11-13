@@ -34,7 +34,7 @@
 
                 <div class="col-12 col-md-4 mb-3">
                     <label for="muestrario" class="form-label"> Color de identificacion de protocolo: </label> 
-                    <input type="color" class="form-control form-control-color valid" value="#0d6efd" id="muestrario" required v-model="protocolo.color"> <!--El color se toma como string-->
+                    <input type="color" class="form-control form-control-color valid" id="muestrario" required v-model="protocolo.color"> <!--El color se toma como string-->
                     <div class="invalid-feedback">
                         Por favor escoga un color para el protocolo
                     </div>
