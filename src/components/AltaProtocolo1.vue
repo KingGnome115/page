@@ -8,7 +8,7 @@
 
             <form class="row" action="Protocolo.html" method="get" id="contenedor" @submit.prevent="guardarProtocolo()">
 
-                <div class="col-12 col-md-4 mb-3">
+                <div class="col-12 mb-3">
                     <label for="nomProtocolo" class="form-label"> Nombre del protocolo: </label>
                     <input type="text" class="form-control valid" id="nomProtocolo" placeholder="Ej. Protocolo 1" required v-model="protocolo.nomProtocolo">
                     <div class="invalid-feedback">
@@ -29,6 +29,14 @@
                     <input type="number" class="form-control valid" id="numeroVisitas" size="10" placeholder="Ej. 15 visitas" min="1"  required v-model.number="protocolo.numeroVisitas"> <!--Si el tipo es numero al v-model se le explica esto-->
                     <div class="invalid-feedback">
                         Por favor escriba un numero de visitas
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="muestrario" class="form-label"> Color de identificacion de protocolo: </label> 
+                    <input type="color" class="form-control form-control-color valid" value="#0d6efd" id="muestrario" required v-model="protocolo.color"> <!--El color se toma como string-->
+                    <div class="invalid-feedback">
+                        Por favor escoga un color para el protocolo
                     </div>
                 </div>
 

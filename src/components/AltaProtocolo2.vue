@@ -6,7 +6,7 @@
                 <p>Formulario visita #</p>
             </header>
             <form class="row" action="Protocolo.html" method="get" id="contenedor">
-                <div class="col-12 col-md-4 mb-3">
+                <div class="col-12 mb-3">
                     <label for="nombreProtocolo" class="form-label"> Nombre del nuevo protocolo: </label>
                     <input type="text" class="form-control valid" id="nombreProtocolo" disabled>
                 </div>
@@ -20,12 +20,17 @@
                     <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
                     <input type="number" class="form-control valid" id="numeroVisitas" disabled>
                 </div>
+
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="muestrario" class="form-label"> Color de identificacion de protocolo: </label> 
+                    <input type="color" class="form-control form-control-color valid" value="#0d6efd" id="muestrario" disabled> <!--El color se toma como string-->
+                </div>
                 
                 <hr> <!--Linea de separacion xd-->
 
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="tipoNomenclatura" class="form-label"> Tipo de Nomenclatura: </label>
-                    <input type="text" class="form-control valid" id="tipoNomenclatura" placeholder="Ej. V1,V2,...Vn " required v-model="protocolo.nomeclatura">
+                    <input type="text" class="form-control valid" id="tipoNomenclatura" placeholder="Ej. V1,V2,...Vn " required >
                     <div class="invalid-feedback">
                         Por favor escriba el tipo de nomenclatura para esta visita
                     </div>
@@ -33,10 +38,10 @@
 
                 <!--Agrege la opcion de mes en el combobox
                 No se si afecte en algo la logica o el v-model o como guarde los datos-->
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="tipoPeriodo" class="form-label"> Tipo de periodo: </label>
                     <select class="form-select valid" id="tipoPeriodo" aria-describedby="Pregunta que tipo de periodo se usara por esta visita" required>
-                        <option selected disabled value="" v-model="protocolo.tipoDePeriodo">Seleccione</option>  <!--El select toma la opcion-->
+                        <option selected disabled value="" >Seleccione</option>  <!--El select toma la opcion-->
                         <option>Dia</option>
                         <option>Semana</option>
                         <option>Mes</option>
@@ -46,18 +51,18 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="tamPeriodo" class="form-label"> Tamaño del periodo: </label>
-                    <input type="number" class="form-control valid" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas" required v-model.number="protocolo.tamanioPeriodo">
+                    <input type="number" class="form-control valid" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas" required>
                     <div class="invalid-feedback">
                         Por favor escriba el tamaño de periodo para esta visita
                     </div>
                 </div>
 
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="visita0" class="form-label">Visita 0:</label>
                     <select class="form-select valid" id="visita0" aria-describedby="Pregunta si esta visita es la 0" required>
-                        <option selected disabled value="" v-model="protocolo.visitaCero">Seleccione</option>
+                        <option selected disabled value="">Seleccione</option>
                         <option>Si</option>
                         <option>No</option>
                     </select>
@@ -97,10 +102,10 @@
 
                 <!--Aqui cambie el v-model porque ya no se introduce un numero
                 ahora se selcciona la opcion no se si este bien revisen porfa-->
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="visitaEOS" class="form-label">Esta se condidera como la visita EOS (Fin de Estudio):</label>
                     <select class="form-select valid" id="visitaEOS" aria-describedby="Pregunta si esta visita es la EOS" required>
-                        <option selected disabled value=""  v-model="protocolo.eotEstudio">Seleccione</option>
+                        <option selected disabled value="">Seleccione</option>
                         <!--Creo que aqui hay error de dedo jaja en v-model le pusiste eotEstudio y es EOS xd-->
                         <option>Si</option>
                         <option>No</option>
@@ -112,23 +117,15 @@
 
                 <!--Aqui cambie el v-model porque ya no se introduce un numero
                 ahora se selcciona la opcion no se si este bien revisen porfa-->
-                <div class="col-12 col-md-3 mb-3">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="visitaEOT" class="form-label">Visita EOT (Fin de Tratamiento):</label>
                     <select class="form-select valid" id="visitaEOT" aria-describedby="Pregunta si esta visita es la EOT" required>
-                        <option selected disabled value="" v-model="protocolo.eotTratamiento">Seleccione</option>
+                        <option selected disabled value="" >Seleccione</option>
                         <option>Si</option>
                         <option>No</option>
                     </select>
                     <div id="visitaEOT" class="invalid-feedback">
                       Por favor, seleccione una opcion
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-3 mb-3">
-                    <label for="muestrario" class="form-label"> Color de identificacion de protocolo: </label> 
-                    <input type="color" class="form-control form-control-color valid" value="#0d6efd" id="muestrario" required v-model="protocolo.color"> <!--El color se toma como string-->
-                    <div class="invalid-feedback">
-                        Por favor escoga un color para el protocolo
                     </div>
                 </div>
 
