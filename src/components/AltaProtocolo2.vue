@@ -6,27 +6,6 @@
                 <p>Formulario visita #</p>
             </header>
             <form class="row" action="Protocolo.html" method="get" id="contenedor">
-                <div class="col-12 mb-3">
-                    <label for="nombreProtocolo" class="form-label"> Nombre del nuevo protocolo: </label>
-                    <input type="text" class="form-control valid" id="nombreProtocolo" disabled>
-                </div>
-
-                <div class="col-12 col-md-4 mb-3">
-                    <label for="numeroProtocolo" class="form-label"> Numero de protocolo: </label>
-                    <input type="text" class="form-control valid" id="numeroProtocolo" disabled>
-                </div>
-
-                <div class="col-12 col-md-4 mb-3">
-                    <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
-                    <input type="number" class="form-control valid" id="numeroVisitas" disabled>
-                </div>
-
-                <div class="col-12 col-md-4 mb-3">
-                    <label for="muestrario" class="form-label"> Color de identificacion de protocolo: </label> 
-                    <input type="color" class="form-control form-control-color valid" value="#0d6efd" id="muestrario" disabled> <!--El color se toma como string-->
-                </div>
-                
-                <hr> <!--Linea de separacion xd-->
 
                 <div class="col-12 col-md-4 mb-3">
                     <label for="tipoNomenclatura" class="form-label"> Tipo de Nomenclatura: </label>
@@ -156,11 +135,9 @@ export default defineComponent({
             console.log(this.protocolo)
             console.log(res)
             this.$router.push('/')
-        },
-        generarFormularios(){
-            //Crear metodo para generar los formularios de cada visita
         }
-    }
+    },
+    props:['id'],
 })
 </script>
 

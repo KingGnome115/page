@@ -1,4 +1,4 @@
-import {Visitas} from '../interfaces/visitas'
+import {Visitas} from '../interfaces/Visitas'
 
 export interface Protocolo{
     nomProtocolo:string;

@@ -68,9 +68,8 @@ export default defineComponent({
         async guardarProtocolo(){
             this.protocolo.visitas = [];
             const res = await agregarProtocolo(this.protocolo)
-            //console.log(this.protocolo)
-            console.table(res.data)
-            this.$router.push('/')
+            const arr = res.data;
+            this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
         },
         generarFormularios(){
             console.log("El número de visitas seran de "+this.protocolo.numeroVisitas)
