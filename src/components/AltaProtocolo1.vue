@@ -44,7 +44,7 @@
                 Se supone debe enviar a la segunda parte de alta de praotocolo
                 la de por visitas-->
                 <div class="d-flex gap-2 justify-content-end">
-                    <button type="submit" class="btn btn-primary" v-on:click="generarFormularios()">Siguiente</button>
+                    <button type="submit" class="btn btn-primary">Siguiente</button>
                     
                 </div>
             </form>
@@ -69,10 +69,7 @@ export default defineComponent({
             this.protocolo.visitas = [];
             const res = await agregarProtocolo(this.protocolo)
             const arr = res.data;
-            this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
-        },
-        generarFormularios(){
-            console.log("El número de visitas seran de "+this.protocolo.numeroVisitas)
+            this.$router.push(`/protocolo/agregar-visita/${arr._id}/${1}/${arr.numeroVisitas}`)
         }
     }
 })

@@ -3,7 +3,7 @@
         <div class="row mt-3">
             <header class="row text-center" >
                 <h2>Registro de Protocolo</h2>
-                <p>Formulario visita #</p>
+                <p>Formulario visita {{this.$route.params.ac}} de {{this.$route.params.to}} </p>
             </header>
             <form class="row" action="Protocolo.html" method="get" id="contenedor">
 
@@ -121,7 +121,7 @@
 //import {defineComponent} from '../vue'
 import {defineComponent} from 'vue'
 import {Protocolo} from '../interfaces/Protocolos'
-import { agregarProtocolo } from '../services/ProtocoloServices'
+import { agregarProtocolo, consultarProtocolo } from '../services/ProtocoloServices'
 
 export default defineComponent({
     data() {
@@ -130,6 +130,11 @@ export default defineComponent({
         }
     },
     methods:{
+        async cargarProtocolo(id: string){
+            const res = await consultarProtocolo(id)
+            this.protocolo = res.data
+            console.log(this.protocolo)
+        },
         async guardarProtocolo(){
             const res = await agregarProtocolo(this.protocolo)
             console.log(this.protocolo)
@@ -137,7 +142,11 @@ export default defineComponent({
             this.$router.push('/')
         }
     },
-    props:['id'],
+    mounted(){
+        if(typeof this.$route.params.id === 'string'){
+            this.cargarProtocolo(this.$route.params.id)
+        }
+    },
 })
 </script>
 
