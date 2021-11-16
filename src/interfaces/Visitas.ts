@@ -3,7 +3,7 @@ export interface Visitas {
     tipoDePeriodo: string;
     tamanioPeriodo: number;
     visitaCero: boolean;
-    numeroSemanas: number;
+    ventana: string;
     dias: number;
     eotEstudio: boolean;
     eotTratamiento: boolean;
