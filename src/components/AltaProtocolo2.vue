@@ -136,13 +136,18 @@ export default defineComponent({
             this.protocolo = res.data
         },
         async guardarVisita(){
-            if(this.$route.params.ac <= this.$route.params.to ){
+            let actual = parseInt(this.$route.params.ac.toString())
+            let total = parseInt(this.$route.params.to.toString())
+            if(actual <= total){
                 this.protocolo.visitas.push(this.visita)
                 let id = this.$route.params.id.toString()
                 modificarProtocolo(id , this.protocolo)
-                let actual = parseInt(this.$route.params.ac.toString())
                 actual++
-                this.$router.push(`/protocolo/agregar-visita/${this.$route.params.id}/${actual}/${this.$route.params.to}`)
+                if(actual <= total){
+                    this.$router.push(`/protocolo/agregar-visita/${this.$route.params.id}/${actual}/${this.$route.params.to}`)
+                }else{
+                    this.$router.push('/')
+                }
             }else{
                 this.$router.push('/')
             }
