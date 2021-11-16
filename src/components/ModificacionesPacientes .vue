@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="col-md-3 cin">
-                    <label for="name">No.Identificacion<abbr title="required" aria-label="required">*</abbr>label>
+                    <div for="name">No.Identificacion<abbr title="required" aria-label="required">*</abbr></div>
                     <input type="number" class="form-control" v-model="paciente.noIdent" readonly onmousedown="return false;">
                 </div>
             </div>
