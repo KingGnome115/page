@@ -5,8 +5,7 @@
                 <h2>Registro de Protocolo</h2>
                 <p>Formulario visita {{this.$route.params.ac}} de {{this.$route.params.to}} </p>
             </header>
-            <form class="row" action="Protocolo.html" method="get" id="contenedor">
-
+            <form class="row" action="Protocolo.html" method="get" id="contenedor" @submit.prevent="guardarVisita()">
                 <div class="col-12 col-md-4 mb-3">
                     <label for="tipoNomenclatura" class="form-label"> Tipo de Nomenclatura: </label>
                     <input type="text" class="form-control valid" id="tipoNomenclatura" placeholder="Ej. V1,V2,...Vn " required >
@@ -121,7 +120,7 @@
 //import {defineComponent} from '../vue'
 import {defineComponent} from 'vue'
 import {Protocolo} from '../interfaces/Protocolos'
-import { agregarProtocolo, consultarProtocolo } from '../services/ProtocoloServices'
+import {consultarProtocolo } from '../services/ProtocoloServices'
 
 export default defineComponent({
     data() {
@@ -133,13 +132,13 @@ export default defineComponent({
         async cargarProtocolo(id: string){
             const res = await consultarProtocolo(id)
             this.protocolo = res.data
-            console.log(this.protocolo)
         },
-        async guardarProtocolo(){
-            const res = await agregarProtocolo(this.protocolo)
-            console.log(this.protocolo)
-            console.log(res)
-            this.$router.push('/')
+        async guardarVisita(){
+            if(this.$route.params.ac < this.$route.params.to ){
+                let actual = parseInt(this.$route.params.ac[0])
+                actual++
+                this.$router.push(`/protocolo/agregar-visita/${this.$route.params.id}/${actual}/${this.$route.params.to}`)
+            }
         }
     },
     mounted(){
