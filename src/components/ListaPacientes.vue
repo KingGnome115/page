@@ -24,7 +24,6 @@
             async cargarPacientes(){
                 const res = await consultarPacientes()
                 this.pacientes = res.data
-                console.log(res.data)
             }
         },
         mounted(){

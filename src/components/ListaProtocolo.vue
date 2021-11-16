@@ -24,7 +24,6 @@
             async cargarProtocolos(){
                 const res = await consultarProtocolos()
                 this.protocolos = res.data
-                console.log(res.data)
             }
         },
         mounted(){

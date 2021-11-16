@@ -143,6 +143,8 @@ export default defineComponent({
                 let actual = parseInt(this.$route.params.ac.toString())
                 actual++
                 this.$router.push(`/protocolo/agregar-visita/${this.$route.params.id}/${actual}/${this.$route.params.to}`)
+            }else{
+                this.$router.push('/')
             }
         }
     },
