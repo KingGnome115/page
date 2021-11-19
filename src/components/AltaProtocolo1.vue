@@ -57,16 +57,30 @@
 import {defineComponent} from 'vue'
 import {Protocolo} from '../interfaces/Protocolos'
 import { agregarProtocolo } from '../services/ProtocoloServices'
+import {Visitas} from '../interfaces/Visitas'
 
 export default defineComponent({
     data() {
         return{
             protocolo:{} as Protocolo,
+            arrVisitas:[] as Visitas[]
         }
     },
     methods:{
         async guardarProtocolo(){
-            this.protocolo.visitas = [];
+            for (let index = 0; index < this.protocolo.numeroVisitas; index++) {
+                this.arrVisitas.push({
+                    nomeclatura: this.protocolo.nomProtocolo,
+                    tipoDePeriodo: "Dia",
+                    tamanioPeriodo: 1,
+                    visitaCero: "No",
+                    ventana: "Ninguna",
+                    dias: 0,
+                    eotEstudio: "No",
+                    eotTratamiento: "No",
+                });
+            }
+            this.protocolo.visitas = this.arrVisitas;
             const res = await agregarProtocolo(this.protocolo)
             const arr = res.data;
             this.$router.push(`/protocolo/agregar-visita/${arr._id}/${1}/${arr.numeroVisitas}`)
