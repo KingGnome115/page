@@ -3,7 +3,7 @@
         <div class="row mt-3">
             <header class="row text-center" >
                 <h2>Registro de Protocolo</h2>
-                <p>Formulario visita {{this.$route.params.ac}} de {{this.$route.params.to}} </p>
+                <p>Formulario visita</p>
             </header>
             <form class="row" action="Protocolo.html" method="get" id="contenedor" @submit.prevent="guardarVisita()">
                     <table border="1" align="center">
@@ -151,7 +151,7 @@
 
                             <td>
                                 <div>
-                                    <select class="form-select valid" id="visitaEOT" aria-describedby="Pregunta si esta visita es la EOT" required v-model="visita.eotTratamieto">
+                                    <select class="form-select valid" id="visitaEOT" aria-describedby="Pregunta si esta visita es la EOT" required v-model="visita.eotTratamiento">
                                         <option selected disabled value="" >Seleccione</option>
                                         <option>Si</option>
                                         <option>No</option>
