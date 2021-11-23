@@ -1,54 +1,52 @@
 <template lang="">
-    <div class="Contenido">
+<div class="Contenido">
         <h4 align="center" id="titulo">
-            MODIFICACIONESDE PACIENTES
+            REGISTRO DE PACIENTES
         </h4>
         <!---->
-        <form class="row g-3" @submit.prevent="guardarPaciente()">
+        <form class="row g-3" @submit.prevent="handleUpdate()">
             <div class="col-mid-1 pnomap">
                 <div class="col-md-3 nomap">
-                    <label for="Name" class="form-label"> Nombre de pila<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.nomPila" readonly onmousedown="return false;" >
+                    <label for="Name" class="form-label"> Nombre de pila <abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.nomPila" >
                 </div>   
 
                 <div class="col-md-4 nomap">
                     <label for="apellido" class="form-label"> Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.primApellido" readonly onmousedown="return false;" >
+                    <input type="text" class="form-control" v-model="paciente.primApellido" >
                 </div>
 
                 <div class="col-md-3 nomap">
                     <label for="apellido2" class="form-laabel">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.segApellido" readonly onmousedown="return false;" >
+                    <input type="text" class="form-control" v-model="paciente.segApellido" >
                 </div>
             </div>
 
             <div>
                 <div class="col-md-6 cin">
                 <label for="name">CURP<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.curp" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.curp">
                 </div>
 
                 <div class="col-md-2 cin">
                     <label for="inicial">Iniciales <abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.iniciales" readonly onmousedown="return false;">
+                    <input type="text" class="form-control" v-model="paciente.iniciales">
                 </div>
 
                 <div class="col-md-3 cin">
-                    <div for="name">No.Identificacion<abbr title="required" aria-label="required">*</abbr></div>
-                    <input type="number" class="form-control" v-model="paciente.noIdent" readonly onmousedown="return false;">
+                    <label for="name">No.Identificacion<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="number" class="form-control" v-model="paciente.noIdent">
                 </div>
             </div>
             <div>
                 <label for="fechaNac">Fecha Nacimiento<abbr title="required" aria-label="required">*</abbr></label>
                 <li>
-                    <input type="date"
-                    min="1920-01-01" max="2023-12-31"
-                    v-model="paciente.fechaNac" readonly onmousedown="return false;" >
+                    <input type="date" v-model="paciente.fechaNac">
                 </li>
 
                 <div class="col-md-4">
                 <label for="estadoCi">Estado Civil<abbr title="required" aria-label="required">*</abbr></label>
-                    <select name="ECivil" size="1" v-model="paciente.estadoCivil"> 
+                    <select  required v-model="paciente.estadoCivil"> 
                         <option value="default" selected class="form-control"> 
                             --- seleccione su estado civil --- 
                         </option> 
@@ -90,12 +88,12 @@
 
                 <div class="col-md-4 cin nomap">
                     <label for="name">RAZA<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.raza" readonly onmousedown="return false;">
+                    <input type="text" class="form-control" v-model="paciente.raza">
                 </div>
 
                 <div class="col-md-4 cin nomap">
                     <label for="name">ETNIA<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.etnia" readonly onmousedown="return false;">
+                    <input type="text" class="form-control" v-model="paciente.etnia">
                 </div>
                 
             </div>
@@ -120,40 +118,38 @@
                 </select> 
             </div>
             
-
             <div>
                 <div class="col-md-3 nomap">
                 <label for="telefono">Ocupación<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.ocupacion" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.ocupacion">
                 </div>
                 
                 <div class="col-md-3 nomap">
                 <label for="telefono">Telefono<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="number" size="10" class="form-control" v-model="paciente.telefono" readonly onmousedown="return false;">
+                <input type="number" size="10" class="form-control" v-model="paciente.telefono">
                 </div>
                 
                 <div class="col-md-5 nomap">
                 <label for="name">Domicilio<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.domicilio" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.domicilio">
                 </div>
             </div>
-
 
             <div>
                 <div  class="col-md-4">
                     <label for="fechaR">Fecha realizado<abbr title="required" aria-label="required">*</abbr></label>
                 <input type="date"
-                            min="1920-01-01" max="2023-12-31" v-model="paciente.fechaRea" readonly onmousedown="return false;">
+                            min="1920-01-01" max="2023-12-31" v-model="paciente.fechaRea">
                 </div>
                 
                 <div class="col-md-4">
                     <label for="name">Lugar origen<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.lugarOrigen" readonly onmousedown="return false;">
+                    <input type="text" class="form-control" v-model="paciente.lugarOrigen">
                 </div>
             
                 <div class="col-md-4">
                     <label for="name">Hospital referencia<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.hospitalRef" readonly onmousedown="return false;">
+                    <input type="text" class="form-control" v-model="paciente.hospitalRef">
                 </div>
             </div>
 
@@ -164,29 +160,28 @@
                 <legend class="col-form-label col-sm-0 pt-0">Contacto de referencia</legend>
 
                 <label for="name">Nombre de pila<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.nomPilaCon" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.nomPilaCon">
                 
                 <label for="apellido">Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.primApellidoCon" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.primApellidoCon">
 
                 <label for="apellido2">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.segApellidoCon" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.segApellidoCon">
 
                 <label for="name">Parentesco<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.parentesco" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.parentesco">
 
                 <label for="name">Telefono<abbr title="required" aria-label="required">*</abbr></label>
-                <input type="text" class="form-control" v-model="paciente.telefonoCon" readonly onmousedown="return false;">
+                <input type="text" class="form-control" v-model="paciente.telefonoCon">
             </div>
 
             <div class="col-auto" style="text-align: right;width:1235px">
-                <button type="submit" class="btn btn-primary mb-4">Guardar y modificar </button>
+                <button type="submit" class="btn btn-primary mb-4">Modificar</button>
             </div>
 
             <div class="col-auto">
-                <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
+                <button type="reset" class="btn btn-primary mb-4"  v-on:click="handleDelete()">Eliminar</button>
             </div>
-
         </form>
     </div>
 </template>
@@ -194,7 +189,7 @@
 <script lang="ts">
     import {defineComponent} from 'vue'
     import {Paciente} from '../interfaces/Paciente'
-    import {agregarPaciente} from '../services/PacienteServices'
+    import {consultarPaciente, modificarPaciente,eliminarPaciente} from '../services/PacienteServices'
 
     export default defineComponent({
         data(){
@@ -203,9 +198,23 @@
             }
         },
         methods: {
-            async guardarPaciente(){
-                const res = await agregarPaciente(this.paciente)
-                this.$router.push('/')
+            async buscarPaciente(id:string){
+                const res = await consultarPaciente(id)
+                this.paciente = res.data
+            },
+            async handleUpdate(){
+                console.log(this.paciente)
+                modificarPaciente(this.paciente._id,this.paciente)
+                this.$router.push("/")
+            },
+            async handleDelete(){
+                eliminarPaciente(this.paciente._id)
+                this.$router.push("/")
+            }
+        },
+        mounted(){
+            if(typeof this.$route.params.id === 'string'){
+            this.buscarPaciente(this.$route.params.id)
             }
         }
     })
