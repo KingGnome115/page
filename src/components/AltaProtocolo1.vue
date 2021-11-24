@@ -83,7 +83,7 @@ export default defineComponent({
             this.protocolo.visitas = this.arrVisitas;
             const res = await agregarProtocolo(this.protocolo)
             const arr = res.data;
-            this.$router.push(`/protocolo/agregar-visita/${arr._id}/${1}/${arr.numeroVisitas}`)
+            this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
         }
     }
 })
