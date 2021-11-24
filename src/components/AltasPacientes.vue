@@ -8,42 +8,47 @@
 
             <form class="row g-3" @submit.prevent="guardarPaciente()">
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="Name" class="form-label"> Nombre de pila <abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.nomPila" >
-                </div>   
+                    <label for="Name" class="form-label"> Nombre de pila </label>
+                    <input type="text" class="form-control valid" id="nombre" placeholder="Juan" required v-model="paciente.nomPila">
+                    <div class="invalid-feedback">
+                        Por favor escriba un nombre
+                    </div>
+                </div> 
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="apellido" class="form-label"> Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.primApellido" >
+                    <label for="apellido" class="form-label"> Primer apellido </label>
+                    <input type="text" class="form-control valid" id="apellido" placeholder="Perez" required v-model="paciente.primApellido">
+                    <div class="invalid-feedback">
+                        Por favor escriba un apellido
+                    </div>
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="apellido2" class="form-laabel">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="text" class="form-control" v-model="paciente.segApellido" >
+                    <label for="apellido2" class="form-label"> Segundo apellido </label>
+                    <input type="text" class="form-control valid" id="apellido2" placeholder="Mendez" required v-model="paciente.segApellido">
+                    <div class="invalid-feedback">
+                        Por favor escriba un apellido
+                    </div>
                 </div>
                 
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="inicial">Iniciales <abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="inicial" class="form-label">Iniciales <abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.iniciales">
                 </div>
 
                 <div class="col-12 col-md-6 mb-3">
-                    <label for="name">CURP<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">CURP<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.curp">
                 </div>
 
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="name">No.Identificacion<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">No.Identificacion<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="number" class="form-control" v-model="paciente.noIdent">
                 </div>
                 
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="fechaNac">Fecha Nacimiento<abbr title="required" aria-label="required">*</abbr></label>
-                    <li>
-                        <input type="date"
-                        min="1920-01-01" max="2023-12-31"
-                        v-model="paciente.fechaNac">
-                    </li>
+                    <label for="fechaNac" class="form-label">Fecha Nacimiento<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="date" min="1920-01-01" max="2023-12-31" class="form-control" v-model="paciente.fechaNac">
                 </div>
 
                 <!--Estado civil-->
@@ -76,12 +81,12 @@
                 </div>
 
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="name">Raza <abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Raza <abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.raza">
                 </div>
 
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="name">Etnia<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Etnia<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.etnia">
                 </div>
 
@@ -101,32 +106,32 @@
                 </div>
 
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="telefono">Ocupación<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="telefono" class="form-label">Ocupación<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.ocupacion">
                 </div>
                     
                 <div class="col-12 col-md-3 mb-3">
-                    <label for="telefono">Telefono<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="telefono" class="form-label">Telefono<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="number" size="10" class="form-control" v-model="paciente.telefono">
                 </div>
                     
                 <div class="col-12 mb-3">
-                    <label for="name">Domicilio<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Domicilio<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.domicilio">
                 </div>
 
                 <div  class="col-12 col-md-4">
-                    <label for="fechaR">Fecha realizado<abbr title="required" aria-label="required">*</abbr></label>
-                    <input type="date" min="1920-01-01" max="2023-12-31" v-model="paciente.fechaRea">
+                    <label for="fechaR" class="form-label">Fecha realizado<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="date" min="1920-01-01" max="2023-12-31" class="form-control" v-model="paciente.fechaRea">
                 </div>
                     
                 <div class="col-12 col-md-4">
-                    <label for="name">Lugar origen<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Lugar origen<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.lugarOrigen">
                 </div>
                 
                 <div class="col-12 col-md-4">
-                    <label for="name">Hospital referencia<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Hospital referencia<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.hospitalRef">
                 </div>
 
@@ -135,27 +140,27 @@
                 <legend class="col-form-label col-sm-0 pt-0 mb-3">Contacto de referencia</legend>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="name">Nombre de pila<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Nombre de pila<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.nomPilaCon">
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="apellido">Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="apellido" class="form-label">Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.primApellidoCon">
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="apellido2">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="apellido2" class="form-label">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.segApellidoCon">
                 </div>
                     
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="name">Parentesco<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Parentesco<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.parentesco">
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="name">Telefono<abbr title="required" aria-label="required">*</abbr></label>
+                    <label for="name" class="form-label">Telefono<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.telefonoCon">
                 </div>
 
@@ -197,18 +202,13 @@
 </script>
 
 <style scoped>
-    .Contenido{
+    header {
+        background: var(--fondo-contenido);
+    }
+
+    body {
+        background: #F8F8FF;
         padding: 10px;
     }
 
-    div{
-        display: inline-block;
-        text-align: center;
-        margin: auto;
-    }
-
-    .nomap, .cin{
-        display: inline-block;
-        margin: 10px;
-    }
 </style>
