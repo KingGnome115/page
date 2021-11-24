@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
     {
         path:'/pacientes/:id',
         name: 'pacientes-modificar',
-        component: () => import('@/components/MEPacientes.vue'),
+        component: () => import('@/components/ModificacionesPacientes.vue'),
     },
     {
         path:'/protocolo/agregar',
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import ('@/components/AltaProtocolo1.vue'),
     },
     {
-        path:'/protocolo/agregar-visita/:id/:ac/:to',
+        path:'/protocolo/agregar-visita/:id',
         name: 'protocolo-new-visita',
         component: () => import ('@/components/AltaProtocolo2.vue'),
     },

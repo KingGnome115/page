@@ -8,6 +8,6 @@ export const consultarPaciente = async(id: string): Promise<AxiosResponse<Pacien
 
 export const agregarPaciente = async(paciente: Paciente) => await axios.post('/pacientes',paciente);
 
-export const modificarPaciente = async(id: string, paciente:Paciente) => await axios.put(`/pacientes/${id}`+id, paciente)
+export const modificarPaciente = async(id: string, paciente:Paciente): Promise<AxiosResponse<Paciente>> => await axios.put(`/pacientes/${id}`, paciente)
 
 export const eliminarPaciente = async(id: string): Promise<AxiosResponse<Paciente>> => await axios.delete(`/pacientes/${id}`)

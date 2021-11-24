@@ -1,193 +1,183 @@
 <template lang="">
-    <div class="Contenido">
-        <h4 align="center" id="titulo">
-            REGISTRO DE PACIENTES
-        </h4>
-        <!------->
-        <form class="row g-3" @submit.prevent="guardarPaciente()">
-            <div class="col-mid-1 pnomap">
-                <div class="col-md-3 nomap">
-                    <label for="Name" class="form-label"> Nombre de pila</label>
-                    <input type="text" class="form-control" v-model="paciente.nomPila" >
-                </div>   
+    <div class="container">
+        <div class="row mt-3">
+            <header class="row text-center" >
+                <h2>Registro de Pacientes</h2>
+                <p>Formulario para dar de alta un nuevo paciente</p>
+            </header>
 
-                <div class="col-md-4 nomap">
-                    <label for="apellido" class="form-label"> Primer apellido</label>
-                    <input type="text" class="form-control" v-model="paciente.primApellido" >
+            <form class="row g-3" @submit.prevent="guardarPaciente()">
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="Name" class="form-label"> Nombre de pila </label>
+                    <input type="text" class="form-control valid" id="nombre" placeholder="Juan" required v-model="paciente.nomPila">
+                    <div class="invalid-feedback">
+                        Por favor escriba un nombre
+                    </div>
+                </div> 
+
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="apellido" class="form-label"> Primer apellido </label>
+                    <input type="text" class="form-control valid" id="apellido" placeholder="Perez" required v-model="paciente.primApellido">
+                    <div class="invalid-feedback">
+                        Por favor escriba un apellido
+                    </div>
                 </div>
 
-                <div class="col-md-3 nomap">
-                    <label for="apellido2" class="form-laabel">Segundo apellido</label>
-                    <input type="text" class="form-control" v-model="paciente.segApellido" >
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="apellido2" class="form-label"> Segundo apellido </label>
+                    <input type="text" class="form-control valid" id="apellido2" placeholder="Mendez" required v-model="paciente.segApellido">
+                    <div class="invalid-feedback">
+                        Por favor escriba un apellido
+                    </div>
                 </div>
-            </div>
-
-            <div>
-                <div class="col-md-6 cin">
-                <label for="name">CURP:</label>
-                <input type="text" class="form-control" v-model="paciente.curp">
-                </div>
-
-                <div class="col-md-2 cin">
-                    <label for="inicial">Iniciales:</label>
+                
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="inicial" class="form-label">Iniciales <abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.iniciales">
                 </div>
 
-                <div class="col-md-3 cin">
-                    <label for="name">No.Identificacion:</label>
+                <div class="col-12 col-md-6 mb-3">
+                    <label for="name" class="form-label">CURP<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.curp">
+                </div>
+
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="name" class="form-label">No.Identificacion<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="number" class="form-control" v-model="paciente.noIdent">
                 </div>
-            </div>
-            <div>
-                <label for="fechaNac">Fecha Nacimiento</label>
-                <li>
-                    <input type="date"
-                    min="1920-01-01" max="2023-12-31"
-                    v-model="paciente.fechaNac">
-                </li>
-
-                <div class="col-md-4">
-                <label for="estadoCi">Estado Civil</label>
-                    <select name="ECivil" size="1" v-model="paciente.estadoCivil"> 
-                        <option value="default" selected class="form-control"> 
-                            --- seleccione su estado civil --- 
-                        </option> 
-                        <option value="soltero"> 
-                            soltero
-                        </option> 
-                        <option value="Casado"> 
-                            casado 
-                        </option> 
-                        <option value="divorciado"> 
-                            Divoricado
-                        </option> 
-                        <option value="Viudo"> 
-                            Viudo
-                        </option> 
-                    </select> 
+                
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="fechaNac" class="form-label">Fecha Nacimiento<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="date" min="1920-01-01" max="2023-12-31" class="form-control" v-model="paciente.fechaNac">
                 </div>
-                         
-                <div class="col-md-4">
-                    <label for="estadoCi">Genero</label>
-                        <select name="genero" size="1" v-model="paciente.genero"> 
-                            <option value="default" selected> 
-                                    --- sleccione su genero--- 
-                            </option> 
-                            <option value="Hombre"> 
-                                    HOMBRE
-                            </option> 
-                            <option value="Mujer"> 
-                                    MUJER
-                            </option> 
-                            <option value="ND"> 
-                                NO DEFINIDO
-                            </option> 
-                        </select> 
-                </div>
-            </div>
-            
-            <div class="col-md-9 nomap cin">
 
-                <div class="col-md-4 cin nomap">
-                    <label for="name">RAZA :</label>
+                <!--Estado civil-->
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="ECivil" class="form-label"> Estado civil </label> 
+                    <select class="form-select valid" id="ECivil" aria-describedby="Estado civil" required v-model="paciente.estadoCivil">
+                        <option selected disabled value="">Seleccione</option>
+                        <option>Soltero</option>
+                        <option>Casado</option>
+                        <option>Divorciado</option>
+                        <option>Viudo</option>
+                    </select>
+                    <div id="ECivil" class="invalid-feedback">
+                        Por favor, seleccione una opcion
+                    </div>
+                </div>
+
+                <!--Genero-->
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="genero" class="form-label"> Genero </label> 
+                    <select class="form-select valid" id="genero" aria-describedby="Genero" required v-model="paciente.genero">
+                        <option selected disabled value="">Seleccione</option>
+                        <option>Hombre</option>
+                        <option>Mujer</option>
+                        <option>No definido</option>
+                    </select>
+                    <div id="genero" class="invalid-feedback">
+                        Por favor, seleccione una opcion
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="name" class="form-label">Raza <abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.raza">
                 </div>
 
-                <div class="col-md-4 cin nomap">
-                    <label for="name">ETNIA :</label>
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="name" class="form-label">Etnia<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.etnia">
                 </div>
-                
-            </div>
-            <div class="col-md-4">
-                <label for="Escolaridad"> Escolaridad</label>
-                <select name="escolaridad" size="1" v-model="paciente.escolaridad"> 
-                <option value="default" selected> 
-                    --- sleccione--- 
-                </option> 
-                <option value="Primaria"> 
-                    PRIMARIA
-                </option> 
-                <option value="SECUNDARIA"> 
-                SECUNDARIA
-                </option> 
-                <option value="PREPARATORIA"> 
-                PREPARATORIA
-                </option> 
-                <option value="UNIVERSIDAD"> 
-                    UNIVERSIDAD
-                </option> 
-                </select> 
-            </div>
-            
 
-            <div>
-                <div class="col-md-3 nomap">
-                <label for="telefono">Ocupación </label>
-                <input type="text" class="form-control" v-model="paciente.ocupacion">
+                <!--Escolaridad--> 
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="escolaridad" class="form-label"> Escolaridad </label> 
+                    <select class="form-select valid" id="genero" aria-describedby="Escolaridad" required v-model="paciente.escolaridad">
+                        <option selected disabled value="">Seleccione</option>
+                        <option>Primaria</option>
+                        <option>Secundaria</option>
+                        <option>Preparatoria</option>
+                        <option>Universidad</option>
+                    </select>
+                    <div id="escolaridad" class="invalid-feedback">
+                        Por favor, seleccione una opcion
+                    </div>
                 </div>
-                
-                <div class="col-md-3 nomap">
-                <label for="telefono">Telefono:</label>
-                <input type="number" size="10" class="form-control" v-model="paciente.telefono">
-                </div>
-                
-                <div class="col-md-5 nomap">
-                <label for="name">Domicilio:</label>
-                <input type="text" class="form-control" v-model="paciente.domicilio">
-                </div>
-            </div>
 
-
-            <div>
-                <div  class="col-md-4">
-                    <label for="fechaR">Fecha realizado</label>
-                <input type="date"
-                            min="1920-01-01" max="2023-12-31" v-model="paciente.fechaRea">
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="telefono" class="form-label">Ocupación<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.ocupacion">
                 </div>
-                
-                <div class="col-md-4">
-                    <label for="name">Lugar origen:</label>
+                    
+                <div class="col-12 col-md-3 mb-3">
+                    <label for="telefono" class="form-label">Telefono<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="number" size="10" class="form-control" v-model="paciente.telefono">
+                </div>
+                    
+                <div class="col-12 mb-3">
+                    <label for="name" class="form-label">Domicilio<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.domicilio">
+                </div>
+
+                <div  class="col-12 col-md-4">
+                    <label for="fechaR" class="form-label">Fecha realizado<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="date" min="1920-01-01" max="2023-12-31" class="form-control" v-model="paciente.fechaRea">
+                </div>
+                    
+                <div class="col-12 col-md-4">
+                    <label for="name" class="form-label">Lugar origen<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.lugarOrigen">
                 </div>
-            
-                <div class="col-md-4">
-                    <label for="name">Hospital referencia:</label>
+                
+                <div class="col-12 col-md-4">
+                    <label for="name" class="form-label">Hospital referencia<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.hospitalRef">
                 </div>
-            </div>
 
-            <hr>
-            
-            <div class="col-md-4">
-                <br>
-                <legend class="col-form-label col-sm-0 pt-0">Contacto de referencia</legend>
-
-                <label for="name">Nombre de pila :</label>
-                <input type="text" class="form-control" v-model="paciente.nomPilaCon">
+                <hr>
                 
-                <label for="apellido">Primer apellido:</label>
-                <input type="text" class="form-control" v-model="paciente.primApellidoCon">
+                <legend class="col-form-label col-sm-0 pt-0 mb-3">Contacto de referencia</legend>
 
-                <label for="apellido2">Segundo apellido:</label>
-                <input type="text" class="form-control" v-model="paciente.segApellidoCon">
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="name" class="form-label">Nombre de pila<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.nomPilaCon">
+                </div>
 
-                <label for="name">Parentesco:</label>
-                <input type="text" class="form-control" v-model="paciente.parentesco">
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="apellido" class="form-label">Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.primApellidoCon">
+                </div>
 
-                <label for="name">Telefono:</label>
-                <input type="text" class="form-control" v-model="paciente.telefonoCon">
-            </div>
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="apellido2" class="form-label">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.segApellidoCon">
+                </div>
+                    
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="name" class="form-label">Parentesco<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.parentesco">
+                </div>
 
-            <div class="col-auto" style="text-align: right;width:1235px">
-                <button type="submit" class="btn btn-primary mb-4">Guardar</button>
-            </div>
+                <div class="col-12 col-md-4 mb-3">
+                    <label for="name" class="form-label">Telefono<abbr title="required" aria-label="required">*</abbr></label>
+                    <input type="text" class="form-control" v-model="paciente.telefonoCon">
+                </div>
 
-            <div class="col-auto">
-                <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
-            </div>
+                <div class="d-flex gap-2 justify-content-end">
+                    <button type="submit" class="btn btn-primary mb-4">Guardar</button>
+                    <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
+                </div>
+                <!--<div class="col-auto" style="text-align: right;width:1235px">
+                    <button type="submit" class="btn btn-primary mb-4">Guardar</button>
+                </div>
 
-        </form>
+                <div class="col-auto">
+                    <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
+                </div>-->
+
+            </form>
+        </div>
     </div>
 </template>
 
@@ -212,18 +202,13 @@
 </script>
 
 <style scoped>
-    .Contenido{
+    header {
+        background: var(--fondo-contenido);
+    }
+
+    body {
+        background: #F8F8FF;
         padding: 10px;
     }
 
-    div{
-        display: inline-block;
-        text-align: center;
-        margin: auto;
-    }
-
-    .nomap, .cin{
-        display: inline-block;
-        margin: 10px;
-    }
 </style>
