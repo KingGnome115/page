@@ -132,40 +132,44 @@
 
                 <hr>
                 
-                <legend class="col-form-label col-sm-0 pt-0">Contacto de referencia</legend>
+                <legend class="col-form-label col-sm-0 pt-0 mb-3">Contacto de referencia</legend>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="name">Nombre de pila<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.nomPilaCon">
                 </div>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="apellido">Primer apellido<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.primApellidoCon">
                 </div>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="apellido2">Segundo apellido<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.segApellidoCon">
                 </div>
                     
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="name">Parentesco<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.parentesco">
                 </div>
 
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 mb-3">
                     <label for="name">Telefono<abbr title="required" aria-label="required">*</abbr></label>
                     <input type="text" class="form-control" v-model="paciente.telefonoCon">
                 </div>
 
-                <div class="col-auto" style="text-align: right;width:1235px">
+                <div class="d-flex gap-2 justify-content-end">
+                    <button type="submit" class="btn btn-primary mb-4">Guardar</button>
+                    <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
+                </div>
+                <!--<div class="col-auto" style="text-align: right;width:1235px">
                     <button type="submit" class="btn btn-primary mb-4">Guardar</button>
                 </div>
 
                 <div class="col-auto">
                     <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
-                </div>
+                </div>-->
 
             </form>
         </div>
