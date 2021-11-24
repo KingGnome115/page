@@ -168,13 +168,6 @@
                     <button type="submit" class="btn btn-primary mb-4">Guardar</button>
                     <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
                 </div>
-                <!--<div class="col-auto" style="text-align: right;width:1235px">
-                    <button type="submit" class="btn btn-primary mb-4">Guardar</button>
-                </div>
-
-                <div class="col-auto">
-                    <button type="reset" class="btn btn-primary mb-4">Cancelar</button>
-                </div>-->
 
             </form>
         </div>
