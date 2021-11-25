@@ -1,7 +1,7 @@
 <template lang="">
     <div class="container">
         <div class="row mt-3">
-            <header class="row text-center" >
+            <header class="row text-align" >
                 <h2>Lista de Protocolos</h2>
             </header>
             
