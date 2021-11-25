@@ -194,7 +194,7 @@
         },
         methods: {
             async guardarPaciente(){
-                const res = await agregarPaciente(this.paciente)
+                await agregarPaciente(this.paciente)
                 this.$router.push('/')
             }
         }
