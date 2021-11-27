@@ -1,21 +1,24 @@
 <template lang="">
-    <div class="Contenido">
-        <h1 class="ti">Lista de pacientes</h1>
-        
-        <div class="field has-addons is-pulled-right">
-            <div class="control">
+    <div class="container">
+        <div class="row mt-3">
+            <header class="row text-align" >
+                <h2>Lista de Pacientes</h2>
+            </header>
+
+            <div class="control col-12 justify-content-end">
                 <input v-model="nombre" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData">
             </div>
-            <div class="control">
-                <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
-            </div>
-        </div>
 
-        <ul class="lista" >
-            <li v-for="(paciente, index) in pacientes" :key="index" @click="this.$router.push(`/pacientes/${paciente._id}`)">
-                {{paciente.nomPila}} {{paciente.primApellido}} {{paciente.segApellido}} <hr>
-            </li>
-        </ul>
+            <div class="justify-content-end">
+                    <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
+            </div>
+
+            <ul class="lista" >
+                <li v-for="(paciente, index) in pacientes" :key="index" @click="this.$router.push(`/pacientes/${paciente._id}`)">
+                    {{paciente.nomPila}} {{paciente.primApellido}} {{paciente.segApellido}} <hr>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 

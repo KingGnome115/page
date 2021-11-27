@@ -1,21 +1,24 @@
 <template lang="">
-    <div class="Contenido">
-        <h1>Lista de protocolos</h1>
-
-        <div class="field has-addons is-pulled-right">
-            <div class="control">
+    <div class="container">
+        <div class="row mt-3">
+            <header class="row text-align" >
+                <h2>Lista de Protocolos</h2>
+            </header>
+            
+            <div class="control col-12 justify-content-end">
                 <input v-model="nombreProtocolo" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarData">
             </div>
-            <div class="control">
-                <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
-            </div>
-        </div>
 
-        <ul class="lista">
-            <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
-                {{protocolo.nomProtocolo}} {{protocolo.numeroProtocolo}} {{protocolo.nomeclatura}} <hr>
-            </li>
-        </ul>
+            <div class="control justify-content-end">
+                    <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
+            </div>
+
+            <ul class="lista">
+                <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
+                    {{protocolo.nomProtocolo}} {{protocolo.numeroProtocolo}} {{protocolo.nomeclatura}} <hr>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
