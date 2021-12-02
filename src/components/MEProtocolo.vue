@@ -3,8 +3,8 @@ import { Protocolo } from '../interfaces/Protocolos';
     <div class="container"> 
         <div class="row mt-3">
             <header class="row text-center" >
-                <h2>Registro de Protocolo</h2>
-                <p>Formulario para dar de alta un nuevo protocolo</p>
+                <h2>Modificacion de Protocolo</h2>
+                <p>Protocolo {{protocolo.nomProtocolo}} </p>
             </header>
 
             <form class="row" action="Protocolo.html" method="get" id="contenedor" @submit.prevent="handleUpdate()">
@@ -152,6 +152,12 @@ import { Protocolo } from '../interfaces/Protocolos';
             async buscarProtocolo(id:string){
                 const res = await consultarProtocolo(id)
                 this.protocolo = res.data
+                for(let i = 0; i < this.protocolo.visitas.length; i++){
+                    if(this.protocolo.visitas[i].visitaCero){
+                        this.indexVisitaCero = i
+                        break
+                    }
+                }
             },
             async handleUpdate(){
                 modificarProtocolo(this.protocolo._id, this.protocolo)
@@ -162,7 +168,6 @@ import { Protocolo } from '../interfaces/Protocolos';
                 this.$router.push("/")
             },
             verificarVisitaCero(index: number){
-                
                 for (let i = 0; i < this.protocolo.visitas.length; i++) {
                     if(i !== index){
                         this.protocolo.visitas[i].visitaCero = false
