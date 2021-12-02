@@ -7,7 +7,7 @@
             </header>
             <form class="row" action="Protocolo.html" method="get" id="contenedor" @submit.prevent="guardarVisita()">
                 <div class="table-responsive">
-                    <table class="table table-hover table-sm table-bordered">
+                    <table class="table table-primary table-hover table-sm table-bordered">
                         <caption>Formulario de visitas</caption>
                         <!--Encabezados-->
                         <thead>
@@ -16,10 +16,10 @@
                                 <td>Tipo de Nomenclatura:</td>
                                 <td>Tipo de periodo:</td>
                                 <td>Tamaño del periodo:</td>
-                                <td>Visita 0:</td>
                                 <td>Dias ventana en cada cita/visita:</td>
-                                <td>Visita EOS (Fin de Estudio):</td>
-                                <td>Visita EOT (Fin de Tratamiento):</td>
+                                <td>Visita cero: </td>
+                                <td>Visita EOS:</td>
+                                <td>Visita EOT:</td>
                             </tr>
                         </thead>
                         <!--Cuerpo-->
@@ -49,54 +49,45 @@
                                 </td>
 
                                 <td>
-                                    <input type="number" class="form-control valid" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas" required v-model="visita.tamanioPeriodo">
+                                    <input type="number" class="form-control valid" id="tamPeriodo" min="1" required v-model="visita.tamanioPeriodo">
                                     <div class="invalid-feedback">
                                         Por favor escriba el tamaño de periodo para esta visita
                                     </div>
                                 </td>
 
-                            <td>
-                                <div>
-                                    <input type="checkbox" v-on:click="verificarVisitaCero(index)" v-model="visita.visitaCero" name='zero'>
-                                </div>
-                            </td>
-
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
-                                        <div class="col-12 col-md-6">
-                                            <select class="form-select valid" id="ventana" aria-describedby="Pregunta tendra ventana en esta cita" required v-model="visita.ventana">
-                                                <option selected disabled value="">Seleccione</option>
-                                                <option>+</option>
-                                                <option>-</option>
-                                                <option>+/-</option>
-                                                <option>Ninguno</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Por favor no deje vacio el campo, en caso de no haber colocar la ultima opcion y en el siguiente colocar 0. 
-                                            </div>
+                                        <select class="form-select valid" id="ventana" aria-describedby="Pregunta tendra ventana en esta cita" required v-model="visita.ventana">
+                                            <option selected disabled value="">Seleccione</option>
+                                            <option>+</option>
+                                            <option>-</option>
+                                            <option>+/-</option>
+                                            <option>Ninguno</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Por favor no deje vacio el campo, en caso de no haber colocar la ultima opcion y en el siguiente colocar 0. 
                                         </div>
-                                        <div class="col-12 col-md-6">
-                                            <input type="number" class="form-control valid" id="ventana" min="0"  max="4" required v-model="visita.dias">
-                                            <div class="invalid-feedback">
-                                                Por favor no deje vacio el campo
-                                            </div>
+
+                                        <input type="number" class="form-control valid" id="ventana" min="0"  max="4" required v-model="visita.dias">
+                                        <div class="invalid-feedback">
+                                            Por favor no deje vacio el campo
                                         </div>
                                     </div>
                                 </td>
 
-                            <td>
-                                <div>
-                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-model="visita.eotEstudio" name='eos'>
-                                </div> 
-                            </td>
+                                <td>
+                                    <input type="checkbox" v-on:click="verificarVisitaCero(index)" v-model="visita.visitaCero" name='zero'>
+                                </td>
 
-                            <td>
-                                <div>
+                                <td>
+                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-model="visita.eotEstudio" name='eos'>
+                                </td>
+
+                                <td>
                                     <input type="checkbox" v-on:click="verificarVisitaEot(index)" v-model="visita.eotTratamiento" name='eot'>
-                                </div> 
-                            </td>
-                            <br>
-                        </tr>
+                                </td>
+                                <br>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -205,8 +196,11 @@ export default defineComponent({
         background: #F8F8FF;
         padding: 10px;
     }
-    
- 
+
+    li{
+        list-style: none;
+    }
+
     tr {
     background: #59ffb1; 
     }
