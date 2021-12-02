@@ -117,11 +117,11 @@ import { Protocolo } from '../interfaces/Protocolos';
                                 </td>
 
                                 <td>
-                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-model="visita.eotEstudio" name='eos'>
+                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-if="indexVisitaCero <= index"  v-model="visita.eotEstudio" name='eos'>
                                 </td>
 
                                 <td>
-                                    <input type="checkbox" v-on:click="verificarVisitaEot(index)" v-model="visita.eotTratamiento" name='eot'>
+                                    <input type="checkbox" v-on:click="verificarVisitaEot(index)"  v-if="indexVisitaCero <= index" v-model="visita.eotTratamiento" name='eot'>
                                 </td>
                                 <br>
                             </tr>
@@ -144,7 +144,8 @@ import { Protocolo } from '../interfaces/Protocolos';
     export default defineComponent({
         data(){
             return{
-                protocolo: {} as Protocolo
+                protocolo: {} as Protocolo,
+                indexVisitaCero:-1,
             }
         },
         methods:{
@@ -159,7 +160,49 @@ import { Protocolo } from '../interfaces/Protocolos';
             async handleDelete(){
                 eliminarProtocolo(this.protocolo._id)
                 this.$router.push("/")
-            }
+            },
+            verificarVisitaCero(index: number){
+                
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if(i !== index){
+                        this.protocolo.visitas[i].visitaCero = false
+                    }else{
+                        if(this.protocolo.visitas[i].eotEstudio){
+                            this.protocolo.visitas[i].eotEstudio = false
+                        }
+                        if(this.protocolo.visitas[i].eotTratamiento){
+                            this.protocolo.visitas[i].eotTratamiento = false
+                        }
+                    }
+                }
+                this.indexVisitaCero = index
+            },
+            verificarVisitaEos(index: number){
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if(i !== index){
+                        this.protocolo.visitas[i].eotEstudio = false
+                    }else{
+                        if (this.protocolo.visitas[i].visitaCero == true) {
+                            this.protocolo.visitas[i].visitaCero = false
+                        }
+                    }
+                }
+            },
+            verificarVisitaEot(index: number){
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if(i !== index){
+                        this.protocolo.visitas[i].eotTratamiento = false
+                    }else{
+                        if (this.protocolo.visitas[i].visitaCero == true) {
+                            this.protocolo.visitas[i].visitaCero = false
+                        }
+                    }
+                }
+                
+                if (index >  this.indexVisitaCero) {
+                    this.protocolo.visitas[index].eotTratamiento = false
+                }
+            },
         },
         mounted(){
             if(typeof this.$route.params.id === 'string'){

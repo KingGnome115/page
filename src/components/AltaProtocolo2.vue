@@ -80,11 +80,11 @@
                                 </td>
 
                                 <td>
-                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-model="visita.eotEstudio" name='eos'>
+                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-if="indexVisitaCero <= index" v-model="visita.eotEstudio" name='eos'>
                                 </td>
 
                                 <td>
-                                    <input type="checkbox" v-on:click="verificarVisitaEot(index)" v-model="visita.eotTratamiento" name='eot'>
+                                    <input type="checkbox" v-on:click="verificarVisitaEot(index)" v-if="indexVisitaCero <= index" v-model="visita.eotTratamiento" name='eot'>
                                 </td>
                                 <br>
                             </tr>
@@ -150,13 +150,6 @@ export default defineComponent({
                         this.arrVisitas[i].visitaCero = false
                     }
                 }
-                if(this.indexVisitaCero >= i){
-                    if(this.arrVisitas[i].visitaCero){
-                        this.arrVisitas[i].eotEstudio = false
-                        this.arrVisitas[i].eotTratamiento = false
-                        this.arrVisitas[i].visitaCero = false
-                    }
-                }
             }
         },
         verificarVisitaEot(index: number){
@@ -168,16 +161,12 @@ export default defineComponent({
                         this.arrVisitas[i].visitaCero = false
                     }
                 }
-                if(this.indexVisitaCero >= i){
-                    if(this.arrVisitas[i].visitaCero){
-                        this.arrVisitas[i].eotEstudio = false
-                        this.arrVisitas[i].eotTratamiento = false
-                        this.arrVisitas[i].visitaCero = false
-                    }
-                }
+            }
+            
+            if (index >  this.indexVisitaCero) {
+                this.arrVisitas[index].eotTratamiento = false
             }
         },
-        
     },
     mounted(){
         if(typeof this.$route.params.id === 'string'){
