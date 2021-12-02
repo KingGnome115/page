@@ -99,14 +99,7 @@
 
                             <td>
                                 <div>
-                                    <select class="form-select valid" id="visita0" aria-describedby="Pregunta si esta visita es la 0" required v-model="visita.visitaCero">
-                                        <option selected disabled value="">Seleccione</option>
-                                        <option>Si</option>
-                                        <option>No</option>
-                                    </select>
-                                    <div id="visita0" class="invalid-feedback">
-                                        Por favor, seleccione una opcion
-                                    </div>
+                                    <input type="checkbox" v-on:click="verificarVisitaCero(index)" v-model="visita.visitaCero" name='zero'>
                                 </div>
                             </td>
 
@@ -137,29 +130,14 @@
 
                             <td>
                                 <div>
-                                    <select class="form-select valid" id="visitaEOS" aria-describedby="Pregunta si esta visita es la EOS" required v-model="visita.eotEstudio">
-                                        <option selected disabled value="">Seleccione</option>
-                                        <!--Creo que aqui hay error de dedo jaja en v-model le pusiste eotEstudio y es EOS xd-->
-                                        <option>Si</option>
-                                        <option>No</option>
-                                    </select>
-                                    <div id="visitaEOS" class="invalid-feedback">
-                                    Por favor, seleccione una opcion
-                                    </div>
-                                </div>  
+                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-model="visita.eotEstudio" name='eos'>
+                                </div> 
                             </td>
 
                             <td>
                                 <div>
-                                    <select class="form-select valid" id="visitaEOT" aria-describedby="Pregunta si esta visita es la EOT" required v-model="visita.eotTratamiento">
-                                        <option selected disabled value="" >Seleccione</option>
-                                        <option>Si</option>
-                                        <option>No</option>
-                                    </select>
-                                    <div id="visitaEOT" class="invalid-feedback">
-                                    Por favor, seleccione una opcion
-                                    </div>
-                                </div>  
+                                    <input type="checkbox" v-on:click="verificarVisitaEot(index)" v-model="visita.eotTratamiento" name='eot'>
+                                </div> 
                             </td>
                             <br>
                         </tr>
@@ -183,7 +161,8 @@ export default defineComponent({
     data() {
         return{
             protocolo:{} as Protocolo,
-            arrVisitas:[] as Visitas[]
+            arrVisitas:[] as Visitas[],
+            indexVisitaCero:-1,
         }
     },
     methods:{
@@ -197,7 +176,59 @@ export default defineComponent({
             let id = this.$route.params.id.toString()
             modificarProtocolo(id , this.protocolo)
             this.$router.push('/')
-        }
+        },
+        verificarVisitaCero(index: number){
+            for (let i = 0; i < this.arrVisitas.length; i++) {
+                if(i !== index){
+                    this.arrVisitas[i].visitaCero = false
+                }else{
+                    if(this.arrVisitas[i].eotEstudio){
+                        this.arrVisitas[i].eotEstudio = false
+                    }
+                    if(this.arrVisitas[i].eotTratamiento){
+                        this.arrVisitas[i].eotTratamiento = false
+                    }
+                }
+            }
+            this.indexVisitaCero = index
+        },
+        verificarVisitaEos(index: number){
+            for (let i = 0; i < this.arrVisitas.length; i++) {
+                if(i !== index){
+                    this.arrVisitas[i].eotEstudio = false
+                }else{
+                    if (this.arrVisitas[i].visitaCero == true) {
+                        this.arrVisitas[i].visitaCero = false
+                    }
+                }
+                if(this.indexVisitaCero >= i){
+                    if(this.arrVisitas[i].visitaCero){
+                        this.arrVisitas[i].eotEstudio = false
+                        this.arrVisitas[i].eotTratamiento = false
+                        this.arrVisitas[i].visitaCero = false
+                    }
+                }
+            }
+        },
+        verificarVisitaEot(index: number){
+            for (let i = 0; i < this.arrVisitas.length; i++) {
+                if(i !== index){
+                    this.arrVisitas[i].eotTratamiento = false
+                }else{
+                    if (this.arrVisitas[i].visitaCero == true) {
+                        this.arrVisitas[i].visitaCero = false
+                    }
+                }
+                if(this.indexVisitaCero >= i){
+                    if(this.arrVisitas[i].visitaCero){
+                        this.arrVisitas[i].eotEstudio = false
+                        this.arrVisitas[i].eotTratamiento = false
+                        this.arrVisitas[i].visitaCero = false
+                    }
+                }
+            }
+        },
+        
     },
     mounted(){
         if(typeof this.$route.params.id === 'string'){

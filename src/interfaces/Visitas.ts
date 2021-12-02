@@ -2,9 +2,9 @@ export interface Visitas {
     nomeclatura: string;
     tipoDePeriodo: string;
     tamanioPeriodo: number;
-    visitaCero: string;
+    visitaCero: boolean;
     ventana: string;
     dias: number;
-    eotEstudio: string;
-    eotTratamiento: string;
+    eotEstudio: boolean;
+    eotTratamiento: boolean;
 }
