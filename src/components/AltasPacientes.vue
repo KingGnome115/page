@@ -231,7 +231,6 @@
     import {defineComponent} from 'vue'
     import {Paciente} from '../interfaces/Paciente'
     import {agregarPaciente} from '../services/PacienteServices'
-import router from '../router/index';
 
     export default defineComponent({
         data(){
