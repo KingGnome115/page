@@ -162,10 +162,6 @@ export default defineComponent({
                     }
                 }
             }
-            
-            if (index >  this.indexVisitaCero) {
-                this.arrVisitas[index].eotTratamiento = false
-            }
         },
     },
     mounted(){
