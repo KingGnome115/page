@@ -1,0 +1,541 @@
+[33mcommit c635734840bf8f5fbfc323ed90b8837e1fd31494[m[33m ([m[1;36mHEAD -> [m[1;32mdanifixes[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Merge: bef2f14 f39d762
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Fri Nov 26 19:06:14 2021 -0600
+
+    Merge pull request #20 from KingGnome115/naarafixes
+    
+    Naarafixes
+
+[33mcommit f39d7623b7d47c424517aa0b35ad4141fd0113df[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Fri Nov 26 19:02:15 2021 -0600
+
+    Modificaciones de la ventana de modificaciones de pacientes
+
+[33mcommit a4a221e2420c9a11c28667d365531ff0febd1d6e[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Thu Nov 25 16:00:20 2021 -0600
+
+    Mas modificaciones en la ventana de altas de pacientes y la ventana de modificaciones de pacientes
+
+[33mcommit 8aab232e61f07dae8be70c3746ae9a7870a84ef7[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Tue Nov 23 20:19:12 2021 -0600
+
+    Modifique lista de protoloco para ajustar el buscador
+
+[33mcommit bef2f1428f8ff385fd1889706712034afcf022ef[m
+Merge: 89d480a 2c6ec6f
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 23 20:17:07 2021 -0600
+
+    Elimine algo que no servia
+    
+    Kevfixes
+
+[33mcommit 2c6ec6fa53154225a6ea6aa183fcd26609c9221c[m
+Merge: 2eb5952 89d480a
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 20:15:46 2021 -0600
+
+    Merge branch 'master' of https://github.com/KingGnome115/page into kevfixes
+
+[33mcommit 2eb5952bd53058eff32fbae5c67b8dcc437e3c6c[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 20:15:24 2021 -0600
+
+    Se elimino una interfaz que no sirve para nada
+
+[33mcommit 89d480aacdf657214eab1fab117af002c6190649[m
+Merge: 1cbf8d5 3a70808
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 23 20:14:26 2021 -0600
+
+    Quite cosas para llamar a la AltaProtocolos2 para evitar errores
+    
+    Quite cosas para llamar a la AltaProtocolos2 para evitar errores
+
+[33mcommit 3a70808d406fadae49e59a3bb43b2fca51a8aa3c[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 20:14:00 2021 -0600
+
+    Quite cosas para llamar a la AltaProtocolos2 para evitar errores
+
+[33mcommit 1cbf8d5d691dd8952b70665782335233ebe77f3c[m
+Merge: f4ab4e5 ee4befd
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 23 20:02:44 2021 -0600
+
+    Nueva interfaz de pacientes
+    
+    Naarafixes
+
+[33mcommit ee4befd802efd8489ec032c31c353e692a0d23e1[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Tue Nov 23 19:53:37 2021 -0600
+
+    La ventana de alta de pacientes ya esta totalmente modificada
+
+[33mcommit 2b6058333bbad11bcc9771275a0f052534d52baf[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Tue Nov 23 19:36:48 2021 -0600
+
+    Modificaciones en los botones de altas de pacientes
+
+[33mcommit b077280798606ad2ebaebcdda21c46f4eccb4934[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Tue Nov 23 19:30:48 2021 -0600
+
+    Modificaciones alta de pacientes
+
+[33mcommit f4ab4e537ba6f6e94a916e6075701a78c43ef74b[m
+Merge: 9294180 704a0c4
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 23 16:50:32 2021 -0600
+
+    Modificacion de pacientes funcional, falta rehacer la interfaz
+    
+    Modificacion de pacientes funcional, falta rehacer la interfaz
+
+[33mcommit 704a0c4e563aac8be3623b117368315a843f08b7[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 16:49:46 2021 -0600
+
+    Modificacion de pacientes funcional, falta reacer la interfaz
+
+[33mcommit 9294180f19fb003cdd7fbc09fa4002db697cb6ad[m
+Merge: c7a4ab0 da48186
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 23 14:03:27 2021 -0600
+
+    Ventana Modificacion de protocolos terminada
+    
+    Kevfixes
+
+[33mcommit da4818648f9b4dd4ccbd0db0cb62a4b8a7c223bb[m
+Merge: 51630e2 c7a4ab0
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 14:02:15 2021 -0600
+
+    Merge branch 'master' of https://github.com/KingGnome115/page into kevfixes
+
+[33mcommit 51630e2ce755196bdb1bc43dc5b1217e1aec2ef9[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 14:02:01 2021 -0600
+
+    Se modifico el formulario de modificaciones de protocolos para mostrar todos los datos y modifica todos los datos
+
+[33mcommit d13b2ab67df3e1ed2372b7ac72a7d62a52b57a4c[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 23 14:01:02 2021 -0600
+
+    Se modificaron detalles menores en etiquetas y en que se leia mal un dato eotTratamiento
+
+[33mcommit c7a4ab033c47d1c66396caf7880a11d412acbaa1[m
+Merge: e7ae08b 0214e6f
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Sat Nov 20 00:40:08 2021 -0600
+
+    Merge pull request #14 from KingGnome115/kevfixes
+    
+    Nueva interfaz para dar de alta visitas en forma de tabla
+
+[33mcommit 0214e6fd597e86e4cabe49f294b76ee05a77846a[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sat Nov 20 00:38:41 2021 -0600
+
+    Nueva interfaz para dar de alta visitas en forma de tabla pd: hace falta hacerla más bonita
+
+[33mcommit e7ae08bf06bda7dc38b78d53efbecb22aac365eb[m
+Merge: 4d1f591 61ef8f7
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Fri Nov 19 16:15:28 2021 -0600
+
+    Nueva forma de dar de altas a protocolos
+    
+    Modifique Altas de Protocolos para poder tener un paso a tablas
+
+[33mcommit 61ef8f7efdd5d37f8f8944200459914d02133d98[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Fri Nov 19 16:13:24 2021 -0600
+
+    Modifique Altas de Protocolos para poder tener un paso a tablas
+
+[33mcommit 4d1f59105d36784ac2be6df3195d75d782097d70[m
+Merge: 3d9a806 10188cb
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 16 15:11:17 2021 -0600
+
+    Merge pull request #12 from KingGnome115/kevfixes
+    
+    Arregle bug con alta de visitas
+
+[33mcommit 10188cbe109601b2444a0b30d08e4ca121ce201b[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 16 15:10:32 2021 -0600
+
+    Arregle bug con alta de visitas
+
+[33mcommit 3d9a806645e1b57b16532be9a731503569dcd1c5[m
+Merge: 57580f9 0c3555a
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 16 14:32:27 2021 -0600
+
+    Merge pull request #11 from KingGnome115/danifixes
+    
+    se corrigio, falta agregar if al boton para hacer lo qe se pide
+
+[33mcommit 57580f91960f38d055554c820a264f3795dc053a[m
+Merge: e54a12a df4eee9
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 16 14:15:03 2021 -0600
+
+    Barras de busqueda
+    
+    Kevfixes
+
+[33mcommit df4eee99145a08a03e7158a0a547a45d846b6517[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 16 14:13:43 2021 -0600
+
+    Ya hay una barra de busqueda para lista de protocolos
+
+[33mcommit 73edefc5b43dfabd629e8b779ef355a6effbb1b2[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 16 14:07:52 2021 -0600
+
+    Ya hay una barra de busqueda para lista de pacientes
+
+[33mcommit e54a12af96d44c4f95c32d11cc33e018d0eb8cc8[m
+Merge: 38bf86b 40dfd2a
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Mon Nov 15 20:39:58 2021 -0600
+
+    Merge pull request #9 from KingGnome115/kevfixes
+    
+    Detalles pequeños
+
+[33mcommit 40dfd2a958272d9047f197ddc64af4c4766ce4de[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Nov 15 20:39:08 2021 -0600
+
+    Detalles pequeños
+
+[33mcommit 38bf86b987a9caa0a336dd20436b79b6a9f887f9[m
+Merge: 35afa94 a464c69
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Mon Nov 15 20:20:22 2021 -0600
+
+    Alta de visitas por protocolo
+    
+    Kevfixes
+
+[33mcommit a464c695ce0f87939d846ff3f81351127fbcf3ba[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Nov 15 20:19:12 2021 -0600
+
+    Ya se guarda por visita, falta verificar que la visitaCero, visitaeot y visitaeos no esten en la misma visita
+
+[33mcommit cfa3825413883074c47d333534a047def7b85b0c[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Nov 15 18:24:32 2021 -0600
+
+    AP2 ya redirecciona a otro formulario del mismo hasta n visitas
+
+[33mcommit 62b4c1a4e2e7909778f4f8995786ca537e4a36e8[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Nov 15 17:16:13 2021 -0600
+
+    AltaProtocolos2 recibe datos de id de protocolos, cual visita esta dando de alta y cuantas tiene que dar de alta
+
+[33mcommit cf0c450fbbac390ffffbc7148529acf486413499[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Nov 15 14:45:16 2021 -0600
+
+    Modifique los archivos AP1, AP2, Protocolos, index, PS, para poder recibir del server el id del objeto para poder dar de alta cada visita
+
+[33mcommit 0c3555ad2dcbed89705516fd2a15bf02e7766aa2[m[33m ([m[1;31morigin/danifixes[m[33m)[m
+Author: DanielaGF02 <danielagf02@hotmail.com>
+Date:   Fri Nov 12 21:08:32 2021 -0600
+
+    se corrigio, falta agregar if al boton para hacer lo qe se pide
+
+[33mcommit 35afa94f434ab61ef600b71b0c7bf5d35843ff68[m
+Merge: 2412532 82bc4d9
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Fri Nov 12 19:28:23 2021 -0600
+
+    Uni los cambios de mi rama a la maestra para dar de altas los datos generales de protocolos
+    
+    Kevfixes
+
+[33mcommit 82bc4d9d8d76d0dc2239c2240800f5653a5737c4[m[33m ([m[1;31morigin/kevfixes[m[33m)[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Fri Nov 12 19:26:21 2021 -0600
+
+    Se guardan los datos generales en mongodb
+
+[33mcommit 6ff2889a96c4ee012ddc177645d5283583de6217[m
+Merge: dcc5867 2412532
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Fri Nov 12 19:20:19 2021 -0600
+
+    Merge branch 'master' of https://github.com/KingGnome115/page into kevfixes
+
+[33mcommit 241253203f59ebc9541e8603536b802e6033566a[m
+Merge: 477575c ed4412e
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Fri Nov 12 19:19:08 2021 -0600
+
+    Modificaciones en las interfaces alta de protocolos
+    
+    Naarafixes
+
+[33mcommit ed4412e425465f5b07c36198021ab79697bf9f9c[m[33m ([m[1;31morigin/naarafixes[m[33m)[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Fri Nov 12 19:09:58 2021 -0600
+
+    Cambie el color de interfaz y quite los v-model de AltaPotocolo2
+
+[33mcommit dfa989a3f3ddcd3ed2aa0bec59b8b543c2c0e749[m
+Merge: 0ea8ed7 477575c
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Fri Nov 12 18:31:51 2021 -0600
+
+    Merge branch 'master' of https://github.com/KingGnome115/page into naarafixes
+
+[33mcommit dcc586710f89be207f8d7ef2a697608393818661[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Thu Nov 11 16:43:50 2021 -0600
+
+    Logre hacer altas con vistas vacias
+
+[33mcommit 477575cdef0d4637154bc7245857a0340d87a915[m
+Merge: 212f51e 6682275
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Tue Nov 9 13:03:49 2021 -0600
+
+    Merge pull request #3 from KingGnome115/kevfixes
+    
+    Dividi la interfas protocolo en dos protocolo y visitas y al primero …
+
+[33mcommit 66822758ef3eb87e42dac498c06e62d51acf160c[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Nov 9 13:02:37 2021 -0600
+
+    Dividi la interfas protocolo en dos protocolo y visitas y al primero le di un arreglod e visitas
+
+[33mcommit 0ea8ed7f1489da00b48fc71150beab3d45bcdd0d[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Mon Nov 8 20:05:37 2021 -0600
+
+    Agrege AltaProtocolo2 y tengo varios comentarios dentro de la interfaz plis revisen pero en general ya quedo acomodada con los cambios de por visita
+
+[33mcommit 212f51ea8bbb48fd26bb9dbaddd11104173765d2[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Nov 7 23:54:11 2021 -0600
+
+    Pequeños cambios a la master que no afectan la funcionalidad PD: es culpa del fantasma
+
+[33mcommit a4e4c370c3ecd44e6296a9f3de9185fab1106c89[m
+Merge: 7dd55f0 9b49b2b
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Sun Nov 7 23:37:18 2021 -0600
+
+    Merge pull request #2 from KingGnome115/naarafixes
+    
+    Naarafixes
+
+[33mcommit 9b49b2b6e52f25983c6b165cb2150ae28a494a93[m
+Merge: 08ee600 7dd55f0
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Sun Nov 7 23:32:29 2021 -0600
+
+    Merge branch 'master' of https://github.com/KingGnome115/page into naarafixes
+
+[33mcommit 08ee600b3c34115974b58c7a3e0ed5c92152b125[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Sun Nov 7 23:31:07 2021 -0600
+
+    Arregle AltaPRotocolo1 donde se separan los datos para llenar protocolo
+
+[33mcommit 7dd55f048316c12c831c82166b7f5126cdd9f9d1[m
+Merge: 784e3a2 8c384d2
+Author: Kevin Jesús Escutia Ceja <71030837+KingGnome115@users.noreply.github.com>
+Date:   Sat Nov 6 14:25:19 2021 -0600
+
+    Merge pull request #1 from KingGnome115/pastfixes
+    
+    Esta es mi rama
+
+[33mcommit 8c384d26dbd95c8e11594bb9b0cb96e03a44a55d[m[33m ([m[1;31morigin/pastfixes[m[33m)[m
+Author: Reyno21 <gerardoyaz21@gmail.com>
+Date:   Sat Nov 6 14:16:45 2021 -0600
+
+    Esta es mi rama
+
+[33mcommit 6c6a2094f2e2442f50dbde383f18635d4d4bac97[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Fri Nov 5 20:27:47 2021 -0600
+
+    Resolvi errores
+
+[33mcommit 784e3a25b34099c1f77a9ad5bf0e2a1196c1cd81[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Wed Oct 27 19:56:15 2021 -0500
+
+    Arregle la vista de los protocolos y limpie el codigo de los services
+
+[33mcommit 1d7dd32ef97f756001c5ba837c4cf490c3cff105[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 22:31:03 2021 -0500
+
+    Mostrar protocolo
+
+[33mcommit 57bc1dd772517c40bb82d8aec90e080fb49e6b37[m
+Merge: 4b248ba e249166
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 16:51:43 2021 -0500
+
+    Cambios antes de la entrega realizado
+
+[33mcommit 4b248ba8eee2de8696d15748ca54794cfbd6e013[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 16:45:25 2021 -0500
+
+    Altas de pacientes listo pd: Falta diseño y validaciones
+
+[33mcommit e2491667aa9fdf624a2f4f7c997692e3d7c0b071[m
+Merge: e120a96 30a40b7
+Author: Reyno21 <gerardoyaz21@gmail.com>
+Date:   Tue Oct 26 15:05:01 2021 -0500
+
+    Ya quedo , lo que puse hacer
+
+[33mcommit e120a9601cffcd69254fb6c8280eeeee358fa8aa[m
+Author: Reyno21 <gerardoyaz21@gmail.com>
+Date:   Tue Oct 26 15:02:06 2021 -0500
+
+    Creo que ya quedo, es lo que pude hacer
+
+[33mcommit 30a40b7bffe8ce9383c8cf46102ade9738447b90[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 14:55:51 2021 -0500
+
+    Ya muestra los pasientes y los elimina
+
+[33mcommit 34c6a497640faa3a21982cc672894b95182a5a06[m
+Merge: 8ca10b3 68a6521
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 13:38:22 2021 -0500
+
+    Uni los cambios de P con los mios
+
+[33mcommit 68a6521e17cc424a01376f5f168d39854336aa3c[m
+Author: Reyno21 <gerardoyaz21@gmail.com>
+Date:   Tue Oct 26 13:37:37 2021 -0500
+
+    Ya casi esta lo de MEPacientes
+
+[33mcommit 8ca10b39938e3c1f94441897ff4b30b22ea0336b[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 13:35:49 2021 -0500
+
+    Cambios al AltaPacientes
+
+[33mcommit a28547abdbc8ef71eb99f15780c2814109ffa5ee[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 02:51:10 2021 -0500
+
+    Solo falta el alta de pacientes y arreglar esa interfaz
+
+[33mcommit 0bd749c2b73a62718b8b5ea0735da63435a9739a[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 02:44:01 2021 -0500
+
+    Pagina diseñada más o menos presentable
+
+[33mcommit efccab60187d532a613d07c7d67c9c459357a1ea[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 02:09:31 2021 -0500
+
+    Ya hace las altas de los protocolos
+
+[33mcommit 8cc2ef790beb90224bde2da41dc7a42bc8eae85c[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Tue Oct 26 02:05:12 2021 -0500
+
+    Ya lee los datos de los inputs
+
+[33mcommit e06672a2ec01db4c3eac59b9dd7a0c062975a492[m
+Author: NaaraiGasca <snai2016@gmail.com>
+Date:   Mon Oct 25 20:47:23 2021 -0500
+
+    v-model wuu
+
+[33mcommit b9209f9ba207fb2d6632b225b7b12cd993ced5ff[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Oct 25 20:19:32 2021 -0500
+
+    Ya casi esta las altas de protocolo
+
+[33mcommit 957f011fde67da1e803b09f06d0b4b0020f0cd34[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Mon Oct 25 19:42:54 2021 -0500
+
+    Borre el icono
+
+[33mcommit fae3389d8ddedf78a6183fefb6c24f26786fb73d[m
+Author: Reyno21 <gerardoyaz21@gmail.com>
+Date:   Mon Oct 25 19:26:52 2021 -0500
+
+    Componentes creados para protocolo MEProtocolo
+
+[33mcommit ea881c7af68235b733c7e4508725e2df18637660[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Oct 24 19:44:07 2021 -0500
+
+    El codigo esta listo para usarse para ss
+
+[33mcommit 7c36cd5daa05200d9828b6d865553731a2a1a058[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Oct 24 15:40:51 2021 -0500
+
+    Ya tenemos el crud
+
+[33mcommit ef25af565f83e5c804bdcab68b0221838648f395[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Oct 24 15:15:51 2021 -0500
+
+    Ahora puedo consultar un dato de mongodb
+
+[33mcommit 4828690fd347ab763fb19760f8e65eb397037358[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Oct 24 15:15:26 2021 -0500
+
+    Cree un menubar para viajar entre las paginas
+
+[33mcommit de02b1a79448626156d83733c8897fcef7db2184[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Oct 24 14:00:41 2021 -0500
+
+    La aplicacion ya se conecta con el backend
+
+[33mcommit 1b0cf071c4be18f625d41b1eed56659b3836a316[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sun Oct 24 13:18:56 2021 -0500
+
+    Ya tiene un enrutador a los templetes
+
+[33mcommit 9b136846c0ce7ffd78015660967dafdce9ad5ade[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sat Oct 23 22:12:35 2021 -0500
+
+    Listo para iniciar en blanco
+
+[33mcommit a965ee0c45d9114929ec4443b975eb0b47b367ae[m
+Author: KingGnome115 <kevinjec115@gmail.com>
+Date:   Sat Oct 23 20:17:38 2021 -0500
+
+    init

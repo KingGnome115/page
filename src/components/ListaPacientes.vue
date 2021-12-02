@@ -1,3 +1,4 @@
+
 <template lang="">
     <div class="container">
         <div class="row mt-3">
@@ -6,12 +7,12 @@
             </header>
 
             <div class="control col-12 justify-content-end">
-                <input v-model="nombre" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData">
+                <input v-model="nombre" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData" aria-describedby="button-Buscar">
+                <span class="input-group-btn">
+      <button class="btn btn-primary"  v-on:click="buscarData" id="button-Buscar">Buscador</button>
+    </span>
             </div>
 
-            <div class="justify-content-end">
-                    <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
-            </div>
 
             <ul class="lista" >
                 <li v-for="(paciente, index) in pacientes" :key="index" @click="this.$router.push(`/pacientes/${paciente._id}`)">
