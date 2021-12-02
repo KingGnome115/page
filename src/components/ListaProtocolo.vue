@@ -5,19 +5,21 @@
                 <h2>Lista de Protocolos</h2>
             </header>
             
-            <div class="control col-12 justify-content-end">
-                <input v-model="nombreProtocolo" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarData">
-            </div>
+            <form class="row">
+                <div class="control col-12 col-md-8 mt-3 mb-3">
+                    <input v-model="nombreProtocolo" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarData">
+                </div>
 
-            <div class="control justify-content-end">
-                    <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
-            </div>
+                <div class="control col-12 col-md-4 mt-3 mb-3">
+                        <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
+                </div>
 
-            <ul class="lista">
-                <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
-                    {{protocolo.nomProtocolo}} {{protocolo.numeroProtocolo}} {{protocolo.nomeclatura}} <hr>
-                </li>
-            </ul>
+                <ul class="list">
+                    <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
+                        {{protocolo.nomProtocolo}} {{protocolo.numeroProtocolo}} {{protocolo.nomeclatura}} <hr>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
 </template>
@@ -58,26 +60,19 @@
 <style scoped>
     ul{
         display: inline-block;
-    }
-    .Contenido{
-        padding: 10px;
+        margin-left: 4%;
     }
 
-    .ti{
-        font-size: 30px;
-        font-weight: bold;
-        text-align: center;
+    li{
+        padding: 5px;
     }
     
-    .barraBusqueda{
-        float: right;
-        width: 30%;
-        margin: .5em 2em 0 0;
+    header {
+        background: var(--fondo-contenido);
     }
 
-    button{
-        float: right;
-        width: 15%;
-        margin: 3.5em 2em;
+    body {
+        background: #F8F8FF;
+        padding: 10px;
     }
 </style>
