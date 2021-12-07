@@ -140,6 +140,7 @@ export default defineComponent({
                 }
             }
             this.indexVisitaCero = index
+            this.generarNegativos()
         },
         verificarVisitaEos(index: number){
             for (let i = 0; i < this.arrVisitas.length; i++) {
@@ -163,6 +164,23 @@ export default defineComponent({
                 }
             }
         },
+        generarNegativos(){
+            for (let i = 0; i < this.arrVisitas.length; i++) {
+                if (i < this.indexVisitaCero) {
+                    if (this.arrVisitas[i].tamanioPeriodo > 0) {
+                        this.arrVisitas[i].tamanioPeriodo = this.arrVisitas[i].tamanioPeriodo * -1
+                    }
+                } else {
+                    if ((i > this.indexVisitaCero) && (this.arrVisitas[i].tamanioPeriodo < 0)) {
+                        this.arrVisitas[i].tamanioPeriodo = this.arrVisitas[i].tamanioPeriodo * -1
+                    }else{
+                        if(i == this.indexVisitaCero){
+                            this.arrVisitas[i].tamanioPeriodo = 0;
+                        }
+                    }
+                }
+            }
+        }
     },
     mounted(){
         if(typeof this.$route.params.id === 'string'){
