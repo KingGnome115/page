@@ -49,7 +49,7 @@
                                 </td>
 
                                 <td>
-                                    <input type="number" class="form-control valid" id="tamPeriodo" min="1" required v-model="visita.tamanioPeriodo">
+                                    <input type="number" class="form-control valid" id="tamPeriodo" required v-model="visita.tamanioPeriodo">
                                     <div class="invalid-feedback">
                                         Por favor escriba el tamaño de periodo para esta visita
                                     </div>
@@ -115,18 +115,22 @@ export default defineComponent({
         }
     },
     methods:{
-        async cargarProtocolo(id: string){
+        async cargarProtocolo(id: string){ //metodo para traer el protocolo de la base de datos
             const res = await consultarProtocolo(id)
             this.protocolo = res.data
             this.arrVisitas = this.protocolo.visitas
         },
-        async guardarVisita(){
-            this.protocolo.visitas = this.arrVisitas
-            let id = this.$route.params.id.toString()
-            modificarProtocolo(id , this.protocolo)
-            this.$router.push('/')
+        async guardarVisita(){ //metodo para guardar la visita en la base de datos
+            if (this.tamPerMenMay()) {
+                this.protocolo.visitas = this.arrVisitas
+                let id = this.$route.params.id.toString()
+                modificarProtocolo(id , this.protocolo)
+                this.$router.push('/')
+            } else {
+                alert('los tamaños de periodos deben ir de menor a mayor')
+            }
         },
-        verificarVisitaCero(index: number){
+        verificarVisitaCero(index: number){ //metodo para verificar si la visita cero esta activa
             for (let i = 0; i < this.arrVisitas.length; i++) {
                 if(i !== index){
                     this.arrVisitas[i].visitaCero = false
@@ -142,29 +146,29 @@ export default defineComponent({
             this.indexVisitaCero = index
             this.generarNegativos()
         },
-        verificarVisitaEos(index: number){
+        verificarVisitaEos(index: number){ //metodo para verificar si la visita eos esta activa
             for (let i = 0; i < this.arrVisitas.length; i++) {
                 if(i !== index){
                     this.arrVisitas[i].eotEstudio = false
                 }else{
-                    if (this.arrVisitas[i].visitaCero == true) {
+                    if (this.arrVisitas[i].visitaCero == true) { //si la visita cero esta activa entonces la eos no puede estar activa
                         this.arrVisitas[i].visitaCero = false
                     }
                 }
             }
         },
-        verificarVisitaEot(index: number){
+        verificarVisitaEot(index: number){ //metodo para verificar si la visita eot esta activa
             for (let i = 0; i < this.arrVisitas.length; i++) {
                 if(i !== index){
                     this.arrVisitas[i].eotTratamiento = false
                 }else{
-                    if (this.arrVisitas[i].visitaCero == true) {
+                    if (this.arrVisitas[i].visitaCero == true) { //si la visita cero esta activa entonces la eot no puede estar activa
                         this.arrVisitas[i].visitaCero = false
                     }
                 }
             }
         },
-        generarNegativos(){
+        generarNegativos(){ //metodo para generar los negativos antes de la visita cero
             for (let i = 0; i < this.arrVisitas.length; i++) {
                 if (i < this.indexVisitaCero) {
                     if (this.arrVisitas[i].tamanioPeriodo > 0) {
@@ -180,6 +184,16 @@ export default defineComponent({
                     }
                 }
             }
+        },
+        tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+            for (let i = 0; i < this.arrVisitas.length; i++) {
+                if((i+1 < this.arrVisitas.length)){
+                    if(!(this.arrVisitas[i].tamanioPeriodo < this.arrVisitas[i+1].tamanioPeriodo)){
+                        return false
+                    }
+                }
+            }
+            return true
         }
     },
     mounted(){
