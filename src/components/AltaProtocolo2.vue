@@ -125,7 +125,7 @@ export default defineComponent({
                 this.protocolo.visitas = this.arrVisitas
                 let id = this.$route.params.id.toString()
                 modificarProtocolo(id , this.protocolo)
-                this.$router.push('/')
+                this.$router.push('/protocolo/agregar')
             } else {
                 alert('los tamaños de periodos deben ir de menor a mayor')
             }
