@@ -173,6 +173,12 @@ export default defineComponent({
                 }
             }
         },
+        agregarDato(index: number){
+
+        },
+        eliminarDato(index: number){
+
+        },
     },
     mounted(){
         if(typeof this.$route.params.id === 'string'){
