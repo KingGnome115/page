@@ -56,6 +56,8 @@ import { Protocolo } from '../interfaces/Protocolos';
                                 <td>Visita cero: </td>
                                 <td>Visita EOS:</td>
                                 <td>Visita EOT:</td>
+                                <td>Agregar</td>
+                                <td>Eliminar</td>
                             </tr>
                         </thead>
 
@@ -122,6 +124,13 @@ import { Protocolo } from '../interfaces/Protocolos';
 
                                 <td>
                                     <input type="checkbox" v-on:click="verificarVisitaEot(index)"  v-if="indexVisitaCero <= index" v-model="visita.eotTratamiento" name='eot'>
+                                </td>
+                                <td>
+                                    <button type="button" v-on:click="agregarDato(index)" class="btn btn-success">+</button>
+
+                                </td>
+                                <td>
+                                    <button type="button" v-on:click="eliminarDato(index)" class="btn btn-danger">-</button>
                                 </td>
                                 <br>
                             </tr>
@@ -207,6 +216,24 @@ import { Protocolo } from '../interfaces/Protocolos';
                 if (index >  this.indexVisitaCero) {
                     this.protocolo.visitas[index].eotTratamiento = false
                 }
+            },
+            agregarDato(index: number){
+                this.protocolo.visitas.splice(index+1, 0, {
+                    nomeclatura: "",
+                    tipoDePeriodo: "Dia",
+                    tamanioPeriodo: 1,
+                    visitaCero: false,
+                    ventana: "Ninguna",
+                    dias: 0,
+                    eotEstudio: false,
+                    eotTratamiento: false,
+                });
+
+            },
+            eliminarDato(index: number){
+
+                let remove = this.protocolo.visitas.splice(index,1);           
+
             },
         },
         mounted(){
