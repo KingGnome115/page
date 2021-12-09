@@ -90,11 +90,11 @@
                                 </td>
 
                                 <td>
-                                    <button type="button" class="btn btn-success">+</button>
+                                    <button type="button" v-on:click="agregarDato" class="btn btn-success">+</button>
 
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-danger">-</button>
+                                    <button type="button" v-on:click="eliminarDato" class="btn btn-danger">-</button>
                                 </td>
                                 <br>
                             </tr>
@@ -173,10 +173,13 @@ export default defineComponent({
                 }
             }
         },
-        agregarDato(index: number){
+        agregarDato(){
+           let push = this.arrVisitas.push;
 
         },
-        eliminarDato(index: number){
+        eliminarDato(){
+            
+            let remove = this.arrVisitas.splice(0,1);           
 
         },
     },
