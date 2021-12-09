@@ -70,35 +70,22 @@ export default defineComponent({
     },
     methods:{
         async guardarProtocolo(){
-            
-            try {
-                const encontrado = await consultarProtocoloNom(this.protocolo.nomProtocolo)
-                console.log(encontrado)
-            } catch (error) {
-                //
+            for (let index = 0; index < this.protocolo.numeroVisitas; index++) {
+                this.arrVisitas.push({
+                    nomeclatura: "",
+                    tipoDePeriodo: "Dia",
+                    tamanioPeriodo: 1,
+                    visitaCero: false,
+                    ventana: "Ninguna",
+                    dias: 0,
+                    eotEstudio: false,
+                    eotTratamiento: false,
+                });
             }
-
-
-            /*if(encontrado != null){
-                //
-            }else{
-                for (let index = 0; index < this.protocolo.numeroVisitas; index++) {
-                    this.arrVisitas.push({
-                        nomeclatura: "",
-                        tipoDePeriodo: "Dia",
-                        tamanioPeriodo: 1,
-                        visitaCero: false,
-                        ventana: "Ninguna",
-                        dias: 0,
-                        eotEstudio: false,
-                        eotTratamiento: false,
-                    });
-                }
-                this.protocolo.visitas = this.arrVisitas;
-                const res = await agregarProtocolo(this.protocolo)
-                const arr = res.data;
-                this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
-            }*/
+        this.protocolo.visitas = this.arrVisitas;
+        const res = await agregarProtocolo(this.protocolo)
+        const arr = res.data;
+        this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
         }
     }
 })
