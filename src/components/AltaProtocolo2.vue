@@ -94,7 +94,7 @@
 
                                 </td>
                                 <td>
-                                    <button type="button" v-on:click="eliminarDato" class="btn btn-danger">-</button>
+                                    <button type="button" v-on:click="eliminarDato(index)" class="btn btn-danger">-</button>
                                 </td>
                                 <br>
                             </tr>
@@ -191,9 +191,9 @@ export default defineComponent({
                     });
 
         },
-        eliminarDato(){
+        eliminarDato(index: number){
 
-            let remove = this.arrVisitas.splice(0,1);           
+            let remove = this.arrVisitas.splice(index,1);           
 
         },
         generarNegativos(){ //metodo para generar los negativos antes de la visita cero
