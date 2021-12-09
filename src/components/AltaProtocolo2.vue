@@ -20,6 +20,8 @@
                                 <td>Visita cero: </td>
                                 <td>Visita EOS:</td>
                                 <td>Visita EOT:</td>
+                                <td>Agregar</td>
+                                <td>Eliminar</td> 
                             </tr>
                         </thead>
                         <!--Cuerpo-->
@@ -85,6 +87,14 @@
 
                                 <td>
                                     <input type="checkbox" v-on:click="verificarVisitaEot(index)" v-if="indexVisitaCero <= index" v-model="visita.eotTratamiento" name='eot'>
+                                </td>
+
+                                <td>
+                                    <button type="button" class="btn btn-success">+</button>
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger">-</button>
                                 </td>
                                 <br>
                             </tr>
