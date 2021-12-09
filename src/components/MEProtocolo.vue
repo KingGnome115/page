@@ -1,10 +1,10 @@
 import { Protocolo } from '../interfaces/Protocolos';
-<template>
-    <div class="Contenido"> 
+<template lang="">
+    <div class="container"> 
         <div class="row mt-3">
             <header class="row text-center" >
-                <h2>Registro de Protocolo</h2>
-                <p>Formulario para dar de alta un nuevo protocolo</p>
+                <h2>Modificacion de Protocolo</h2>
+                <p>Protocolo {{protocolo.nomProtocolo}} </p>
             </header>
 
             <form class="row" action="Protocolo.html" method="get" id="contenedor" @submit.prevent="handleUpdate()">
@@ -41,77 +41,39 @@ import { Protocolo } from '../interfaces/Protocolos';
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <table border="1" align="center">
-                        <tr>
-                            <td>
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="tipoNomenclatura" class="form-label"> N°: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="tipoNomenclatura" class="form-label"> Tipo de Nomenclatura: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <!--Agrege la opcion de mes en el combobox
-                                No se si afecte en algo la logica o el v-model o como guarde los datos-->
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="tipoPeriodo" class="form-label"> Tipo de periodo: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="tamPeriodo" class="form-label"> Tamaño del periodo: </label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="visita0" class="form-label">Visita 0:</label>
-                                </div>
-                            </td>
-                            <td>
-                                <!--VENTANA SE MODIFICO COMPLETAMNETE AYUDA
-                                Dias antes y dias despues
-                                es un campo dos respuestas no supe como poner el v-model -->
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="ventana" class="form-label">Dias ventana en cada cita/visita:</label>
-                                </div>
-                            </td>
-                            <td>
-                                <!--Aqui cambie el v-model porque ya no se introduce un numero
-                                ahora se selcciona la opcion no se si este bien revisen porfa-->
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="visitaEOS" class="form-label">Esta se condidera como la visita EOS (Fin de Estudio):</label>
-                                </div>  
-                            </td>
-                            <td>
-                                <!--Aqui cambie el v-model porque ya no se introduce un numero
-                                ahora se selcciona la opcion no se si este bien revisen porfa-->
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="visitaEOT" class="form-label">Visita EOT (Fin de Tratamiento):</label>
-                                </div>  
-                            </td>
-                        </tr>
-                        <tr v-for="(visita, index) in protocolo.visitas" :key="index">
-                            <td>
-                                <div class="col-12 col-md-4 mb-3">
-                                    <label for="tipoNomenclatura" class="form-label"> {{index+1}} </label>
-                                </div>
-                            </td>
+                <!--Tabla-->
+                <div class="table-responsive">
+                    <table class="table table-primary table-hover table-sm table-bordered">
+                        <caption>Formulario de visitas</caption>
+                        <!--Encabezado-->
+                        <thead>
+                            <tr>
+                                <td>N°:</td>
+                                <td>Tipo de Nomenclatura:</td>
+                                <td>Tipo de periodo:</td>
+                                <td>Tamaño del periodo:</td>
+                                <td>Dias ventana en cada cita/visita:</td>
+                                <td>Visita cero: </td>
+                                <td>Visita EOS:</td>
+                                <td>Visita EOT:</td>
+                            </tr>
+                        </thead>
 
-                            <td>
-                                <div>
+                        <!--Cuerpo de la tabla-->
+                        <tbody>
+                            <tr v-for="(visita, index) in protocolo.visitas" :key="index">
+                                <td>
+                                    <label for="tipoNomenclatura" class="form-label"> {{index+1}} </label>
+                                </td>
+
+                                <td>
                                     <input type="text" class="form-control valid" id="tipoNomenclatura" placeholder="Ej. V1,V2,...Vn " required v-model="visita.nomeclatura"> 
                                     <div class="invalid-feedback">
                                         Por favor escriba el tipo de nomenclatura para esta visita
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td>
-                                <div>
+                                <td>
                                     <select class="form-select valid" id="tipoPeriodo" aria-describedby="Pregunta que tipo de periodo se usara por esta visita" required v-model="visita.tipoDePeriodo">
                                         <option selected disabled value="" >Seleccione</option>  <!--El select toma la opcion-->
                                         <option>Dia</option>
@@ -121,93 +83,56 @@ import { Protocolo } from '../interfaces/Protocolos';
                                     <div class="invalid-feedback">
                                         Por favor seleccione el tipo de periodo para esta visita
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td>
-                                <div>
+                                <td>
                                     <input type="number" class="form-control valid" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas" required v-model="visita.tamanioPeriodo">
                                     <div class="invalid-feedback">
                                         Por favor escriba el tamaño de periodo para esta visita
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td>
-                                <div>
-                                    <select class="form-select valid" id="visita0" aria-describedby="Pregunta si esta visita es la 0" required v-model="visita.visitaCero">
-                                        <option selected disabled value="">Seleccione</option>
-                                        <option>Si</option>
-                                        <option>No</option>
-                                    </select>
-                                    <div id="visita0" class="invalid-feedback">
-                                        Por favor, seleccione una opcion
-                                    </div>
-                                </div>
-                            </td>
-
-                            <td>
-                                <div>
+                                <td>
                                     <div class="d-flex gap-2 justify-content-center">
-                                        <div class="col-12 col-md-6">
-                                            <select class="form-select valid" id="ventana" aria-describedby="Pregunta tendra ventana en esta cita" required v-model="visita.ventana">
-                                                <option selected disabled value="">Seleccione</option>
-                                                <option>+</option>
-                                                <option>-</option>
-                                                <option>+/-</option>
-                                                <option>Ninguno</option>
-                                            </select>
-                                            <div class="invalid-feedback">
-                                                Por favor no deje vacio el campo, en caso de no haber colocar la ultima opcion y en el siguiente colocar 0. 
-                                            </div>
+                                        <select class="form-select valid" id="ventana" aria-describedby="Pregunta tendra ventana en esta cita" required v-model="visita.ventana">
+                                            <option selected disabled value="">Seleccione</option>
+                                            <option>+</option>
+                                            <option>-</option>
+                                            <option>+/-</option>
+                                            <option>Ninguno</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Por favor no deje vacio el campo, en caso de no haber colocar la ultima opcion y en el siguiente colocar 0. 
                                         </div>
-                                        <div class="col-12 col-md-6">
-                                            <input type="number" class="form-control valid" id="ventana" min="0"  max="4" required v-model="visita.dias">
-                                            <div class="invalid-feedback">
-                                                Por favor no deje vacio el campo
-                                            </div>
+
+                                        <input type="number" class="form-control valid" id="ventana" min="0"  max="4" required v-model="visita.dias">
+                                        <div class="invalid-feedback">
+                                            Por favor no deje vacio el campo
                                         </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td>
-                                <div>
-                                    <select class="form-select valid" id="visitaEOS" aria-describedby="Pregunta si esta visita es la EOS" required v-model="visita.eotEstudio">
-                                        <option selected disabled value="">Seleccione</option>
-                                        <!--Creo que aqui hay error de dedo jaja en v-model le pusiste eotEstudio y es EOS xd-->
-                                        <option>Si</option>
-                                        <option>No</option>
-                                    </select>
-                                    <div id="visitaEOS" class="invalid-feedback">
-                                    Por favor, seleccione una opcion
-                                    </div>
-                                </div>  
-                            </td>
+                                <td>
+                                    <input type="checkbox" v-on:click="verificarVisitaCero(index)" v-model="visita.visitaCero" name='zero'>
+                                </td>
 
-                            <td>
-                                <div>
-                                    <select class="form-select valid" id="visitaEOT" aria-describedby="Pregunta si esta visita es la EOT" required v-model="visita.eotTratamiento">
-                                        <option selected disabled value="" >Seleccione</option>
-                                        <option>Si</option>
-                                        <option>No</option>
-                                    </select>
-                                    <div id="visitaEOT" class="invalid-feedback">
-                                    Por favor, seleccione una opcion
-                                    </div>
-                                </div>  
-                            </td>
-                            <br>
-                        </tr>
+                                <td>
+                                    <input type="checkbox" v-on:click="verificarVisitaEos(index)" v-if="indexVisitaCero <= index"  v-model="visita.eotEstudio" name='eos'>
+                                </td>
+
+                                <td>
+                                    <input type="checkbox" v-on:click="verificarVisitaEot(index)"  v-if="indexVisitaCero <= index" v-model="visita.eotTratamiento" name='eot'>
+                                </td>
+                                <br>
+                            </tr>
+                        </tbody>
                     </table>
-                    <div class="d-flex gap-2 justify-content-end">
-                        <button type="submit" class="btn btn-primary">Modificar</button>
-                    </div>
+                </div>
+                <div class="d-flex gap-2 justify-content-end mb-3 ">
+                    <button type="submit" class="btn btn-primary" >Modificar</button>
+                    <button type="submit" class="btn btn-primary" v-on:click="handleDelete()">Eliminar</button>
                 </div>
             </form>
-            <div class="d-flex gap-2 justify-content-end">
-                <button type="submit" class="btn btn-primary" v-on:click="handleDelete()">Eliminar</button>
-            </div>
         </div>
     </div>
 </template>
@@ -219,13 +144,20 @@ import { Protocolo } from '../interfaces/Protocolos';
     export default defineComponent({
         data(){
             return{
-                protocolo: {} as Protocolo
+                protocolo: {} as Protocolo,
+                indexVisitaCero:-1,
             }
         },
         methods:{
             async buscarProtocolo(id:string){
                 const res = await consultarProtocolo(id)
                 this.protocolo = res.data
+                for(let i = 0; i < this.protocolo.visitas.length; i++){
+                    if(this.protocolo.visitas[i].visitaCero){
+                        this.indexVisitaCero = i
+                        break
+                    }
+                }
             },
             async handleUpdate(){
                 modificarProtocolo(this.protocolo._id, this.protocolo)
@@ -234,7 +166,48 @@ import { Protocolo } from '../interfaces/Protocolos';
             async handleDelete(){
                 eliminarProtocolo(this.protocolo._id)
                 this.$router.push("/")
-            }
+            },
+            verificarVisitaCero(index: number){
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if(i !== index){
+                        this.protocolo.visitas[i].visitaCero = false
+                    }else{
+                        if(this.protocolo.visitas[i].eotEstudio){
+                            this.protocolo.visitas[i].eotEstudio = false
+                        }
+                        if(this.protocolo.visitas[i].eotTratamiento){
+                            this.protocolo.visitas[i].eotTratamiento = false
+                        }
+                    }
+                }
+                this.indexVisitaCero = index
+            },
+            verificarVisitaEos(index: number){
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if(i !== index){
+                        this.protocolo.visitas[i].eotEstudio = false
+                    }else{
+                        if (this.protocolo.visitas[i].visitaCero == true) {
+                            this.protocolo.visitas[i].visitaCero = false
+                        }
+                    }
+                }
+            },
+            verificarVisitaEot(index: number){
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if(i !== index){
+                        this.protocolo.visitas[i].eotTratamiento = false
+                    }else{
+                        if (this.protocolo.visitas[i].visitaCero == true) {
+                            this.protocolo.visitas[i].visitaCero = false
+                        }
+                    }
+                }
+                
+                if (index >  this.indexVisitaCero) {
+                    this.protocolo.visitas[index].eotTratamiento = false
+                }
+            },
         },
         mounted(){
             if(typeof this.$route.params.id === 'string'){
@@ -245,48 +218,20 @@ import { Protocolo } from '../interfaces/Protocolos';
 </script>
 
 <style scoped>
-.Contenido{
+    header {
+        background: var(--fondo-contenido);
+    }
+
+    body {
+        background: #F8F8FF;
         padding: 10px;
-        background: #a7f19b;
     }
 
-    table, th, tr, td{
-        padding: 5px;
-        border: 2px solid #4F7849;
-        text-align: center;
-        border-collapse: collapse;
+    li{
+        list-style: none;
     }
 
-    .Ope{
-        padding: 10px;
-        width: 110px;
-    }
-
-    .botones{
-        margin: auto;
-        justify-content: center;
-        text-align: center;
-    }
-
-    button{
-        margin: 10px;
-    }
-
-    thead{
-        color: #4F7849;
-    }
-
-    table {
-        font: 75%/1.5em arial, geneva, sans-serif;
-        border-collapse: collapse;
-        margin-left: 1em;
-    }
-
-    td {
-        border-bottom: 8px solid #fff;
-        border-left: 1px dotted #fff;
-        vertical-align: top;
-        padding: 20px;
-        border-style:groove;
+    tr {
+    background: #59ffb1; 
     }
 </style>

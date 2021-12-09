@@ -75,11 +75,11 @@ export default defineComponent({
                     nomeclatura: this.protocolo.nomProtocolo,
                     tipoDePeriodo: "Dia",
                     tamanioPeriodo: 1,
-                    visitaCero: "No",
+                    visitaCero: false,
                     ventana: "Ninguna",
                     dias: 0,
-                    eotEstudio: "No",
-                    eotTratamiento: "No",
+                    eotEstudio: false,
+                    eotTratamiento: false,
                 });
             }
             this.protocolo.visitas = this.arrVisitas;

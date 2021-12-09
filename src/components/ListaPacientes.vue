@@ -1,21 +1,26 @@
 <template lang="">
-    <div class="Contenido">
-        <h1 class="ti">Lista de pacientes</h1>
-        
-        <div class="field has-addons is-pulled-right">
-            <div class="control">
-                <input v-model="nombre" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData">
-            </div>
-            <div class="control">
-                <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
-            </div>
-        </div>
+    <div class="container">
+        <div class="row mt-3">
+            <header class="row text-align" >
+                <h2>Lista de Pacientes</h2>
+            </header>
 
-        <ul class="lista" >
-            <li v-for="(paciente, index) in pacientes" :key="index" @click="this.$router.push(`/pacientes/${paciente._id}`)">
-                {{paciente.nomPila}} {{paciente.primApellido}} {{paciente.segApellido}} <hr>
-            </li>
-        </ul>
+            <form class="row">
+                <div class="col-12 col-md-8 mt-3 mb-3">
+                    <input v-model="nombre" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData">
+                </div>
+
+                <div class="col-12 col-md-4 mt-3 mb-3">
+                    <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
+                </div>
+
+                <ul class="list" >
+                    <li v-for="(paciente, index) in pacientes" :key="index" @click="this.$router.push(`/pacientes/${paciente._id}`)">
+                        {{paciente.nomPila}} {{paciente.primApellido}} {{paciente.segApellido}} <hr>
+                    </li>
+                </ul>
+            </form>
+        </div>
     </div>
 </template>
 
@@ -54,27 +59,19 @@
 <style scoped>
     ul{
         display: inline-block;
-    }
-    .Contenido{
-        padding: 10px;
+        margin-left: 4%;
     }
 
-    .ti{
-        font-size: 30px;
-        font-weight: bold;
-        text-align: center;
+    li{
+        padding: 5px;
     }
     
-    .barraBusqueda{
-        float: right;
-        width: 30%;
-        margin: .5em 2em 0 0;
+    header {
+        background: var(--fondo-contenido);
     }
 
-    button{
-        float: right;
-        width: 15%;
-        margin: 3.5em 2em;
+    body {
+        background: #F8F8FF;
+        padding: 10px;
     }
-
 </style>
