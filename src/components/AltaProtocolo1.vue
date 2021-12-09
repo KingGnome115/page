@@ -72,7 +72,7 @@ export default defineComponent({
         async guardarProtocolo(){
             for (let index = 0; index < this.protocolo.numeroVisitas; index++) {
                 this.arrVisitas.push({
-                    nomeclatura: this.protocolo.nomProtocolo,
+                    nomeclatura: "",
                     tipoDePeriodo: "Dia",
                     tamanioPeriodo: 1,
                     visitaCero: false,
