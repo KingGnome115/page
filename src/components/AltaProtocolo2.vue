@@ -90,7 +90,7 @@
                                 </td>
 
                                 <td>
-                                    <button type="button" v-on:click="agregarDato" class="btn btn-success">+</button>
+                                    <button type="button" v-on:click="agregarDato(index)" class="btn btn-success">+</button>
 
                                 </td>
                                 <td>
@@ -178,12 +178,21 @@ export default defineComponent({
                 }
             }
         },
-        agregarDato(){
-           let push = this.arrVisitas.push;
+        agregarDato(index: number){
+            this.arrVisitas.splice(index+1, 0, {
+                    nomeclatura: "",
+                    tipoDePeriodo: "Dia",
+                    tamanioPeriodo: 1,
+                    visitaCero: false,
+                    ventana: "Ninguna",
+                    dias: 0,
+                    eotEstudio: false,
+                    eotTratamiento: false,
+                    });
 
         },
         eliminarDato(){
-            
+
             let remove = this.arrVisitas.splice(0,1);           
 
         },
