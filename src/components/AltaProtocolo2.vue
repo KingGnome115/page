@@ -178,7 +178,7 @@ export default defineComponent({
                 }
             }
         },
-        agregarDato(index: number){
+        agregarDato(index: number){//metodo para agregar una visita
             this.arrVisitas.splice(index+1, 0, {
                     nomeclatura: "",
                     tipoDePeriodo: "Dia",
@@ -189,12 +189,9 @@ export default defineComponent({
                     eotEstudio: false,
                     eotTratamiento: false,
                     });
-
         },
-        eliminarDato(index: number){
-
+        eliminarDato(index: number){ //metodo para eliminar una visita
             let remove = this.arrVisitas.splice(index,1);           
-
         },
         generarNegativos(){ //metodo para generar los negativos antes de la visita cero
             for (let i = 0; i < this.arrVisitas.length; i++) {
