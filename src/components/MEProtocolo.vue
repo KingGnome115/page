@@ -88,7 +88,7 @@ import { Protocolo } from '../interfaces/Protocolos';
                                 </td>
 
                                 <td>
-                                    <input type="number" class="form-control valid" id="tamPeriodo" min="1" placeholder="Ej. 3 dias/semanas" required v-model="visita.tamanioPeriodo">
+                                    <input type="number" class="form-control valid" id="tamPeriodo" placeholder="Ej. 3 dias/semanas" required v-model="visita.tamanioPeriodo">
                                     <div class="invalid-feedback">
                                         Por favor escriba el tamaño de periodo para esta visita
                                     </div>
@@ -169,8 +169,12 @@ import { Protocolo } from '../interfaces/Protocolos';
                 }
             },
             async handleUpdate(){
-                modificarProtocolo(this.protocolo._id, this.protocolo)
-                this.$router.push("/")
+                if (this.tamPerMenMay()) {
+                    modificarProtocolo(this.protocolo._id, this.protocolo)
+                    this.$router.push('/listaprotocolos')
+                } else {
+                    alert('los tamaños de periodos deben ir de menor a mayor')
+                }
             },
             async handleDelete(){
                 eliminarProtocolo(this.protocolo._id)
@@ -190,6 +194,7 @@ import { Protocolo } from '../interfaces/Protocolos';
                     }
                 }
                 this.indexVisitaCero = index
+                this.generarNegativos()
             },
             verificarVisitaEos(index: number){
                 for (let i = 0; i < this.protocolo.visitas.length; i++) {
@@ -231,10 +236,36 @@ import { Protocolo } from '../interfaces/Protocolos';
 
             },
             eliminarDato(index: number){
-
                 let remove = this.protocolo.visitas.splice(index,1);           
-
             },
+            generarNegativos(){ //metodo para generar los negativos antes de la visita cero
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if (i < this.indexVisitaCero) {
+                        if (this.protocolo.visitas[i].tamanioPeriodo > 0) {
+                            this.protocolo.visitas[i].tamanioPeriodo = this.protocolo.visitas[i].tamanioPeriodo * -1
+                        }
+                    } else {
+                        if ((i > this.indexVisitaCero) && (this.protocolo.visitas[i].tamanioPeriodo < 0)) {
+                            this.protocolo.visitas[i].tamanioPeriodo = this.protocolo.visitas[i].tamanioPeriodo * -1
+                        }else{
+                            if(i == this.indexVisitaCero){
+                                this.protocolo.visitas[i].tamanioPeriodo = 0;
+                            }
+                        }
+                    }
+                }
+            },
+            tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+                for (let i = 0; i < this.protocolo.visitas.length; i++) {
+                    if((i+1 < this.protocolo.visitas.length)){
+                        if(!(this.protocolo.visitas[i].tamanioPeriodo < this.protocolo.visitas[i+1].tamanioPeriodo)){
+                            return false
+                        }
+                    }
+                }
+                return true
+            }
+
         },
         mounted(){
             if(typeof this.$route.params.id === 'string'){
