@@ -110,7 +110,6 @@
 </template>
 
 <script lang="ts">
-//import {defineComponent} from '../vue'
 import { Visitas } from '../interfaces/Visitas'
 import {defineComponent} from 'vue'
 import {Protocolo} from '../interfaces/Protocolos'
@@ -191,7 +190,7 @@ export default defineComponent({
                     });
         },
         eliminarDato(index: number){ //metodo para eliminar una visita
-            let remove = this.arrVisitas.splice(index,1);           
+            this.arrVisitas.splice(index,1);           
         },
         generarNegativos(){ //metodo para generar los negativos antes de la visita cero
             for (let i = 0; i < this.arrVisitas.length; i++) {
@@ -210,10 +209,43 @@ export default defineComponent({
                 }
             }
         },
-        tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+        generarArregloTamanio(){ // metodo para generar el arreglo de tamaños de periodos de las visitas dependiendo del tipo de periodo
+            let meses: number[] = []
+            meses.push(31) //enero
+            meses.push(28) //febrero
+            meses.push(31) //marzo
+            meses.push(30) //abril
+            meses.push(31) //mayo
+            meses.push(30) //junio
+            meses.push(31) //julio
+            meses.push(31) //agosto
+            meses.push(30) //septiembre
+            meses.push(31) //octubre
+            meses.push(30) //noviembre
+            meses.push(31) //diciembre
+            let arrTamanio: number[] = []
             for (let i = 0; i < this.arrVisitas.length; i++) {
-                if((i+1 < this.arrVisitas.length)){
-                    if(!(this.arrVisitas[i].tamanioPeriodo < this.arrVisitas[i+1].tamanioPeriodo)){
+                if(this.arrVisitas[i].tipoDePeriodo === "Semana"){
+                    arrTamanio.push(this.arrVisitas[i].tamanioPeriodo * 7)
+                }else{
+                    if(this.arrVisitas[i].tipoDePeriodo === "Mes"){
+                        let totalD = 0
+                        for (let j = 0; j < this.arrVisitas[i].tamanioPeriodo; j++) {
+                            totalD = totalD + meses[j]
+                        }
+                        arrTamanio.push(totalD)
+                    }else{
+                        arrTamanio.push(this.arrVisitas[i].tamanioPeriodo)
+                    }
+                }
+            }
+            return arrTamanio
+        },
+        tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+            let arreglo = this.generarArregloTamanio()
+            for (let i = 0; i < arreglo.length; i++) {
+                if((i+1 < arreglo.length)){
+                    if(!(arreglo[i] < arreglo[i+1])){
                         return false
                     }
                 }
