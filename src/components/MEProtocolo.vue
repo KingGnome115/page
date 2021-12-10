@@ -255,10 +255,43 @@ import { Protocolo } from '../interfaces/Protocolos';
                     }
                 }
             },
-            tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+            generarArregloTamanio(){ // metodo para generar el arreglo de tamaños de periodos de las visitas dependiendo del tipo de periodo
+                let meses: number[] = []
+                meses.push(31) //enero
+                meses.push(28) //febrero
+                meses.push(31) //marzo
+                meses.push(30) //abril
+                meses.push(31) //mayo
+                meses.push(30) //junio
+                meses.push(31) //julio
+                meses.push(31) //agosto
+                meses.push(30) //septiembre
+                meses.push(31) //octubre
+                meses.push(30) //noviembre
+                meses.push(31) //diciembre
+                let arrTamanio: number[] = []
                 for (let i = 0; i < this.protocolo.visitas.length; i++) {
-                    if((i+1 < this.protocolo.visitas.length)){
-                        if(!(this.protocolo.visitas[i].tamanioPeriodo < this.protocolo.visitas[i+1].tamanioPeriodo)){
+                    if(this.protocolo.visitas[i].tipoDePeriodo === "Semana"){
+                        arrTamanio.push(this.protocolo.visitas[i].tamanioPeriodo * 7)
+                    }else{
+                        if(this.protocolo.visitas[i].tipoDePeriodo === "Mes"){
+                            let totalD = 0
+                            for (let j = 0; j < this.protocolo.visitas[i].tamanioPeriodo; j++) {
+                                totalD = totalD + meses[j]
+                            }
+                            arrTamanio.push(totalD)
+                        }else{
+                            arrTamanio.push(this.protocolo.visitas[i].tamanioPeriodo)
+                        }
+                    }
+                }
+                return arrTamanio
+            },
+            tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+                let arreglo = this.generarArregloTamanio()
+                for (let i = 0; i < arreglo.length; i++) {
+                    if((i+1 < arreglo.length)){
+                        if(!(arreglo[i] < arreglo[i+1])){
                             return false
                         }
                     }
