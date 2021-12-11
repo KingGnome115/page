@@ -286,7 +286,7 @@ import { Protocolo } from '../interfaces/Protocolos';
                     }
                 }
                 return arrTamanio
-            },
+            }, 
             tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
                 let arreglo = this.generarArregloTamanio()
                 for (let i = 0; i < arreglo.length; i++) {

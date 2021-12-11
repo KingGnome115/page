@@ -7,18 +7,18 @@
             
             <form class="row">
                 <div class="control col-12 col-md-8 mt-3 mb-3">
-                    <input v-model="nombreProtocolo" type="text" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarData">
+                    <input v-model="nombreProtocolo" type="text" autocomplete="off" v-bind="state" @input="filterStates" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarData">
                 </div>
 
                 <div class="control col-12 col-md-4 mt-3 mb-3">
                         <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
                 </div>
 
-                <ul class="list">
-                    <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
-                        {{protocolo.nomProtocolo}} {{protocolo.numeroProtocolo}} {{protocolo.nomeclatura}} <hr>
-                    </li>
-                </ul>
+                <div>
+                    <ul class="list">
+                        <li v-for="(filt, index) in filteredStates" :key="index" @click="buscaData(filt)"> {{filt}} </li>
+                    </ul>
+                </div>
             </form>
         </div>
     </div>
@@ -34,12 +34,18 @@
             return{
                 protocolos: [] as Protocolo[],
                 nombreProtocolo: '',
+                state:'',
+                states: [] as string[],
+                filteredStates: [] as string[],
             }
         },
         methods:{
             async cargarProtocolos(){
                 const res = await consultarProtocolos()
                 this.protocolos = res.data
+                this.protocolos.forEach(element => {
+                    this.states.push(element.nomProtocolo)
+                });
             },
             async buscarData(){
                 this.protocolos.forEach(protocolo => {
@@ -48,6 +54,20 @@
                         this.$router.push(`/protocolos/${protocolo._id}`)
                     }
                 })
+            },
+            async buscaData(nom : string){
+                this.protocolos.forEach(protocolo => {
+                    let nomPro = protocolo.nomProtocolo.toLowerCase()
+                    if(nomPro.indexOf(nom.toLowerCase()) > -1){
+                        this.$router.push(`/protocolos/${protocolo._id}`)
+                    }
+                })
+            },
+            filterStates(){
+                this.filteredStates = this.states.filter(state => {
+                    return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
+                })
+                console.log(this.filteredStates)
             }
         },
         mounted(){
