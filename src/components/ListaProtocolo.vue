@@ -15,16 +15,10 @@
                 </div>
 
                 <div>
-                    <ul>
-                        <li v-for="(filt, index) in filteredStates" :key="index"> {{filt}} </li>
+                    <ul class="list">
+                        <li v-for="(filt, index) in filteredStates" :key="index" @click="buscaData(filt)"> {{filt}} </li>
                     </ul>
                 </div>
-
-                <ul class="list">
-                    <li v-for="(protocolo, index) in protocolos" :key="index" @click="this.$router.push(`/protocolos/${protocolo._id}`)">
-                        {{protocolo.nomProtocolo}} {{protocolo.numeroProtocolo}} {{protocolo.nomeclatura}} <hr>
-                    </li>
-                </ul>
             </form>
         </div>
     </div>
@@ -57,6 +51,14 @@
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(this.nombreProtocolo.toLowerCase()) > -1){
+                        this.$router.push(`/protocolos/${protocolo._id}`)
+                    }
+                })
+            },
+            async buscaData(nom : string){
+                this.protocolos.forEach(protocolo => {
+                    let nomPro = protocolo.nomProtocolo.toLowerCase()
+                    if(nomPro.indexOf(nom.toLowerCase()) > -1){
                         this.$router.push(`/protocolos/${protocolo._id}`)
                     }
                 })
