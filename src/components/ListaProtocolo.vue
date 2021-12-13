@@ -67,7 +67,6 @@
                 this.filteredStates = this.states.filter(state => {
                     return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
                 })
-                console.log(this.filteredStates)
             }
         },
         mounted(){
