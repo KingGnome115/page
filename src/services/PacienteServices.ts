@@ -11,3 +11,5 @@ export const agregarPaciente = async(paciente: Paciente) => await axios.post('/p
 export const modificarPaciente = async(id: string, paciente:Paciente): Promise<AxiosResponse<Paciente>> => await axios.put(`/pacientes/${id}`, paciente)
 
 export const eliminarPaciente = async(id: string): Promise<AxiosResponse<Paciente>> => await axios.delete(`/pacientes/${id}`)
+
+export const consultarPacienteNom = async(nomPila: string, primApellido: string, segApellido: string): Promise<AxiosResponse<Paciente>> => await axios.get(`/paciente/${nomPila}/${primApellido}/${segApellido}`)
