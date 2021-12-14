@@ -25,6 +25,9 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to="/protocolo/agregar">Nuevo Protocolo</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/citas/agregar">Nueva Visita</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

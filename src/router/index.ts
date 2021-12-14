@@ -40,9 +40,14 @@ const routes: RouteRecordRaw[] = [
     {
         path: '/protocolos/:id',
         name: 'protocolo-modificar',
-        component: () => import('@/components/MEProtocolo.vue') //Aun no esta el archivo
+        component: () => import('@/components/MEProtocolo.vue')
 
-    }
+    },
+    {
+        path: '/citas/agregar',
+        name: 'citas-new',
+        component: () => import('@/components/AltaCitas.vue')
+    },
    
 ]
 
