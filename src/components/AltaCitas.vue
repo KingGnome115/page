@@ -201,7 +201,7 @@
            }
         },
         methods:{
-            async cargarPacientes(){
+            async cargarPacientes(){ //Carga los pacientes y los protocolos en el arreglo de pacientes y protocolos
                 const res = await consultarPacientes()
                 this.pacientes = res.data
                 this.pacientes.forEach(paciente => {
@@ -213,7 +213,7 @@
                     this.statesProtocolos.push(element.nomProtocolo)
                 });
             },
-            async buscarDataPaciente(){
+            async buscarDataPaciente(){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.pacientes.forEach(paciente => {
                     let nombreCompleto = paciente.nomPila + ' ' + paciente.primApellido + ' ' + paciente.segApellido
                     if(nombreCompleto.indexOf(this.nombrePaciente) > -1){
@@ -225,7 +225,7 @@
                 })
                 console.log(this.fechasZero)
             },
-            async buscaDataPaciente(nom: string){
+            async buscaDataPaciente(nom: string){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.pacientes.forEach(paciente => {
                     let nombr = nom.split("-")
                     if(nombr[0] === paciente.nomPila && nombr[1] === paciente.primApellido && nombr[2] === paciente.segApellido){
@@ -237,7 +237,7 @@
                 })
                 console.log(this.fechasZero)
             },
-            filterStatesPaciente(){
+            filterStatesPaciente(){//Filtra los pacientes segun el nombre y lo agrega al arreglo de filteredStatesPaciente
                 if (this.nombrePaciente.length===0) {
                     this.filteredStatesPaciente = []
                 } else {
@@ -246,26 +246,23 @@
                     })
                 }
             },
-            async buscarDataProtocolo(){
+            async buscarDataProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(this.nombreProtocolo.toLowerCase()) > -1){
                         this.protocolo = protocolo
-
                     }
                 })
-                console.log(this.protocolo)
             },
-            async buscaDataProtocolo(nom : string){
+            async buscaDataProtocolo(nom : string){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(nom.toLowerCase()) > -1){
                         this.protocolo = protocolo
                     }
                 })
-                console.log(this.protocolo)
             },
-            filterStatesProtocolo(){
+            filterStatesProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de filteredStatesProtocolo
                 if (this.nombreProtocolo.length===0) {
                     this.filteredStatesProtocolo = []
                 } else {
