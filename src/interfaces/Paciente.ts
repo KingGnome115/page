@@ -18,9 +18,10 @@ export interface Paciente{
     lugarOrigen: string;
     hospitalRef: string;
     _id: string;
-    nomPilaCon:string;
-    primApellidoCon:string;
-    segApellidoCon:string;
-    parentesco:string;
-    telefonoCon:string;
+    nomPilaCon: string;
+    primApellidoCon: string;
+    segApellidoCon: string;
+    parentesco: string;
+    telefonoCon: string;
+    asigando: boolean;
 }

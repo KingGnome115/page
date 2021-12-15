@@ -173,7 +173,7 @@
     import { Citas } from "../interfaces/Citas";
     import { Paciente } from "../interfaces/Paciente";
     import { Protocolo } from "../interfaces/Protocolos";
-    import { consultarPacientes} from '../services/PacienteServices'
+    import { consultarPacientesNa, modificarPaciente } from '../services/PacienteServices';
     import { consultarProtocolos } from '../services/ProtocoloServices'
     import { agregarCitas } from '../services/CitasServices'
 
@@ -202,7 +202,7 @@
         },
         methods:{
             async cargarPacientes(){ //Carga los pacientes y los protocolos en el arreglo de pacientes y protocolos
-                const res = await consultarPacientes()
+                const res = await consultarPacientesNa()
                 this.pacientes = res.data
                 this.pacientes.forEach(paciente => {
                     this.statesPacientes.push(paciente.nomPila+"-"+paciente.primApellido+"-"+paciente.segApellido)
@@ -277,6 +277,7 @@
             },
             async guardarCitas(){
                 for(let i = 0; i < this.pacientesCitas.length; i++){
+                    this.pacientesCitas[i].asigando = true
                     let idPaciente = this.pacientesCitas[i]._id
                     let idProtocolo = this.protocolo._id
                     let visitaZero = this.fechasZero[i]
@@ -284,6 +285,7 @@
                     this.cit.idProtocolo = idProtocolo
                     this.cit.visitaZero = visitaZero
                     const res = await agregarCitas(this.cit)
+                    modificarPaciente(idPaciente, this.pacientesCitas[i])
                 }
             }
         },
