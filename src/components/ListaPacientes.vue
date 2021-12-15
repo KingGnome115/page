@@ -64,9 +64,14 @@
                 })
             },
             filterStates(){
-                this.filteredStates = this.states.filter(state => {
-                    return state.toLowerCase().startsWith(this.nombre.toLowerCase())
-                })
+                
+                if(this.nombre.length === 0){
+                    this.filteredStates = []
+                }else{
+                    this.filteredStates = this.states.filter(state => {
+                        return state.toLowerCase().startsWith(this.nombre.toLowerCase())
+                    })
+                }
             }
         },
         mounted(){

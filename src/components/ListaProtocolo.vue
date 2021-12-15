@@ -64,9 +64,13 @@
                 })
             },
             filterStates(){
-                this.filteredStates = this.states.filter(state => {
+                if(this.nombreProtocolo.length == 0){
+                    this.filteredStates = []
+                }else{
+                    this.filteredStates = this.states.filter(state => {
                     return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
-                })
+                    })
+                }
             }
         },
         mounted(){
