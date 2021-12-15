@@ -284,17 +284,27 @@
                 this.fechasZero.splice(index, 1)
             },
             async guardarCitas(){
-                for(let i = 0; i < this.pacientesCitas.length; i++){
-                    this.pacientesCitas[i].asigando = true
-                    let idPaciente = this.pacientesCitas[i]._id
-                    let idProtocolo = this.protocolo._id
-                    let visitaZero = this.fechasZero[i]
-                    this.cit.idPaciente = idPaciente
-                    this.cit.idProtocolo = idProtocolo
-                    this.cit.visitaZero = visitaZero
-                    const res = await agregarCitas(this.cit)
-                    modificarPaciente(idPaciente, this.pacientesCitas[i])
+                if (this.protocolo.nomProtocolo === '' || this.protocolo.nomProtocolo === undefined){
+                    alert('Seleccione un protocolo')
+                } else {
+                    if(this.pacientesCitas.length === 0){
+                        alert('Seleccione al menos un paciente')
+                    } else {
+                        for(let i = 0; i < this.pacientesCitas.length; i++){
+                            this.pacientesCitas[i].asigando = true
+                            let idPaciente = this.pacientesCitas[i]._id
+                            let idProtocolo = this.protocolo._id
+                            let visitaZero = this.fechasZero[i]
+                            this.cit.idPaciente = idPaciente
+                            this.cit.idProtocolo = idProtocolo
+                            this.cit.visitaZero = visitaZero
+                            const res = await agregarCitas(this.cit)
+                            modificarPaciente(idPaciente, this.pacientesCitas[i])
+                        }
+                        this.$router.push("/")
+                    }
                 }
+                
             }
         },
         mounted(){
