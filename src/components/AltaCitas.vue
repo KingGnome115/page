@@ -220,6 +220,8 @@
                         if(!this.pacientesCitas.includes(paciente)){
                             this.pacientesCitas.push(paciente)
                             this.fechasZero.push('')
+                            this.nombrePaciente = ''
+                            this.filterStatesPaciente()
                         }
                     }
                 })
@@ -232,6 +234,8 @@
                         if(!this.pacientesCitas.includes(paciente)){
                             this.pacientesCitas.push(paciente)
                             this.fechasZero.push('')
+                            this.nombrePaciente = ''
+                            this.filterStatesPaciente()
                         }
                     }
                 })
@@ -251,6 +255,8 @@
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(this.nombreProtocolo.toLowerCase()) > -1){
                         this.protocolo = protocolo
+                        this.nombreProtocolo = ''
+                        this.filterStatesProtocolo()
                     }
                 })
             },
@@ -259,6 +265,8 @@
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(nom.toLowerCase()) > -1){
                         this.protocolo = protocolo
+                        this.nombreProtocolo = ''
+                        this.filterStatesProtocolo()
                     }
                 })
             },
