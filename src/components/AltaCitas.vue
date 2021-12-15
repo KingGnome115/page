@@ -125,7 +125,7 @@
             </div>
         </form>
 
-        <form class="row">
+        <form class="row" @submit.prevent="guardarCitas()">
             <!--Tabla-->
             <div class="table-responsive">
                 <table class="table table-primary table-hover table-sm table-bordered">
@@ -135,6 +135,7 @@
                         <tr>
                             <td>Paciente</td>
                             <td>Fecha de la visita cero</td>
+                            <td>Quitar</td>
                         </tr>
                     </thead>
 
@@ -146,18 +147,24 @@
                             </td>
 
                             <td>
-                                <input type="date" min="1920-01-01" max="2023-12-31" class="form-control valid" id="fechaR" required>
+                                <input type="date" min="1920-01-01" max="2023-12-31" class="form-control valid" id="fechaR" required v-model="fechasZero[index]">
                                 <div class="invalid-feedback">
                                     Por favor ingrese una fecha valida
                                 </div>
+                            </td>
+                            
+                            <td>
+                                <button type="button" v-on:click="eliminarDato(index)" class="btn btn-danger">-</button>
                             </td>
                             <br>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="d-flex gap-2 justify-content-end">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
         </form>
-
     </div>
 </template>
 
@@ -168,13 +175,15 @@
     import { Protocolo } from "../interfaces/Protocolos";
     import { consultarPacientes} from '../services/PacienteServices'
     import { consultarProtocolos } from '../services/ProtocoloServices'
+    import { agregarCitas } from '../services/CitasServices'
 
    export default defineComponent({
        data(){
            return{
-                cita:[] as Citas[],
+                fechasZero: [] as string[],
                 protocolo:{} as Protocolo,
                 pacientesCitas: [] as Paciente[],
+                cit: {} as Citas,
 
                 //Arreglo para las busquedas
                 protocolos: [] as Protocolo[],
@@ -208,17 +217,25 @@
                 this.pacientes.forEach(paciente => {
                     let nombreCompleto = paciente.nomPila + ' ' + paciente.primApellido + ' ' + paciente.segApellido
                     if(nombreCompleto.indexOf(this.nombrePaciente) > -1){
-                        this.pacientesCitas.push(paciente)
+                        if(!this.pacientesCitas.includes(paciente)){
+                            this.pacientesCitas.push(paciente)
+                            this.fechasZero.push('')
+                        }
                     }
                 })
+                console.log(this.fechasZero)
             },
             async buscaDataPaciente(nom: string){
                 this.pacientes.forEach(paciente => {
                     let nombr = nom.split("-")
                     if(nombr[0] === paciente.nomPila && nombr[1] === paciente.primApellido && nombr[2] === paciente.segApellido){
-                        this.pacientesCitas.push(paciente)
+                        if(!this.pacientesCitas.includes(paciente)){
+                            this.pacientesCitas.push(paciente)
+                            this.fechasZero.push('')
+                        }
                     }
                 })
+                console.log(this.fechasZero)
             },
             filterStatesPaciente(){
                 if (this.nombrePaciente.length===0) {
@@ -255,6 +272,21 @@
                    this.filteredStatesProtocolo = this.statesProtocolos.filter(state => {
                     return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
                     }) 
+                }
+            },
+            eliminarDato(index: number){
+                this.pacientesCitas.splice(index, 1)
+                this.fechasZero.splice(index, 1)
+            },
+            async guardarCitas(){
+                for(let i = 0; i < this.pacientesCitas.length; i++){
+                    let idPaciente = this.pacientesCitas[i]._id
+                    let idProtocolo = this.protocolo._id
+                    let visitaZero = this.fechasZero[i]
+                    this.cit.idPaciente = idPaciente
+                    this.cit.idProtocolo = idProtocolo
+                    this.cit.visitaZero = visitaZero
+                    const res = await agregarCitas(this.cit)
                 }
             }
         },
