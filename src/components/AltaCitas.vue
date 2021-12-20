@@ -173,7 +173,7 @@
     import { Citas } from "../interfaces/Citas";
     import { Paciente } from "../interfaces/Paciente";
     import { Protocolo } from "../interfaces/Protocolos";
-    import { consultarPacientes} from '../services/PacienteServices'
+    import { consultarPacientesNa, modificarPaciente } from '../services/PacienteServices';
     import { consultarProtocolos } from '../services/ProtocoloServices'
     import { agregarCitas } from '../services/CitasServices'
 
@@ -202,7 +202,7 @@
         },
         methods:{
             async cargarPacientes(){ //Carga los pacientes y los protocolos en el arreglo de pacientes y protocolos
-                const res = await consultarPacientes()
+                const res = await consultarPacientesNa()
                 this.pacientes = res.data
                 this.pacientes.forEach(paciente => {
                     this.statesPacientes.push(paciente.nomPila+"-"+paciente.primApellido+"-"+paciente.segApellido)
@@ -220,6 +220,8 @@
                         if(!this.pacientesCitas.includes(paciente)){
                             this.pacientesCitas.push(paciente)
                             this.fechasZero.push('')
+                            this.nombrePaciente = ''
+                            this.filterStatesPaciente()
                         }
                     }
                 })
@@ -232,6 +234,8 @@
                         if(!this.pacientesCitas.includes(paciente)){
                             this.pacientesCitas.push(paciente)
                             this.fechasZero.push('')
+                            this.nombrePaciente = ''
+                            this.filterStatesPaciente()
                         }
                     }
                 })
@@ -251,6 +255,8 @@
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(this.nombreProtocolo.toLowerCase()) > -1){
                         this.protocolo = protocolo
+                        this.nombreProtocolo = ''
+                        this.filterStatesProtocolo()
                     }
                 })
             },
@@ -259,6 +265,8 @@
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
                     if(nomPro.indexOf(nom.toLowerCase()) > -1){
                         this.protocolo = protocolo
+                        this.nombreProtocolo = ''
+                        this.filterStatesProtocolo()
                     }
                 })
             },
@@ -276,15 +284,27 @@
                 this.fechasZero.splice(index, 1)
             },
             async guardarCitas(){
-                for(let i = 0; i < this.pacientesCitas.length; i++){
-                    let idPaciente = this.pacientesCitas[i]._id
-                    let idProtocolo = this.protocolo._id
-                    let visitaZero = this.fechasZero[i]
-                    this.cit.idPaciente = idPaciente
-                    this.cit.idProtocolo = idProtocolo
-                    this.cit.visitaZero = visitaZero
-                    const res = await agregarCitas(this.cit)
+                if (this.protocolo.nomProtocolo === '' || this.protocolo.nomProtocolo === undefined){
+                    alert('Seleccione un protocolo')
+                } else {
+                    if(this.pacientesCitas.length === 0){
+                        alert('Seleccione al menos un paciente')
+                    } else {
+                        for(let i = 0; i < this.pacientesCitas.length; i++){
+                            this.pacientesCitas[i].asigando = true
+                            let idPaciente = this.pacientesCitas[i]._id
+                            let idProtocolo = this.protocolo._id
+                            let visitaZero = this.fechasZero[i]
+                            this.cit.idPaciente = idPaciente
+                            this.cit.idProtocolo = idProtocolo
+                            this.cit.visitaZero = visitaZero
+                            const res = await agregarCitas(this.cit)
+                            modificarPaciente(idPaciente, this.pacientesCitas[i])
+                        }
+                        this.$router.push("/")
+                    }
                 }
+                
             }
         },
         mounted(){

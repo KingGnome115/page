@@ -173,7 +173,6 @@
                 this.paciente = res.data
             },
             async handleUpdate(){
-                console.log(this.paciente)
                 modificarPaciente(this.paciente._id,this.paciente)
                 this.$router.push("/")
             },
