@@ -46,8 +46,7 @@
         </div>
 
         <header class="row text-center" >
-            <h2>Modificacion de Protocolo</h2>
-            <p>Protocolo {{protocolo.nomProtocolo}} </p>
+            <h1> {{protocolo.nomProtocolo}} </h1>
         </header>
 
         <form class="row" action="Protocolo.html" method="get" id="contenedor">
@@ -129,7 +128,7 @@
             <!--Tabla-->
             <div class="table-responsive">
                 <table class="table table-primary table-hover table-sm table-bordered">
-                    <caption>Formulario de visitas</caption>
+                    <caption>Lista de pacientes</caption>
                     <!--Encabezado-->
                     <thead>
                         <tr>
