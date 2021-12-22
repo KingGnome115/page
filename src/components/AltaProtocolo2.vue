@@ -231,7 +231,7 @@ export default defineComponent({
                     if(this.arrVisitas[i].tipoDePeriodo === "Mes"){
                         let totalD = 0
                         for (let j = 0; j < this.arrVisitas[i].tamanioPeriodo; j++) {
-                            totalD = totalD + meses[j]
+                            totalD = totalD + meses[j%11]
                         }
                         arrTamanio.push(totalD)
                     }else{
