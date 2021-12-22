@@ -107,7 +107,7 @@ import { Protocolo } from '../interfaces/Protocolos';
                                             Por favor no deje vacio el campo, en caso de no haber colocar la ultima opcion y en el siguiente colocar 0. 
                                         </div>
 
-                                        <input type="number" class="form-control valid" id="ventana" min="0"  max="4" required v-model="visita.dias">
+                                        <input type="number" class="form-control valid" id="ventana" min="0" required v-model="visita.dias">
                                         <div class="invalid-feedback">
                                             Por favor no deje vacio el campo
                                         </div>

@@ -134,7 +134,7 @@
             <!--Tabla-->
             <div class="table-responsive">
                 <table class="table table-primary table-hover table-sm table-bordered">
-                    <caption>Formulario de visitas</caption>
+                    <caption>Lista de pacientes</caption>
                     <!--Encabezado-->
                     <thead>
                         <tr>
