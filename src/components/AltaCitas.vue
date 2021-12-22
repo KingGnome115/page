@@ -1,17 +1,18 @@
 <template lang="">
     <div class="container">
-        <div class="row mt-3">
+        <div class="row">
+        <div class="col-12 col-lg-6">
             <header class="row text-align" >
-                <h2>Lista de Protocolos</h2>
+                <h2>Protocolos</h2>
             </header>
             
-            <form class="row">
-                <div class="control col-12 col-md-8 mt-3 mb-3">
+            <form>
+                <div class="control col-12 mt-3 mb-3">
                     <input v-model="nombreProtocolo" type="text" autocomplete="off" v-bind="stateProtocolo" @input="filterStatesProtocolo" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarDataProtocolo">
                 </div>
 
                 <div class="control col-12 col-md-4 mt-3 mb-3">
-                        <button class="btn btn-primary"  v-on:click="buscarDataProtocolo">Buscar</button>
+                    <button class="btn btn-primary"  v-on:click="buscarDataProtocolo">Buscar</button>
                 </div>
 
                 <div>
@@ -22,14 +23,13 @@
             </form>
         </div>
 
-        <div class="row mt-3">
+        <div class="col-12 col-md-6">
             <header class="row text-align" >
-                <h2>Agregar Paciente</h2>
+                <h2>Pacientes</h2>
             </header>
 
-            <form class="row">
-                
-                <div class="col-12 col-md-8 mt-3 mb-3">
+            <form>           
+                <div class="col-12 mt-3 mb-3">
                     <input v-model="nombrePaciente" type="text" autocomplete="off" v-bind="statePaciente" @input="filterStatesPaciente" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarDataPaciente">
                 </div>
 
@@ -44,10 +44,15 @@
                 </div>
             </form>
         </div>
+        </div>
+    </div>
 
+    <hr>
+
+    <div class="container">
         <header class="row text-center" >
-            <h2>Modificacion de Protocolo</h2>
-            <p>Protocolo {{protocolo.nomProtocolo}} </p>
+            <h2> Protocolo</h2>
+            <p>Descripcion del protocolo {{protocolo.nomProtocolo}} </p>
         </header>
 
         <form class="row" action="Protocolo.html" method="get" id="contenedor">
@@ -161,7 +166,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex gap-2 justify-content-end">
+            <div class="d-flex gap-2 justify-content-end mb-3">
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
         </form>
@@ -172,10 +177,12 @@
     import { defineComponent } from "vue";
     import { Citas } from "../interfaces/Citas";
     import { Paciente } from "../interfaces/Paciente";
-    import { Protocolo } from "../interfaces/Protocolos";
+    import { Protocolo } from '../interfaces/Protocolos';
     import { consultarPacientesNa, modificarPaciente } from '../services/PacienteServices';
     import { consultarProtocolos } from '../services/ProtocoloServices'
     import { agregarCitas } from '../services/CitasServices'
+import router from '../router/index';
+import { RouteRecordRaw } from 'vue-router';
 
    export default defineComponent({
        data(){
