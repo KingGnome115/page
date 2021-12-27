@@ -297,7 +297,7 @@
                             this.cit.idPaciente = idPaciente
                             this.cit.idProtocolo = idProtocolo
                             this.cit.visitaZero = visitaZero
-                            const res = await agregarCitas(this.cit)
+                            await agregarCitas(this.cit)
                             modificarPaciente(idPaciente, this.pacientesCitas[i])
                         }
                         this.$router.push("/")
