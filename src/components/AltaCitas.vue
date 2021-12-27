@@ -252,7 +252,7 @@
             async buscarDataProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro.indexOf(this.nombreProtocolo.toLowerCase()) > -1){
+                    if(nomPro == this.nombreProtocolo.toLowerCase()){
                         this.protocolo = protocolo
                         this.nombreProtocolo = ''
                         this.filterStatesProtocolo()
@@ -262,7 +262,7 @@
             async buscaDataProtocolo(nom : string){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro.indexOf(nom.toLowerCase()) > -1){
+                    if(nomPro.toLowerCase() == nom.toLowerCase()){
                         this.protocolo = protocolo
                         this.nombreProtocolo = ''
                         this.filterStatesProtocolo()

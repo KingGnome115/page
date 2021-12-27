@@ -50,7 +50,7 @@
             async buscarData(){
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro.indexOf(this.nombreProtocolo.toLowerCase()) > -1){
+                    if(nomPro == this.nombreProtocolo.toLowerCase()){
                         this.$router.push(`/protocolos/${protocolo._id}`)
                     }
                 })
@@ -58,7 +58,7 @@
             async buscaData(nom : string){
                 this.protocolos.forEach(protocolo => {
                     let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro.indexOf(nom.toLowerCase()) > -1){
+                    if(nomPro.toLowerCase() == nom.toLowerCase()){
                         this.$router.push(`/protocolos/${protocolo._id}`)
                     }
                 })
