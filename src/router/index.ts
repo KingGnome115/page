@@ -48,7 +48,11 @@ const routes: RouteRecordRaw[] = [
         name: 'citas-new',
         component: () => import('@/components/AltaCitas.vue')
     },
-   
+    {
+        path:'/Tcitas/:id',
+        name: 'tabla-citas',
+        component: () => import ('@/components/TablaCitas.vue')
+    },
 ]
 
 const router = createRouter({

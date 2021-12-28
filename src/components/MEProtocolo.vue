@@ -1,4 +1,3 @@
-import { Protocolo } from '../interfaces/Protocolos';
 <template lang="">
     <div class="container"> 
         <div class="row mt-3">
@@ -18,7 +17,7 @@ import { Protocolo } from '../interfaces/Protocolos';
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="numeroProtocolo" class="form-label"> Numero de protocolo: </label>
+                    <label for="numeroProtocolo" class="form-label"> Numero de  protocolo: </label>
                     <input type="text" class="form-control valid" id="numeroProtocolo" placeholder="Ej. 10 " required v-model.number="protocolo.numeroProtocolo"> <!--Si el tipo es texto solo se toma-->
                     <div class="invalid-feedback">
                         Por favor escriba un numero de protocolo
@@ -150,7 +149,6 @@ import { Protocolo } from '../interfaces/Protocolos';
     import {Protocolo} from "../interfaces/Protocolos"
     import { consultarProtocolo, modificarProtocolo, eliminarProtocolo } from '../services/ProtocoloServices';
     import { defineComponent } from 'vue'
-import { Visitas } from '../interfaces/Visitas';
     export default defineComponent({
         data(){
             return{
@@ -237,7 +235,7 @@ import { Visitas } from '../interfaces/Visitas';
                 this.protocolo.numeroVisitas=this.protocolo.visitas.length
             },
             eliminarDato(index: number){
-                let remove = this.protocolo.visitas.splice(index,1)
+                this.protocolo.visitas.splice(index,1)
                 this.protocolo.numeroVisitas=this.protocolo.visitas.length    
             },
             generarNegativos(){ //metodo para generar los negativos antes de la visita cero
