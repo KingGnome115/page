@@ -146,7 +146,7 @@
 </template>
 
 <script lang="ts">
-    import {Protocolo} from "../interfaces/Protocolos"
+    import { Protocolo } from "../interfaces/Protocolos"
     import { consultarProtocolo, modificarProtocolo, eliminarProtocolo } from '../services/ProtocoloServices';
     import { defineComponent } from 'vue'
     export default defineComponent({
@@ -277,7 +277,7 @@
                         if(this.protocolo.visitas[i].tipoDePeriodo === "Mes"){
                             let totalD = 0
                             for (let j = 0; j < this.protocolo.visitas[i].tamanioPeriodo; j++) {
-                                totalD = totalD + meses[j]
+                                totalD = totalD + meses[j%11]
                             }
                             arrTamanio.push(totalD)
                         }else{
