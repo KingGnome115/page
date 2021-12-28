@@ -38,11 +38,11 @@
 </template>
 
 <script lang="ts">
-    import {defineComponent} from 'vue'
+    import { defineComponent } from 'vue'
     import { Citas } from '../interfaces/Citas'
-    import { Paciente} from '../interfaces/Paciente'
-    import {obtenerCitasProtocolo} from '../services/CitasServices'
-    import {Protocolo} from "../interfaces/Protocolos"
+    import { Paciente } from '../interfaces/Paciente'
+    import { obtenerCitasProtocolo } from '../services/CitasServices'
+    import { Protocolo } from "../interfaces/Protocolos"
     import { consultarProtocolo } from '../services/ProtocoloServices'
     import { consultarPaciente } from '../services/PacienteServices'
     export default defineComponent({
@@ -63,7 +63,6 @@
                         this.pacientes.push(pa.data)
                     }
                 }
-
                 const ress = await consultarProtocolo(id)
                 this.protocolo = ress.data
             },
@@ -94,7 +93,6 @@
     background: #61dc93; 
     }
 
-    /*Centrar un div al 60%*/
     .container {
         margin: 0 auto;
         max-width: 95%;
