@@ -1,11 +1,29 @@
 <template lang="">
     <div class="container">
-        <table class="table table-primary table-hover table-sm table-bordered">
+        <table class="table table-primary table-hover table-sm table-bordered" id="excel">
             <!--Encabezados-->
             <thead>
                 <tr>
                     <td>Pacientes:</td>
-                    <td v-for="(visita, index) in protocolo.visitas" :key="index"> <h4>{{visita.nomeclatura}}</h4> <h5>{{visita.tamanioPeriodo}}</h5> <h6>{{visita.tipoDePeriodo}}</h6> </td>
+                    <td v-for="(visita, index) in protocolo.visitas" :key="index">
+                        <table>
+                            <tr>
+                                <td>
+                                    {{visita.nomeclatura}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{visita.tipoDePeriodo}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    {{visita.tamanioPeriodo}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
             </thead>
             <!--Cuerpo-->
@@ -64,7 +82,7 @@
     }
 
     body {
-        background: #F8F8FF;
+        background: #A8F8FF;
         padding: 10px;
     }
 
@@ -73,12 +91,18 @@
     }
 
     tr {
-    background: #59ffb1; 
+    background: #61dc93; 
     }
 
     /*Centrar un div al 60%*/
     .container {
         margin: 0 auto;
         max-width: 95%;
+    }
+
+    .table {
+        overflow:scroll;
+        height:200px;
+        width:500px;
     }
 </style>

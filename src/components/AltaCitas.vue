@@ -176,9 +176,9 @@
     import { consultarProtocolos } from '../services/ProtocoloServices'
     import { agregarCitas } from '../services/CitasServices'
 
-   export default defineComponent({
-       data(){
-           return{
+    export default defineComponent({
+        data(){
+            return{
                 fechasZero: [] as string[],
                 protocolo:{} as Protocolo,
                 pacientesCitas: [] as Paciente[],
@@ -197,7 +197,7 @@
                 stateProtocolo: '',
                 statesProtocolos: [] as string[],
                 filteredStatesProtocolo: [] as string[],
-           }
+            }
         },
         methods:{
             async cargarPacientes(){ //Carga los pacientes y los protocolos en el arreglo de pacientes y protocolos
@@ -309,13 +309,13 @@
         mounted(){
             this.cargarPacientes()
         }
-   })
+    })
 
 
 </script>
 
 <style scoped>
-   header {
+    header {
         background: var(--fondo-contenido);
     }
 
