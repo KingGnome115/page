@@ -53,7 +53,6 @@
 </template>
 
 <script lang="ts">
-//import {defineComponent} from '../vue'
 import {defineComponent} from 'vue'
 import {Protocolo} from '../interfaces/Protocolos'
 import { agregarProtocolo , consultarProtocoloNom} from '../services/ProtocoloServices'

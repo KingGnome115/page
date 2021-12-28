@@ -273,7 +273,7 @@
                 if (this.nombreProtocolo.length===0) {
                     this.filteredStatesProtocolo = []
                 } else {
-                   this.filteredStatesProtocolo = this.statesProtocolos.filter(state => {
+                    this.filteredStatesProtocolo = this.statesProtocolos.filter(state => {
                     return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
                     }) 
                 }
@@ -300,7 +300,7 @@
                             await agregarCitas(this.cit)
                             modificarPaciente(idPaciente, this.pacientesCitas[i])
                         }
-                        this.$router.push("/")
+                        this.$router.push(`/Tcitas/${this.protocolo._id}`)
                     }
                 }
                 
