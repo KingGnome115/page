@@ -184,9 +184,9 @@
 import router from '../router/index';
 import { RouteRecordRaw } from 'vue-router';
 
-   export default defineComponent({
-       data(){
-           return{
+    export default defineComponent({
+        data(){
+            return{
                 fechasZero: [] as string[],
                 protocolo:{} as Protocolo,
                 pacientesCitas: [] as Paciente[],
@@ -205,7 +205,7 @@ import { RouteRecordRaw } from 'vue-router';
                 stateProtocolo: '',
                 statesProtocolos: [] as string[],
                 filteredStatesProtocolo: [] as string[],
-           }
+            }
         },
         methods:{
             async cargarPacientes(){ //Carga los pacientes y los protocolos en el arreglo de pacientes y protocolos
@@ -317,13 +317,13 @@ import { RouteRecordRaw } from 'vue-router';
         mounted(){
             this.cargarPacientes()
         }
-   })
+    })
 
 
 </script>
 
 <style scoped>
-   header {
+    header {
         background: var(--fondo-contenido);
     }
 
