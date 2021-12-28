@@ -181,8 +181,6 @@
     import { consultarPacientesNa, modificarPaciente } from '../services/PacienteServices';
     import { consultarProtocolos } from '../services/ProtocoloServices'
     import { agregarCitas } from '../services/CitasServices'
-import router from '../router/index';
-import { RouteRecordRaw } from 'vue-router';
 
     export default defineComponent({
         data(){

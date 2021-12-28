@@ -43,13 +43,17 @@
             </div>
         </div>
     </div>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    
 </template>
 
-<!--Necesito poner estos dos pero no se como :( o no se si ya no se necesiten es para los iconos xd 
-
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
-        <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
--->
+<script lang="ts">
+    import { defineComponent } from 'vue';
+    export default defineComponent({
+        //Aqui va el codigo
+    });
+</script>
 
 <style scoped>
     body {

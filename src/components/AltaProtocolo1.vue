@@ -53,45 +53,45 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
-import {Protocolo} from '../interfaces/Protocolos'
-import { agregarProtocolo , consultarProtocoloNom} from '../services/ProtocoloServices'
-import {Visitas} from '../interfaces/Visitas'
+    import {defineComponent} from 'vue'
+    import {Protocolo} from '../interfaces/Protocolos'
+    import { agregarProtocolo , consultarProtocoloNom} from '../services/ProtocoloServices'
+    import {Visitas} from '../interfaces/Visitas'
 
-export default defineComponent({
-    data() {
-        return{
-            protocolo:{} as Protocolo,
-            arrVisitas:[] as Visitas[]
-        }
-    },
-    methods:{
-        async guardarProtocolo(){
-            let encontrado
-            try {
-                encontrado = (await consultarProtocoloNom(this.protocolo.nomProtocolo)).data
-                this.$router.push(`/protocolos/${encontrado._id}`)
-            } catch (error) {
-                for (let index = 0; index < this.protocolo.numeroVisitas; index++) {
-                    this.arrVisitas.push({
-                        nomeclatura: "",
-                        tipoDePeriodo: "Dia",
-                        tamanioPeriodo: 1,
-                        visitaCero: false,
-                        ventana: "Ninguna",
-                        dias: 0,
-                        eotEstudio: false,
-                        eotTratamiento: false,
-                    });
+    export default defineComponent({
+        data() {
+            return{
+                protocolo:{} as Protocolo,
+                arrVisitas:[] as Visitas[]
+            }
+        },
+        methods:{
+            async guardarProtocolo(){
+                let encontrado
+                try {
+                    encontrado = (await consultarProtocoloNom(this.protocolo.nomProtocolo)).data
+                    this.$router.push(`/protocolos/${encontrado._id}`)
+                } catch (error) {
+                    for (let index = 0; index < this.protocolo.numeroVisitas; index++) {
+                        this.arrVisitas.push({
+                            nomeclatura: "",
+                            tipoDePeriodo: "Dia",
+                            tamanioPeriodo: 1,
+                            visitaCero: false,
+                            ventana: "Ninguna",
+                            dias: 0,
+                            eotEstudio: false,
+                            eotTratamiento: false,
+                        });
+                    }
+                    this.protocolo.visitas = this.arrVisitas;
+                    const res = await agregarProtocolo(this.protocolo)
+                    const arr = res.data;
+                    this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
                 }
-                this.protocolo.visitas = this.arrVisitas;
-                const res = await agregarProtocolo(this.protocolo)
-                const arr = res.data;
-                this.$router.push(`/protocolo/agregar-visita/${arr._id}`)
             }
         }
-    }
-})
+    })
 </script>
 
 <style scoped>

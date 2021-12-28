@@ -110,155 +110,155 @@
 </template>
 
 <script lang="ts">
-import { Visitas } from '../interfaces/Visitas'
-import {defineComponent} from 'vue'
-import {Protocolo} from '../interfaces/Protocolos'
-import {consultarProtocolo, modificarProtocolo } from '../services/ProtocoloServices'
+    import { Visitas } from '../interfaces/Visitas'
+    import {defineComponent} from 'vue'
+    import {Protocolo} from '../interfaces/Protocolos'
+    import {consultarProtocolo, modificarProtocolo } from '../services/ProtocoloServices'
 
-export default defineComponent({
-    data() {
-        return{
-            protocolo:{} as Protocolo,
-            arrVisitas:[] as Visitas[],
-            indexVisitaCero:-1,
-        }
-    },
-    methods:{
-        async cargarProtocolo(id: string){ //metodo para traer el protocolo de la base de datos
-            const res = await consultarProtocolo(id)
-            this.protocolo = res.data
-            this.arrVisitas = this.protocolo.visitas
-        },
-        async guardarVisita(){ //metodo para guardar la visita en la base de datos
-            if (this.tamPerMenMay()) {
-                this.protocolo.visitas = this.arrVisitas
-                let id = this.$route.params.id.toString()
-                modificarProtocolo(id , this.protocolo)
-                this.$router.push('/protocolo/agregar')
-            } else {
-                alert('los tamaños de periodos deben ir de menor a mayor')
+    export default defineComponent({
+        data() {
+            return{
+                protocolo:{} as Protocolo,
+                arrVisitas:[] as Visitas[],
+                indexVisitaCero:-1,
             }
         },
-        verificarVisitaCero(index: number){ //metodo para verificar si la visita cero esta activa
-            for (let i = 0; i < this.arrVisitas.length; i++) {
-                if(i !== index){
-                    this.arrVisitas[i].visitaCero = false
-                }else{
-                    if(this.arrVisitas[i].eotEstudio){
-                        this.arrVisitas[i].eotEstudio = false
-                    }
-                    if(this.arrVisitas[i].eotTratamiento){
-                        this.arrVisitas[i].eotTratamiento = false
-                    }
-                }
-            }
-            this.indexVisitaCero = index
-            this.generarNegativos()
-        },
-        verificarVisitaEos(index: number){ //metodo para verificar si la visita eos esta activa
-            for (let i = 0; i < this.arrVisitas.length; i++) {
-                if(i !== index){
-                    this.arrVisitas[i].eotEstudio = false
-                }else{
-                    if (this.arrVisitas[i].visitaCero == true) { //si la visita cero esta activa entonces la eos no puede estar activa
-                        this.arrVisitas[i].visitaCero = false
-                    }
-                }
-            }
-        },
-        verificarVisitaEot(index: number){ //metodo para verificar si la visita eot esta activa
-            for (let i = 0; i < this.arrVisitas.length; i++) {
-                if(i !== index){
-                    this.arrVisitas[i].eotTratamiento = false
-                }else{
-                    if (this.arrVisitas[i].visitaCero == true) { //si la visita cero esta activa entonces la eot no puede estar activa
-                        this.arrVisitas[i].visitaCero = false
-                    }
-                }
-            }
-        },
-        agregarDato(index: number){//metodo para agregar una visita
-            this.arrVisitas.splice(index+1, 0, {
-                    nomeclatura: "",
-                    tipoDePeriodo: "Dia",
-                    tamanioPeriodo: 1,
-                    visitaCero: false,
-                    ventana: "Ninguna",
-                    dias: 0,
-                    eotEstudio: false,
-                    eotTratamiento: false,
-                    });
-        },
-        eliminarDato(index: number){ //metodo para eliminar una visita
-            this.arrVisitas.splice(index,1);           
-        },
-        generarNegativos(){ //metodo para generar los negativos antes de la visita cero
-            for (let i = 0; i < this.arrVisitas.length; i++) {
-                if (i < this.indexVisitaCero) {
-                    if (this.arrVisitas[i].tamanioPeriodo > 0) {
-                        this.arrVisitas[i].tamanioPeriodo = this.arrVisitas[i].tamanioPeriodo * -1
-                    }
+        methods:{
+            async cargarProtocolo(id: string){ //metodo para traer el protocolo de la base de datos
+                const res = await consultarProtocolo(id)
+                this.protocolo = res.data
+                this.arrVisitas = this.protocolo.visitas
+            },
+            async guardarVisita(){ //metodo para guardar la visita en la base de datos
+                if (this.tamPerMenMay()) {
+                    this.protocolo.visitas = this.arrVisitas
+                    let id = this.$route.params.id.toString()
+                    modificarProtocolo(id , this.protocolo)
+                    this.$router.push('/protocolo/agregar')
                 } else {
-                    if ((i > this.indexVisitaCero) && (this.arrVisitas[i].tamanioPeriodo < 0)) {
-                        this.arrVisitas[i].tamanioPeriodo = this.arrVisitas[i].tamanioPeriodo * -1
+                    alert('los tamaños de periodos deben ir de menor a mayor')
+                }
+            },
+            verificarVisitaCero(index: number){ //metodo para verificar si la visita cero esta activa
+                for (let i = 0; i < this.arrVisitas.length; i++) {
+                    if(i !== index){
+                        this.arrVisitas[i].visitaCero = false
                     }else{
-                        if(i == this.indexVisitaCero){
-                            this.arrVisitas[i].tamanioPeriodo = 0;
+                        if(this.arrVisitas[i].eotEstudio){
+                            this.arrVisitas[i].eotEstudio = false
+                        }
+                        if(this.arrVisitas[i].eotTratamiento){
+                            this.arrVisitas[i].eotTratamiento = false
                         }
                     }
                 }
-            }
-        },
-        generarArregloTamanio(){ // metodo para generar el arreglo de tamaños de periodos de las visitas dependiendo del tipo de periodo
-            let meses: number[] = []
-            meses.push(31) //enero
-            meses.push(28) //febrero
-            meses.push(31) //marzo
-            meses.push(30) //abril
-            meses.push(31) //mayo
-            meses.push(30) //junio
-            meses.push(31) //julio
-            meses.push(31) //agosto
-            meses.push(30) //septiembre
-            meses.push(31) //octubre
-            meses.push(30) //noviembre
-            meses.push(31) //diciembre
-            let arrTamanio: number[] = []
-            for (let i = 0; i < this.arrVisitas.length; i++) {
-                if(this.arrVisitas[i].tipoDePeriodo === "Semana"){
-                    arrTamanio.push(this.arrVisitas[i].tamanioPeriodo * 7)
-                }else{
-                    if(this.arrVisitas[i].tipoDePeriodo === "Mes"){
-                        let totalD = 0
-                        for (let j = 0; j < this.arrVisitas[i].tamanioPeriodo; j++) {
-                            totalD = totalD + meses[j%11]
-                        }
-                        arrTamanio.push(totalD)
+                this.indexVisitaCero = index
+                this.generarNegativos()
+            },
+            verificarVisitaEos(index: number){ //metodo para verificar si la visita eos esta activa
+                for (let i = 0; i < this.arrVisitas.length; i++) {
+                    if(i !== index){
+                        this.arrVisitas[i].eotEstudio = false
                     }else{
-                        arrTamanio.push(this.arrVisitas[i].tamanioPeriodo)
+                        if (this.arrVisitas[i].visitaCero == true) { //si la visita cero esta activa entonces la eos no puede estar activa
+                            this.arrVisitas[i].visitaCero = false
+                        }
                     }
                 }
+            },
+            verificarVisitaEot(index: number){ //metodo para verificar si la visita eot esta activa
+                for (let i = 0; i < this.arrVisitas.length; i++) {
+                    if(i !== index){
+                        this.arrVisitas[i].eotTratamiento = false
+                    }else{
+                        if (this.arrVisitas[i].visitaCero == true) { //si la visita cero esta activa entonces la eot no puede estar activa
+                            this.arrVisitas[i].visitaCero = false
+                        }
+                    }
+                }
+            },
+            agregarDato(index: number){//metodo para agregar una visita
+                this.arrVisitas.splice(index+1, 0, {
+                        nomeclatura: "",
+                        tipoDePeriodo: "Dia",
+                        tamanioPeriodo: 1,
+                        visitaCero: false,
+                        ventana: "Ninguna",
+                        dias: 0,
+                        eotEstudio: false,
+                        eotTratamiento: false,
+                        });
+            },
+            eliminarDato(index: number){ //metodo para eliminar una visita
+                this.arrVisitas.splice(index,1);           
+            },
+            generarNegativos(){ //metodo para generar los negativos antes de la visita cero
+                for (let i = 0; i < this.arrVisitas.length; i++) {
+                    if (i < this.indexVisitaCero) {
+                        if (this.arrVisitas[i].tamanioPeriodo > 0) {
+                            this.arrVisitas[i].tamanioPeriodo = this.arrVisitas[i].tamanioPeriodo * -1
+                        }
+                    } else {
+                        if ((i > this.indexVisitaCero) && (this.arrVisitas[i].tamanioPeriodo < 0)) {
+                            this.arrVisitas[i].tamanioPeriodo = this.arrVisitas[i].tamanioPeriodo * -1
+                        }else{
+                            if(i == this.indexVisitaCero){
+                                this.arrVisitas[i].tamanioPeriodo = 0;
+                            }
+                        }
+                    }
+                }
+            },
+            generarArregloTamanio(){ // metodo para generar el arreglo de tamaños de periodos de las visitas dependiendo del tipo de periodo
+                let meses: number[] = []
+                meses.push(31) //enero
+                meses.push(28) //febrero
+                meses.push(31) //marzo
+                meses.push(30) //abril
+                meses.push(31) //mayo
+                meses.push(30) //junio
+                meses.push(31) //julio
+                meses.push(31) //agosto
+                meses.push(30) //septiembre
+                meses.push(31) //octubre
+                meses.push(30) //noviembre
+                meses.push(31) //diciembre
+                let arrTamanio: number[] = []
+                for (let i = 0; i < this.arrVisitas.length; i++) {
+                    if(this.arrVisitas[i].tipoDePeriodo === "Semana"){
+                        arrTamanio.push(this.arrVisitas[i].tamanioPeriodo * 7)
+                    }else{
+                        if(this.arrVisitas[i].tipoDePeriodo === "Mes"){
+                            let totalD = 0
+                            for (let j = 0; j < this.arrVisitas[i].tamanioPeriodo; j++) {
+                                totalD = totalD + meses[j%11]
+                            }
+                            arrTamanio.push(totalD)
+                        }else{
+                            arrTamanio.push(this.arrVisitas[i].tamanioPeriodo)
+                        }
+                    }
+                }
+                return arrTamanio
+            },
+            tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
+                let arreglo = this.generarArregloTamanio()
+                for (let i = 0; i < arreglo.length; i++) {
+                    if((i+1 < arreglo.length)){
+                        if(!(arreglo[i] < arreglo[i+1])){
+                            return false
+                        }
+                    }
+                }
+                return true
             }
-            return arrTamanio
         },
-        tamPerMenMay(){ //metodo para verificar si el tamaño del periodo es mayor que el tamaño del periodo anterior
-            let arreglo = this.generarArregloTamanio()
-            for (let i = 0; i < arreglo.length; i++) {
-                if((i+1 < arreglo.length)){
-                    if(!(arreglo[i] < arreglo[i+1])){
-                        return false
-                    }
-                }
+        mounted(){
+            if(typeof this.$route.params.id === 'string'){
+                this.cargarProtocolo(this.$route.params.id)
             }
-            return true
-        }
-    },
-    mounted(){
-        if(typeof this.$route.params.id === 'string'){
-            this.cargarProtocolo(this.$route.params.id)
-        }
-    },
-})
+        },
+    })
 </script>
 
 <style scoped>
