@@ -277,7 +277,7 @@
                         if(this.protocolo.visitas[i].tipoDePeriodo === "Mes"){
                             let totalD = 0
                             for (let j = 0; j < this.protocolo.visitas[i].tamanioPeriodo; j++) {
-                                totalD = totalD + meses[j%11]
+                                totalD = totalD + meses[j%12]
                             }
                             arrTamanio.push(totalD)
                         }else{

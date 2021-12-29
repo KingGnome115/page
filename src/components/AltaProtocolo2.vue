@@ -231,7 +231,7 @@
                         if(this.arrVisitas[i].tipoDePeriodo === "Mes"){
                             let totalD = 0
                             for (let j = 0; j < this.arrVisitas[i].tamanioPeriodo; j++) {
-                                totalD = totalD + meses[j%11]
+                                totalD = totalD + meses[j%12]
                             }
                             arrTamanio.push(totalD)
                         }else{
