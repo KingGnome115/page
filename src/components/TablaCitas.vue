@@ -29,11 +29,20 @@
             <!--Cuerpo-->
             <tbody>
                 <tr v-for="(cita, index) in citas" :key="index">
-                    <td> {{pacientes[index].nomPila}}  {{pacientes[index].primApellido}}  {{pacientes[index].segApellido}} </td>
-                    <td v-for="(visita, index) in cita.visitas" :key="index"> {{visita.citaFecha}} </td>
+                    <td> {{pacientes[index].nomPila}}  {{pacientes[index].primApellido}}  {{pacientes[index].segApellido}}
+                    <input type="checkbox" v-on:click="AgregarEliminar(index)">
+                    </td>
+                    <td v-for="(visita, index) in cita.visitas" :key="index">
+                        <input type="date" min="1920-01-01" max="2023-12-31" class="form-control valid" id="fechaR" required v-model="visita.citaFecha">
+                        <input type="checkbox" v-model="visita.realizada">
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <div class="d-flex gap-2 justify-content-end mb-3 ">
+            <button type="submit" class="btn btn-primary" >Modificar</button>
+            <button type="submit" class="btn btn-primary" v-on:click="eliminarCitas()">Eliminar</button>
+        </div>
     </div>
 </template>
 
@@ -41,7 +50,7 @@
     import { defineComponent } from 'vue'
     import { Citas } from '../interfaces/Citas'
     import { Paciente } from '../interfaces/Paciente'
-    import { obtenerCitasProtocolo } from '../services/CitasServices'
+    import { obtenerCitasProtocolo, eliminarCitas } from '../services/CitasServices'
     import { Protocolo } from "../interfaces/Protocolos"
     import { consultarProtocolo } from '../services/ProtocoloServices'
     import { consultarPaciente } from '../services/PacienteServices'
@@ -51,6 +60,7 @@
                 citas:[] as Citas[],
                 pacientes: [] as Paciente[],
                 protocolo: {} as Protocolo,
+                citasE: [] as Citas[],
             }
         },
         methods: {
@@ -66,7 +76,19 @@
                 const ress = await consultarProtocolo(id)
                 this.protocolo = ress.data
             },
-        },
+            AgregarEliminar(index: number){
+                if(this.citasE.includes(this.citas[index])){
+                    this.citasE.splice(this.citasE.indexOf(this.citas[index]), 1)
+                }else{
+                    this.citasE.push(this.citas[index])
+                }
+            },
+            eliminarCitas(){
+                for (let i = 0; i < this.citasE.length; i++) {
+                    eliminarCitas(this.citasE[i]._id)
+                }
+            }
+    },
         mounted(){
         if(typeof this.$route.params.id === 'string'){
             this.cargarDatos(this.$route.params.id)
