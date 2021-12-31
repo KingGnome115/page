@@ -29,7 +29,8 @@ import { render } from "vue";
         dias += '<div class="next-date">${j}</div>';
         diasMes.innerHTML = dias;
     }
-};
+    /*
+};// Me parece que esto es otra funcion
     document.querySelector(".prev")?.addEventListener("click, () => {
         date.setMonth(date.getMonth()-1");
         renderCalendar();
@@ -38,7 +39,7 @@ import { render } from "vue";
         date.setMonth(date.getMonth()+1");
         renderCalendar();
     });
-    renderCalendar();
+    renderCalendar(); //
 
 
-
+*/
