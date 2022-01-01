@@ -7,3 +7,5 @@ export const agregarCitas = async(citas: Citas): Promise<AxiosResponse<Citas>> =
 export const obtenerCitasProtocolo = async(id: string): Promise<AxiosResponse<Citas[]>> => await axios.get(`/citas_protocolo/${id}`)
 
 export const eliminarCitas = async(id: string): Promise<AxiosResponse<Citas>> => await axios.delete(`/citas/${id}`)
+
+export const modificarCitas = async(id: string, citas: Citas): Promise<AxiosResponse<Citas>> => await axios.put(`/citas/${id}`,citas)
