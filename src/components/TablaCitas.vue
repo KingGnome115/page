@@ -29,10 +29,9 @@
             <!--Cuerpo-->
             <tbody>
                 <tr v-for="(cita, index) in citas" :key="index">
-                    <!--<td> {{pacientes[index].nomPila}}  {{pacientes[index].primApellido}}  {{pacientes[index].segApellido}}
+                    <td> {{pacientes[index].nomPila}}  {{pacientes[index].primApellido}}  {{pacientes[index].segApellido}}
                     <input type="checkbox" v-on:click="AgregarEliminar(index)">
-                    </td>-->
-                    <td></td>
+                    </td>
                     <td v-for="(visita, index) in cita.visitas" :key="index">
                         <input type="date" min="1920-01-01" max="2023-12-31" class="form-control valid" id="fechaR" required v-model="visita.citaFecha">
                         <input type="checkbox" v-model="visita.realizada">
@@ -51,7 +50,7 @@
     import { defineComponent } from 'vue'
     import { Citas } from '../interfaces/Citas';
     import { Paciente } from '../interfaces/Paciente'
-    import { obtenerCitasProtocolo, eliminarCitas } from '../services/CitasServices'
+    import { obtenerCitasProtocolo, eliminarCitas, modificarCitas } from '../services/CitasServices'
     import { Protocolo } from '../interfaces/Protocolos'
     import { consultarProtocolo } from '../services/ProtocoloServices'
     import { consultarPaciente } from '../services/PacienteServices'
@@ -94,19 +93,24 @@
             },
             modificarCitas(){
                 for (let i = 0; i < this.pacientes.length; i++) {
+                    let bool = true; // Por el momento solo me interesa guardar los cambios validados
                     for (let j = 0; j < this.citas[i].visitas.length; j++) {
                         console.log('visita: '+j+'\n')
                         let res = this.validarVentana(j,i);
                         if(!res){
                             alert('La fecha de la cita '+ (j+1) + ' del paciente ' +' '+this.pacientes[i].nomPila+ ' no es valida')
+                            bool = false; //En caso de que una fecha salga de la ventana se da de alta un reporte y despues se guarda el cambio (aun no se implementa)
                         }
                     }
-                    alert('Se modificaron las citas del paciente '+this.pacientes[i].nomPila)
+                    if(bool){
+                        modificarCitas(this.citas[i]._id, this.citas[i])
+                        alert('Se modificaron las citas del paciente '+this.pacientes[i].nomPila)
+                    }
+                    
                 }
             },
             validarVentana(index: number, i: number){ //index es la cita y i es el paciente
                 if(this.protocolo.visitas[index].ventana === 'Ninguno'){
-                    console.log('Ninguno')
                     let fechaN = this.citas[i].visitas[index].citaFecha
                     let fechaO = this.citas2[i].visitas[index].citaFecha
                     if(fechaN === fechaO){
@@ -119,7 +123,6 @@
                     let fechaA: Date = new Date(this.citas2[i].visitas[index].citaFecha)
                     let fechaN: Date = new Date(this.citas[i].visitas[index].citaFecha)
                     if(this.protocolo.visitas[index].ventana === '+'){
-                        console.log('+')
                         let fechaL = new Date(fechaA.getTime() + dia*(this.protocolo.visitas[index].dias))
                         if(fechaN >= fechaA && fechaN <= fechaL){
                             return true
@@ -128,7 +131,6 @@
                         }
                     }else{
                         if(this.protocolo.visitas[index].ventana === '-'){
-                            console.log('-')
                             let fechaL = new Date(fechaA.getTime() - dia*(this.protocolo.visitas[index].dias))
                             if(fechaN <= fechaA && fechaN >= fechaL){
                                 return true
@@ -136,7 +138,6 @@
                                 return false
                             }
                         }else{
-                            console.log('+/-')
                             if(this.protocolo.visitas[index].ventana === '+/-'){
                                 let fechaL = new Date(fechaA.getTime() + dia*(this.protocolo.visitas[index].dias))
                                 let fechaL2 = new Date(fechaA.getTime() - dia*(this.protocolo.visitas[index].dias))
