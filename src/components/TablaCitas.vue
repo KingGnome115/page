@@ -105,6 +105,9 @@
                     if(bool){
                         modificarCitas(this.citas[i]._id, this.citas[i])
                         alert('Se modificaron las citas del paciente '+this.pacientes[i].nomPila)
+                    }else{
+                        //Alta del reporte
+                        //Actualizar las citas de ese paciente
                     }
                     
                 }
