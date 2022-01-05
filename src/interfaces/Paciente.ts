@@ -4,7 +4,6 @@ export interface Paciente{
     segApellido: string;
     curp: string;
     iniciales: string;
-    noIdent: string;
     fechaNac: string;
     estadoCivil: string;
     genero: string;
