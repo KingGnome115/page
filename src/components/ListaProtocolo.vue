@@ -7,11 +7,11 @@
             
             <form class="row">
                 <div class="control col-12 col-md-8 mt-3 mb-3">
-                    <input v-model="nombreProtocolo" type="text" autocomplete="off" v-bind="state" @input="filterStates" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarData">
+                    <input v-model="nombreProtocolo" v-on:keypress="recon" type="text" autocomplete="off" v-bind="state" @input="filterStates" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo">
                 </div>
 
                 <div class="control col-12 col-md-4 mt-3 mb-3">
-                        <button class="btn btn-primary"  v-on:click="buscarData">Buscar</button>
+                        <button class="btn btn-primary">Buscar</button>
                 </div>
 
                 <div>
@@ -26,42 +26,45 @@
 
 <script lang="ts">
     import {defineComponent} from 'vue'
-    import { consultarProtocolos } from '../services/ProtocoloServices'
+    import { consultarProtocolosRex } from '../services/ProtocoloServices';
+    import { consultarProtocoloNom } from '../services/ProtocoloServices';
     import { Protocolo } from '../interfaces/Protocolos';
 
     export default defineComponent({
         data(){
             return{
-                protocolos: [] as Protocolo[],
+                protocolos: [] as string[],
                 nombreProtocolo: '',
                 state:'',
                 states: [] as string[],
                 filteredStates: [] as string[],
+                protocoloEnc : {} as Protocolo
             }
         },
         methods:{
             async cargarProtocolos(){
-                const res = await consultarProtocolos()
-                this.protocolos = res.data
+                const res = await consultarProtocolosRex('a')
+                if (typeof res.data !== 'undefined'){
+                    this.protocolos = res.data as string[]
+                }
+
                 this.protocolos.forEach(element => {
-                    this.states.push(element.nomProtocolo)
+                    this.states.push(element)
                 });
             },
-            async buscarData(){
-                this.protocolos.forEach(protocolo => {
-                    let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro == this.nombreProtocolo.toLowerCase()){
-                        this.$router.push(`/protocolos/${protocolo._id}`)
-                    }
-                })
-            },
             async buscaData(nom : string){
+                let protocoloB = '';
                 this.protocolos.forEach(protocolo => {
-                    let nomPro = protocolo.nomProtocolo.toLowerCase()
+                    let nomPro = protocolo.toLowerCase()
                     if(nomPro.toLowerCase() == nom.toLowerCase()){
-                        this.$router.push(`/protocolos/${protocolo._id}`)
+                        protocoloB = protocolo;
                     }
                 })
+                if(protocoloB !== ''){
+                    let protocoloE = await consultarProtocoloNom(protocoloB)
+                    this.protocoloEnc = protocoloE.data as Protocolo
+                    this.$router.push(`/protocolos/${this.protocoloEnc._id}`)
+                }
             },
             filterStates(){
                 if(this.nombreProtocolo.length == 0){
@@ -70,6 +73,20 @@
                     this.filteredStates = this.states.filter(state => {
                     return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
                     })
+                }
+            },
+            async recon(){
+                if(this.nombreProtocolo.length != 0){
+                    const res = await consultarProtocolosRex(this.nombreProtocolo)
+                    if (typeof res.data !== 'undefined'){
+                        this.protocolos = res.data as string[]
+                    }
+
+                    this.protocolos.forEach(element => {
+                        if(!this.states.includes(element)){
+                            this.states.push(element)
+                        }
+                    });
                 }
             }
         },

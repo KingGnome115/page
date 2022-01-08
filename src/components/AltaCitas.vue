@@ -8,7 +8,7 @@
             
             <form>
                 <div class="control col-12 mt-3 mb-3">
-                    <input v-model="nombreProtocolo" type="text" autocomplete="off" v-bind="stateProtocolo" @input="filterStatesProtocolo" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarDataProtocolo">
+                    <input v-model="nombreProtocolo" v-on:keypress="recon" type="text" autocomplete="off" v-bind="stateProtocolo" @input="filterStatesProtocolo" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarDataProtocolo">
                 </div>
 
                 <div class="control col-12 col-md-4 mt-3 mb-3">
@@ -179,7 +179,8 @@
     import { Paciente } from "../interfaces/Paciente";
     import { Protocolo } from '../interfaces/Protocolos';
     import { consultarPacientesNa, modificarPaciente } from '../services/PacienteServices';
-    import { consultarProtocolos } from '../services/ProtocoloServices'
+    import { consultarProtocolosRex } from '../services/ProtocoloServices';
+    import { consultarProtocoloNom } from '../services/ProtocoloServices';
     import { agregarCitas } from '../services/CitasServices'
 
     export default defineComponent({
@@ -191,7 +192,7 @@
                 cit: {} as Citas,
 
                 //Arreglo para las busquedas
-                protocolos: [] as Protocolo[],
+                protocolos: [] as string[],
                 pacientes: [] as Paciente[],
                 //Para la barra de busqueda de pacientes
                 nombrePaciente: '',
@@ -212,25 +213,13 @@
                 this.pacientes.forEach(paciente => {
                     this.statesPacientes.push(paciente.nomPila+"-"+paciente.primApellido+"-"+paciente.segApellido)
                 })
-                const resP = await consultarProtocolos()
-                this.protocolos = resP.data
+                const resP = await consultarProtocolosRex('a')
+                if (typeof resP.data !== 'undefined'){
+                    this.protocolos = resP.data as string[]
+                }
                 this.protocolos.forEach(element => {
-                    this.statesProtocolos.push(element.nomProtocolo)
+                    this.statesProtocolos.push(element)
                 });
-            },
-            async buscarDataPaciente(){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
-                this.pacientes.forEach(paciente => {
-                    let nombreCompleto = paciente.nomPila + ' ' + paciente.primApellido + ' ' + paciente.segApellido
-                    if(nombreCompleto.indexOf(this.nombrePaciente) > -1){
-                        if(!this.pacientesCitas.includes(paciente)){
-                            this.pacientesCitas.push(paciente)
-                            this.fechasZero.push('')
-                            this.nombrePaciente = ''
-                            this.filterStatesPaciente()
-                        }
-                    }
-                })
-                console.log(this.fechasZero)
             },
             async buscaDataPaciente(nom: string){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
                 this.pacientes.forEach(paciente => {
@@ -255,26 +244,36 @@
                     })
                 }
             },
-            async buscarDataProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
-                this.protocolos.forEach(protocolo => {
-                    let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro == this.nombreProtocolo.toLowerCase()){
-                        this.protocolo = protocolo
-                        this.nombreProtocolo = ''
-                        this.filterStatesProtocolo()
-                    }
-                })
-            },
             async buscaDataProtocolo(nom : string){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
+                let protocoloB = '';
                 this.protocolos.forEach(protocolo => {
-                    let nomPro = protocolo.nomProtocolo.toLowerCase()
+                    let nomPro = protocolo.toLowerCase()
                     if(nomPro.toLowerCase() == nom.toLowerCase()){
-                        this.protocolo = protocolo
+                        protocoloB = protocolo
                         this.nombreProtocolo = ''
                         this.filterStatesProtocolo()
                     }
                 })
+                if(protocoloB != ''){
+                    let protocoloE = await consultarProtocoloNom(protocoloB)
+                    this.protocolo = protocoloE.data as Protocolo
+                }
             },
+            async recon(){
+                if(this.nombreProtocolo.length != 0){
+                    const res = await consultarProtocolosRex(this.nombreProtocolo)
+                    if (typeof res.data !== 'undefined'){
+                        this.protocolos = res.data as string[]
+                    }
+
+                    this.protocolos.forEach(element => {
+                        if(!this.statesProtocolos.includes(element)){
+                            this.statesProtocolos.push(element)
+                        }
+                    });
+                }
+            }
+            ,
             filterStatesProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de filteredStatesProtocolo
                 if (this.nombreProtocolo.length===0) {
                     this.filteredStatesProtocolo = []
