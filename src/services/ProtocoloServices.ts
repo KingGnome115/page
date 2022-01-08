@@ -6,6 +6,8 @@ export const consultarProtocolos = async(): Promise<AxiosResponse<Protocolo[]>>=
 
 export const consultarProtocolo = async(id: string): Promise<AxiosResponse<Protocolo>> => await axios.get(`/protocolo/${id}`)
 
+export const consultarProtocolosRex = async(rex: string): Promise<AxiosResponse<string[]>> => await axios.get(`/protocoloss/${rex}`)
+
 export const agregarProtocolo = async(protocolo: Protocolo): Promise<AxiosResponse<Protocolo>> => axios.post('/protocolos',protocolo);
 
 export const modificarProtocolo = async(id: string, protocolo:Protocolo): Promise<AxiosResponse<Protocolo>> => await axios.put(`/protocolos/${id}`,protocolo)
