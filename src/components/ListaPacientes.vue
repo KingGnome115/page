@@ -54,10 +54,12 @@
             async buscaData(nom: string){
                 let pacienteB = '';
                 this.pacientes.forEach(paciente => {
-                    if(paciente.toLowerCase() === nom){
+                    let nomPac = paciente.toLowerCase()
+                    if(nomPac.toLowerCase() == nom.toLowerCase()){
                         pacienteB = paciente
                     }
                 })
+                console.log(pacienteB)
                 if(pacienteB !== ''){
                     let nombre = pacienteB.split('-')
                     const protocoloE = await consultarPacienteNom(nombre[0], nombre[1], nombre[2])

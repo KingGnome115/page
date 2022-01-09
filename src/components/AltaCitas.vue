@@ -230,13 +230,17 @@
             async buscaDataPaciente(nom: string){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
                 let pacienteB = ''
                 this.pacientes.forEach(paciente => {
-                    if(paciente.toLowerCase() === nom){
+                    if(paciente.toLowerCase() == nom.toLowerCase()){
                         pacienteB = paciente
+                        this.nombrePaciente = ''
+                        this.filterStatesPaciente()
                     }
+                    console.log(paciente)
                 })
                 if(pacienteB !== ''){
                     let nombre = pacienteB.split('-')
                     const res = await consultarPacienteNom(nombre[0], nombre[1], nombre[2])
+                    console.log(res)
                     this.pacienteE = res.data as Paciente
                     if(!this.pacientesCitas.includes(this.pacienteE)){
                         this.pacientesCitas.push(this.pacienteE)
