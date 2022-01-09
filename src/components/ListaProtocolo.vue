@@ -71,7 +71,7 @@
                     this.filteredStates = []
                 }else{
                     this.filteredStates = this.states.filter(state => {
-                    return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
+                    return state.toLowerCase().includes(this.nombreProtocolo.toLowerCase())
                     })
                 }
             },
@@ -87,6 +87,7 @@
                             this.states.push(element)
                         }
                     });
+                    this.filterStates()
                 }
             }
         },

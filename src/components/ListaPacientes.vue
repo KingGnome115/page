@@ -8,7 +8,7 @@
             <form class="row">
                 
                 <div class="col-12 col-md-8 mt-3 mb-3">
-                    <input v-model="nombre" type="text" autocomplete="off" v-bind="state" @input="filterStates" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData">
+                    <input v-model="nombre" v-on:keypress="recon" type="text" autocomplete="off" v-bind="state" @input="filterStates" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarData">
                 </div>
 
                 <div class="col-12 col-md-4 mt-3 mb-3">
@@ -26,53 +26,69 @@
 </template>
 
 <script lang="ts">
-    import { consultarPacientes} from '../services/PacienteServices'
+    import { consultarPacienteNom } from '../services/PacienteServices'
+    import { consultarPacientesRex } from '../services/PacienteServices'
     import {defineComponent} from 'vue'
     import { Paciente } from '../interfaces/Paciente';
     export default defineComponent({
         data(){
             return{
-                pacientes: [] as Paciente[],
+                pacientes: [] as string[],
                 nombre: '',
                 state: '',
                 states: [] as string[],
                 filteredStates: [] as string[],
+                pacienteEnc: {} as Paciente
             }
         },
         methods:{
             async cargarPacientes(){
-                const res = await consultarPacientes()
-                this.pacientes = res.data
+                const res = await consultarPacientesRex('a')
+                if(typeof res.data !== 'undefined'){
+                    this.pacientes = res.data as string[]
+                }
                 this.pacientes.forEach(paciente => {
-                    this.states.push(paciente.nomPila+"-"+paciente.primApellido+"-"+paciente.segApellido)
-                })
-            },
-            async buscarData(){
-                this.pacientes.forEach(paciente => {
-                    let nombreCompleto = paciente.nomPila + ' ' + paciente.primApellido + ' ' + paciente.segApellido
-                    if(nombreCompleto.indexOf(this.nombre) > -1){
-                        this.$router.push(`/pacientes/${paciente._id}`)
-                    }
+                    this.states.push(paciente)
                 })
             },
             async buscaData(nom: string){
+                let pacienteB = '';
                 this.pacientes.forEach(paciente => {
-                    let nombr = nom.split("-")
-                    if(nombr[0] === paciente.nomPila && nombr[1] === paciente.primApellido && nombr[2] === paciente.segApellido){
-                        this.$router.push(`/pacientes/${paciente._id}`)
+                    if(paciente.toLowerCase() === nom){
+                        pacienteB = paciente
                     }
                 })
+                if(pacienteB !== ''){
+                    let nombre = pacienteB.split('-')
+                    const protocoloE = await consultarPacienteNom(nombre[0], nombre[1], nombre[2])
+                    this.pacienteEnc = protocoloE.data as Paciente
+                    this.$router.push(`/pacientes/${this.pacienteEnc._id}`)
+                }
             },
             filterStates(){
-                
                 if(this.nombre.length === 0){
                     this.filteredStates = []
                 }else{
                     this.filteredStates = this.states.filter(state => {
-                        return state.toLowerCase().startsWith(this.nombre.toLowerCase())
+                        return state.toLowerCase().includes(this.nombre.toLowerCase())
                     })
                 }
-            }
+            },
+            async recon(){
+                if(this.nombre.length !== 0){
+                    const res = await consultarPacientesRex(this.nombre)
+                    if(typeof res.data !== 'undefined'){
+                        this.pacientes = res.data as string[]
+                    }
+
+                    this.pacientes.forEach(paciente => {
+                        if(!this.states.includes(paciente)){
+                            this.states.push(paciente)
+                        }
+                    })
+                    this.filterStates()
+                }
+            },
         },
         mounted(){
             this.cargarPacientes()
