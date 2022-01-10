@@ -59,7 +59,6 @@
                         pacienteB = paciente
                     }
                 })
-                console.log(pacienteB)
                 if(pacienteB !== ''){
                     let nombre = pacienteB.split('-')
                     const protocoloE = await consultarPacienteNom(nombre[0], nombre[1], nombre[2])

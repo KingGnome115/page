@@ -240,7 +240,6 @@
                 if(pacienteB !== ''){
                     let nombre = pacienteB.split('-')
                     const res = await consultarPacienteNom(nombre[0], nombre[1], nombre[2])
-                    console.log(res)
                     this.pacienteE = res.data as Paciente
                     if(!this.pacientesCitas.includes(this.pacienteE)){
                         this.pacientesCitas.push(this.pacienteE)

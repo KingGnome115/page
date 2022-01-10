@@ -53,6 +53,11 @@ const routes: RouteRecordRaw[] = [
         name: 'tabla-citas',
         component: () => import ('@/components/TablaCitas.vue')
     },
+    {
+        path:'/calendario',
+        name: 'calendario',
+        component: () => import ('@/components/Calendario.vue')
+    }
 ]
 
 const router = createRouter({
