@@ -21,13 +21,22 @@
     </div>
 </div>
 
-<script>
-import { defineComponent } from '@vue/composition-api'
+<script lang="ts">
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-    setup() {
-        
+    data() {
+
+        return{
+            //Varibles
+        }
     },
+    methods:{
+        //metodos para el calendario
+    },
+    mounted(){
+        //Para llamar al metodo this.nimbremetodo 
+    }
 })
 </script>
 
