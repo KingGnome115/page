@@ -30,11 +30,6 @@
                     <label for="curp" class="form-label">CURP</label>
                     <input type="text" class="form-control valid" id="curp" placeholder="Ej. PEMJ060914HHCJULA5" required v-model="paciente.curp">
                 </div>
-
-                <div class="col-12 col-md-3 mb-3">
-                    <label for="numid" class="form-label">No.Identificacion</label>
-                    <input type="number" min="1" class="form-control valid" id="numid" placeholder="Ej. 10" required v-model="paciente.noIdent">
-                </div>
                 
                 <div class="col-12 col-md-3 mb-3">
                     <label for="fechaNac" class="form-label">Fecha Nacimiento</label>

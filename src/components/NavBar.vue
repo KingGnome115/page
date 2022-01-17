@@ -28,6 +28,9 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to="/citas/agregar">Nueva Visita</router-link>
                     </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" to="/calendario">Calendario</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

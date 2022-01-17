@@ -17,14 +17,6 @@
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="numeroProtocolo" class="form-label"> Numero de  protocolo: </label>
-                    <input type="text" class="form-control valid" id="numeroProtocolo" placeholder="Ej. 10 " required v-model.number="protocolo.numeroProtocolo"> <!--Si el tipo es texto solo se toma-->
-                    <div class="invalid-feedback">
-                        Por favor escriba un numero de protocolo
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-4 mb-3">
                     <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
                     <input type="number" class="form-control valid" id="numeroVisitas" size="10" placeholder="Ej. 15 visitas" min="1"  required v-model.number="protocolo.numeroVisitas" disabled> <!--Si el tipo es numero al v-model se le explica esto-->
                     <div class="invalid-feedback">
@@ -76,10 +68,10 @@
 
                                 <td>
                                     <select class="form-select valid" id="tipoPeriodo" aria-describedby="Pregunta que tipo de periodo se usara por esta visita" required v-model="visita.tipoDePeriodo">
-                                        <option selected disabled value="" >Seleccione</option>  <!--El select toma la opcion-->
-                                        <option>Dia</option>
-                                        <option>Semana</option>
-                                        <option>Mes</option>
+                                        <option>Seleccione</option>  <!--El select toma la opcion-->
+                                        <option v-on:click="autoTipoPeriodo(index,1)">Dia</option>
+                                        <option v-on:click="autoTipoPeriodo(index,2)">Semana</option>
+                                        <option v-on:click="autoTipoPeriodo(index,3)">Mes</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Por favor seleccione el tipo de periodo para esta visita
@@ -96,11 +88,10 @@
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
                                         <select class="form-select valid" id="ventana" aria-describedby="Pregunta tendra ventana en esta cita" required v-model="visita.ventana">
-                                            <option selected disabled value="">Seleccione</option>
-                                            <option>+</option>
-                                            <option>-</option>
-                                            <option>+/-</option>
-                                            <option>Ninguno</option>
+                                            <option v-on:click="autoVentana(index,1)" >+</option>
+                                            <option v-on:click="autoVentana(index,2)" >-</option>
+                                            <option v-on:click="autoVentana(index,3)" >+/-</option>
+                                            <option v-on:click="autoVentana(index,4)" >Ninguno</option>
                                         </select>
                                         <div class="invalid-feedback">
                                             Por favor no deje vacio el campo, en caso de no haber colocar la ultima opcion y en el siguiente colocar 0. 
@@ -297,8 +288,54 @@
                     }
                 }
                 return true
-            }
-
+            },
+            //Recibe el index tipo numero y una variable tipo string
+            //tipo 1 = Dia
+            //tipo 2 = Semana
+            //tipo 3 = Mes
+            autoTipoPeriodo(index: number, tipo: number){ //metodo para auto completar el tipo de periodo
+                for(let i = index; i < this.protocolo.visitas.length; i++){
+                    if(i !== index){
+                        if(tipo === 1){
+                            this.protocolo.visitas[i].tipoDePeriodo = "Dia"
+                        }else{
+                            if(tipo === 2){
+                                this.protocolo.visitas[i].tipoDePeriodo = "Semana"
+                            }else{
+                                if(tipo === 3){
+                                    this.protocolo.visitas[i].tipoDePeriodo = "Mes"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            //Recibe el index tipo numero y una variable ven tipo numero
+            //ven 1 = +
+            //ven 2 = -
+            //ven 3 = +/-
+            //ven 4 = Ninguno
+            autoVentana(index: number, ven: number){ //metodo para auto completar la ventana
+                for(let i = index; i < this.protocolo.visitas.length; i++){
+                    if(i !== index){
+                        if(ven === 1){
+                            this.protocolo.visitas[i].ventana = "+"
+                        }else{
+                            if(ven === 2){
+                                this.protocolo.visitas[i].ventana = "-"
+                            }else{
+                                if(ven === 3){
+                                    this.protocolo.visitas[i].ventana = "+/-"
+                                }else{
+                                    if(ven === 4){
+                                        this.protocolo.visitas[i].ventana = "Ninguno"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
         },
         mounted(){
             if(typeof this.$route.params.id === 'string'){
