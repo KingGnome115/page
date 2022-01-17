@@ -46,14 +46,6 @@
                         Por favor escriba el CURP
                     </div>
                 </div>
-
-                <div class="col-12 col-md-3 mb-3">
-                    <label for="numid" class="form-label">No.Identificacion</label>
-                    <input type="number" min="1" class="form-control valid" id="numid" placeholder="Ej. 10" required v-model="paciente.noIdent">
-                    <div class="invalid-feedback">
-                        Por favor escriba el numero de identificacion 
-                    </div>
-                </div>
                 
                 <div class="col-12 col-md-3 mb-3">
                     <label for="fechaNac" class="form-label">Fecha Nacimiento</label>
@@ -243,7 +235,10 @@
                 await agregarPaciente(this.paciente)
                 this.$router.push('/')
             }
-        }
+        },
+        mounted() {
+            this.paciente.fechaRea = new Date().toISOString().substring(0, 10)
+        },
     })
 </script>
 

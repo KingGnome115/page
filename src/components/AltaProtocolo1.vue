@@ -17,14 +17,6 @@
                 </div>
 
                 <div class="col-12 col-md-4 mb-3">
-                    <label for="numeroProtocolo" class="form-label"> Numero de protocolo: </label>
-                    <input type="text" class="form-control valid" id="numeroProtocolo" placeholder="Ej. 10 " required v-model.number="protocolo.numeroProtocolo"> <!--Si el tipo es texto solo se toma-->
-                    <div class="invalid-feedback">
-                        Por favor escriba un numero de protocolo
-                    </div>
-                </div>
-
-                <div class="col-12 col-md-4 mb-3">
                     <label for="numeroVisitas" class="form-label"> Numero de visitas totales: </label>
                     <input type="number" class="form-control valid" id="numeroVisitas" size="10" placeholder="Ej. 15 visitas" min="1"  required v-model.number="protocolo.numeroVisitas"> <!--Si el tipo es numero al v-model se le explica esto-->
                     <div class="invalid-feedback">

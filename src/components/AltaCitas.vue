@@ -8,7 +8,7 @@
             
             <form>
                 <div class="control col-12 mt-3 mb-3">
-                    <input v-model="nombreProtocolo" type="text" autocomplete="off" v-bind="stateProtocolo" @input="filterStatesProtocolo" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarDataProtocolo">
+                    <input v-model="nombreProtocolo" v-on:keypress="reconPro" type="text" autocomplete="off" v-bind="stateProtocolo" @input="filterStatesProtocolo" class="form-control valid barraBusqueda" placeholder="Nombre del protocolo" v-on:keyup.enter="buscarDataProtocolo">
                 </div>
 
                 <div class="control col-12 col-md-4 mt-3 mb-3">
@@ -30,7 +30,7 @@
 
             <form>           
                 <div class="col-12 mt-3 mb-3">
-                    <input v-model="nombrePaciente" type="text" autocomplete="off" v-bind="statePaciente" @input="filterStatesPaciente" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarDataPaciente">
+                    <input v-model="nombrePaciente" v-on:keypress="reconPa" type="text" autocomplete="off" v-bind="statePaciente" @input="filterStatesPaciente" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarDataPaciente">
                 </div>
 
                 <div class="col-12 col-md-4 mt-3 mb-3">
@@ -178,8 +178,9 @@
     import { Citas } from "../interfaces/Citas";
     import { Paciente } from "../interfaces/Paciente";
     import { Protocolo } from '../interfaces/Protocolos';
-    import { consultarPacientesNa, modificarPaciente } from '../services/PacienteServices';
-    import { consultarProtocolos } from '../services/ProtocoloServices'
+    import { modificarPaciente, consultarPacientesRexNa, consultarPacienteNom } from '../services/PacienteServices';
+    import { consultarProtocolosRex } from '../services/ProtocoloServices';
+    import { consultarProtocoloNom } from '../services/ProtocoloServices';
     import { agregarCitas } from '../services/CitasServices'
 
     export default defineComponent({
@@ -191,13 +192,15 @@
                 cit: {} as Citas,
 
                 //Arreglo para las busquedas
-                protocolos: [] as Protocolo[],
-                pacientes: [] as Paciente[],
+                protocolos: [] as string[],
+                pacientes: [] as string[],
+                pacienteE : {} as Paciente,
                 //Para la barra de busqueda de pacientes
                 nombrePaciente: '',
                 statePaciente: '',
                 statesPacientes: [] as string[],
                 filteredStatesPaciente: [] as string[],
+
                 //Para la barra de busqueda de protocolos
                 nombreProtocolo: '',
                 stateProtocolo: '',
@@ -207,80 +210,106 @@
         },
         methods:{
             async cargarPacientes(){ //Carga los pacientes y los protocolos en el arreglo de pacientes y protocolos
-                const res = await consultarPacientesNa()
-                this.pacientes = res.data
+                const res = await consultarPacientesRexNa('a')
+                if(typeof res.data !== 'undefined'){
+                    this.pacientes = res.data as string[]
+                }
                 this.pacientes.forEach(paciente => {
-                    this.statesPacientes.push(paciente.nomPila+"-"+paciente.primApellido+"-"+paciente.segApellido)
+                    this.statesPacientes.push(paciente)
                 })
-                const resP = await consultarProtocolos()
-                this.protocolos = resP.data
+
+                
+                const resP = await consultarProtocolosRex('a')
+                if (typeof resP.data !== 'undefined'){
+                    this.protocolos = resP.data as string[]
+                }
                 this.protocolos.forEach(element => {
-                    this.statesProtocolos.push(element.nomProtocolo)
+                    this.statesProtocolos.push(element)
                 });
             },
-            async buscarDataPaciente(){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
-                this.pacientes.forEach(paciente => {
-                    let nombreCompleto = paciente.nomPila + ' ' + paciente.primApellido + ' ' + paciente.segApellido
-                    if(nombreCompleto.indexOf(this.nombrePaciente) > -1){
-                        if(!this.pacientesCitas.includes(paciente)){
-                            this.pacientesCitas.push(paciente)
-                            this.fechasZero.push('')
-                            this.nombrePaciente = ''
-                            this.filterStatesPaciente()
-                        }
-                    }
-                })
-                console.log(this.fechasZero)
-            },
             async buscaDataPaciente(nom: string){//Filtra los pacientes segun el nombre y lo agrega al arreglo de pacientesCitas
+                let pacienteB = ''
                 this.pacientes.forEach(paciente => {
-                    let nombr = nom.split("-")
-                    if(nombr[0] === paciente.nomPila && nombr[1] === paciente.primApellido && nombr[2] === paciente.segApellido){
-                        if(!this.pacientesCitas.includes(paciente)){
-                            this.pacientesCitas.push(paciente)
-                            this.fechasZero.push('')
-                            this.nombrePaciente = ''
-                            this.filterStatesPaciente()
-                        }
+                    if(paciente.toLowerCase() == nom.toLowerCase()){
+                        pacienteB = paciente
+                        this.nombrePaciente = ''
+                        this.filterStatesPaciente()
                     }
+                    console.log(paciente)
                 })
-                console.log(this.fechasZero)
+                if(pacienteB !== ''){
+                    let nombre = pacienteB.split('-')
+                    const res = await consultarPacienteNom(nombre[0], nombre[1], nombre[2])
+                    this.pacienteE = res.data as Paciente
+                    if(!this.pacientesCitas.includes(this.pacienteE)){
+                        this.pacientesCitas.push(this.pacienteE)
+                        this.fechasZero.push('')
+                        this.nombrePaciente = ''
+                        this.filterStatesPaciente()
+                    }
+                }
             },
             filterStatesPaciente(){//Filtra los pacientes segun el nombre y lo agrega al arreglo de filteredStatesPaciente
-                if (this.nombrePaciente.length===0) {
+                if (this.nombrePaciente.length === 0) {
                     this.filteredStatesPaciente = []
                 } else {
                     this.filteredStatesPaciente = this.statesPacientes.filter(statePaciente => {
-                    return statePaciente.toLowerCase().startsWith(this.nombrePaciente.toLowerCase())
+                        return statePaciente.toLowerCase().includes(this.nombrePaciente.toLowerCase())
                     })
                 }
             },
-            async buscarDataProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
-                this.protocolos.forEach(protocolo => {
-                    let nomPro = protocolo.nomProtocolo.toLowerCase()
-                    if(nomPro == this.nombreProtocolo.toLowerCase()){
-                        this.protocolo = protocolo
-                        this.nombreProtocolo = ''
-                        this.filterStatesProtocolo()
+            async reconPa(){
+                if(this.nombrePaciente !== ''){
+                    const res = await consultarPacientesRexNa(this.nombrePaciente)
+                    if(typeof res.data !== 'undefined'){
+                        this.pacientes = res.data as string[]
                     }
-                })
-            },
+                    
+                    this.pacientes.forEach(element => {
+                        if(!this.statesPacientes.includes(element)){
+                            this.statesPacientes.push(element)
+                        }
+                    });
+                    this.filterStatesPaciente()
+                }
+            }
+            ,
             async buscaDataProtocolo(nom : string){//Filtra los protocolos segun el nombre y lo agrega al arreglo de pacientesCitas
+                let protocoloB = '';
                 this.protocolos.forEach(protocolo => {
-                    let nomPro = protocolo.nomProtocolo.toLowerCase()
+                    let nomPro = protocolo.toLowerCase()
                     if(nomPro.toLowerCase() == nom.toLowerCase()){
-                        this.protocolo = protocolo
+                        protocoloB = protocolo
                         this.nombreProtocolo = ''
                         this.filterStatesProtocolo()
                     }
                 })
+                if(protocoloB != ''){
+                    let protocoloE = await consultarProtocoloNom(protocoloB)
+                    this.protocolo = protocoloE.data as Protocolo
+                }
             },
+            async reconPro(){
+                if(this.nombreProtocolo.length != 0){
+                    const res = await consultarProtocolosRex(this.nombreProtocolo)
+                    if (typeof res.data !== 'undefined'){
+                        this.protocolos = res.data as string[]
+                    }
+
+                    this.protocolos.forEach(element => {
+                        if(!this.statesProtocolos.includes(element)){
+                            this.statesProtocolos.push(element)
+                        }
+                    });
+                }
+            }
+            ,
             filterStatesProtocolo(){//Filtra los protocolos segun el nombre y lo agrega al arreglo de filteredStatesProtocolo
                 if (this.nombreProtocolo.length===0) {
                     this.filteredStatesProtocolo = []
                 } else {
                     this.filteredStatesProtocolo = this.statesProtocolos.filter(state => {
-                    return state.toLowerCase().startsWith(this.nombreProtocolo.toLowerCase())
+                    return state.toLowerCase().includes(this.nombreProtocolo.toLowerCase())
                     }) 
                 }
             },
