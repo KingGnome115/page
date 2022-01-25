@@ -245,13 +245,7 @@ export default {
 }
 </script>
 
-<style>
-html,
-body {
-	height: 100%;
-	margin: 0;
-	background-color: #f7fcff;
-}
+<style scoped>
 #app {
 	display: flex;
 	flex-direction: row;
