@@ -11,9 +11,9 @@
 					<div class="control">
 						<div class="select">
 							<select v-model="displayPeriodUom">
-								<option>month</option>
-								<option>week</option>
-								<option>year</option>
+								<option value="month">Mes</option>
+								<option value="week">Semana</option>
+								<option value="year">Año</option>
 							</select>
 						</div>
 					</div>
@@ -183,72 +183,17 @@ export default {
 					startDate: "2018-01-05",
 				},
 				{
-					id: "e1",
-					startDate: this.thisMonth(15, 18, 30),
-				},
-				{
 					id: "e2",
-					startDate: this.thisMonth(15),
-					title: "Single-day item with a long title",
+					startDate: this.thisMonth(10),//Aqui seleccionamos el dia
+					title: "Evento de referencia",
 				},
 				{
-					id: "e3",
-					startDate: this.thisMonth(7, 9, 25),
-					endDate: this.thisMonth(10, 16, 30),
-					title: "Multi-day item with a long title and times",
+					id: "61d0bd0b4e6540fb07193b86",
+					startDate: this.thisMonth(16),//Aqui seleccionamos el dia
+					title: "Evento de color",
+					classes: "orange"
 				},
-				{
-					id: "e4",
-					startDate: this.thisMonth(20),
-					title: "My Birthday!",
-					classes: "birthday",
-					url: "https://en.wikipedia.org/wiki/Birthday",
-				},
-				{
-					id: "e5",
-					startDate: this.thisMonth(5),
-					endDate: this.thisMonth(12),
-					title: "Multi-day item",
-					classes: "purple",
-				},
-				{
-					id: "foo",
-					startDate: this.thisMonth(29),
-					title: "Same day 1",
-				},
-				{
-					id: "e6",
-					startDate: this.thisMonth(29),
-					title: "Same day 2",
-					classes: "orange",
-				},
-				{
-					id: "e7",
-					startDate: this.thisMonth(29),
-					title: "Same day 3",
-				},
-				{
-					id: "e8",
-					startDate: this.thisMonth(29),
-					title: "Same day 4",
-					classes: "orange",
-				},
-				{
-					id: "e9",
-					startDate: this.thisMonth(29),
-					title: "Same day 5",
-				},
-				{
-					id: "e10",
-					startDate: this.thisMonth(29),
-					title: "Same day 6",
-					classes: "orange",
-				},
-				{
-					id: "e11",
-					startDate: this.thisMonth(29),
-					title: "Same day 7",
-				},
+				
 			],
 		}
 	},
@@ -295,7 +240,16 @@ export default {
 		},
 		thisMonth(d, h, m) {
 			const t = new Date()
+			console.log("AQUI ESTAS LO QUE BUSCAS")
+			console.log(t.getFullYear())
+			console.log(t.getMonth())
+			console.log(d)
+			console.log(h)
+			console.log(0, m)
+			console.log(0)
+			console.log("AQUI ESTAS LO QUE BUSCAS")
 			return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
+			
 		},
 		onClickDay(d) {
 			this.selectionStart = null
