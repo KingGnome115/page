@@ -183,9 +183,9 @@ export default {
 					startDate: "2018-01-05",
 				},
 				{
-					id: "e2",
-					startDate: this.thisMonth(10),//Aqui seleccionamos el dia
-					title: "Evento de referencia",
+					id: "e2",//Sera el mismo que el de la base
+					startDate: this.thisMonth(10),//Aqui seleccionamos el dia (partiendo la fecha de cada cita)
+					title: "Evento de referencia",//Aqui Nombre paciente + Protocolo
 				},
 				{
 					id: "61d0bd0b4e6540fb07193b86",
@@ -227,6 +227,7 @@ export default {
 		},
 	},
 	mounted() {
+		//Aqui llamamos al metodo para generar items
 		this.newItemStartDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 		this.newItemEndDate = CalendarMath.isoYearMonthDay(CalendarMath.today())
 	},
