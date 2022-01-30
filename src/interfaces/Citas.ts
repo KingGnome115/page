@@ -3,5 +3,5 @@ export interface Citas{
     idPaciente: string;
     idProtocolo: string;
     visitaZero: string;
-    visitas:[{citaFecha: string, realizada: boolean}];
+    visitas:[{citaFecha: string, realizada: boolean, _id: string}];
 }
