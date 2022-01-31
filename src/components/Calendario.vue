@@ -208,6 +208,8 @@
 			async cargarDatos() {
 				this.states.length = 0;
 				this.filteredStates.length = 0;
+				this.items.length = 1;
+				this.citasAgregadas.length = 0;
 				if(this.tipoBusqueda == "Pr"){
 					const res = await consultarProtocolosRex('a');
 					this.protocolos = res.data;
