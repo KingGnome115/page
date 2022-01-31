@@ -117,13 +117,12 @@
 			return {
 				cadenaBusqueda: "",
 				tipoBusqueda: "Pr",
+				citasAgregadas: [],
 				//Para buscar por protocolos
 				protocolos: [],
-                protocoloEnc: null,
 				//
 				//Para buscar por pacientes
 				pacientes: [],
-				pacienteEnc: null,
 				//
 				//Para la barra de busqueda
 				nombre: '',
@@ -277,15 +276,17 @@
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
 						let title = nom + " " + proto.nomProtocolo;
-						this.items.push({
+						if(!this.citasAgregadas.includes(title)){
+							this.items.push({
 							id: id,
 							startDate: startDate,
 							title: title
 						});
+						this.citasAgregadas.push(title);
+						}
 					}
 				}
-			}
-			,
+			},
 			periodChanged() {
 				// range, eventSource) {
 				// Demo does nothing with this information, just including the method to demonstrate how
