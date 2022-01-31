@@ -96,11 +96,16 @@
 	//Para traer los protocolos
 	import { consultarProtocolosRex } from '../services/ProtocoloServices';
     import { consultarProtocoloNom } from '../services/ProtocoloServices';
+    import { consultarProtocolo } from '../services/ProtocoloServices';
     import { Protocolo } from '../interfaces/Protocolos';
 	//Para los pacientes
 	import { consultarPacienteNom } from '../services/PacienteServices'
     import { consultarPacientesRex } from '../services/PacienteServices'
 	import { Paciente } from '../interfaces/Paciente';
+	//Para traer las citas
+	import { obtenerCitasProtocolo } from '../services/CitasServices';
+	import { obtenerCitasPaciente } from '../services/CitasServices';
+	import { Visitas } from '../interfaces/Visitas';
 
 	export default {
 		name: "App",
@@ -114,11 +119,11 @@
 				tipoBusqueda: "Pr",
 				//Para buscar por protocolos
 				protocolos: [],
-                protocoloEnc: '',
+                protocoloEnc: null,
 				//
 				//Para buscar por pacientes
 				pacientes: [],
-				pacienteEnc: '',
+				pacienteEnc: null,
 				//
 				//Para la barra de busqueda
 				nombre: '',
@@ -149,7 +154,7 @@
 						id: "e0",
 						startDate: "2018-01-05",
 					},
-					{
+					/*{
 						id: "e2",//Sera el mismo que el de la base
 						startDate: this.thisMonth(10),//Aqui seleccionamos el dia (partiendo la fecha de cada cita)
 						title: "Evento de referencia",//Aqui Nombre paciente + Protocolo
@@ -159,7 +164,7 @@
 						startDate: this.thisMonth(16),//Aqui seleccionamos el dia
 						title: "Evento de color",
 						classes: "orange"
-					},
+					},*/
 					
 				],
 			}
@@ -237,20 +242,50 @@
 						const res = await consultarProtocolosRex(this.nombre);
 						this.protocolos = res.data;
 						this.protocolos.forEach(element => {
-							this.states.push(element);
+							if(!this.states.includes(element)){
+								this.states.push(element);
+							}
 						});
 						console.log(this.states + " Protocolos");
 					} else if(this.tipoBusqueda == "Pa") {
 						const res = await consultarPacientesRex(this.nombre);
 						this.pacientes = res.data;
 						this.pacientes.forEach(element => {
-							this.states.push(element);
+							if(!this.states.includes(element)){
+								this.states.push(element);
+							}
 						});
 						console.log(this.states + " Pacientes");
 					}
 					this.filterStates()
 				}
 			},
+			async buscaData(nom){
+				if(this.tipoBusqueda == "Pr"){
+					const res = await consultarProtocoloNom(nom);
+					this.protocolo = res.data;
+
+				}else if(this.tipoBusqueda == "Pa"){
+					let nombre = nom.split("-");
+					const res = await consultarPacienteNom(nombre[0], nombre[1], nombre[2]);
+					this.paciente = res.data;
+					let Visitas = await obtenerCitasPaciente(this.paciente._id);
+					let citas = Visitas.data;
+					let proto = await consultarProtocolo(citas.idProtocolo);
+					proto = proto.data;
+					for(let index = 0; index < citas.visitas.length; index++){
+						let id = citas.visitas[index]._id;
+						let startDate = citas.visitas[index].citaFecha;
+						let title = nom + " " + proto.nomProtocolo;
+						this.items.push({
+							id: id,
+							startDate: startDate,
+							title: title
+						});
+					}
+				}
+			}
+			,
 			periodChanged() {
 				// range, eventSource) {
 				// Demo does nothing with this information, just including the method to demonstrate how
