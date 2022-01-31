@@ -101,6 +101,7 @@
 	//Para los pacientes
 	import { consultarPacienteNom } from '../services/PacienteServices'
     import { consultarPacientesRex } from '../services/PacienteServices'
+    import { consultarPaciente } from '../services/PacienteServices'
 	import { Paciente } from '../interfaces/Paciente';
 	//Para traer las citas
 	import { obtenerCitasProtocolo } from '../services/CitasServices';
@@ -117,13 +118,12 @@
 			return {
 				cadenaBusqueda: "",
 				tipoBusqueda: "Pr",
+				citasAgregadas: [],
 				//Para buscar por protocolos
 				protocolos: [],
-                protocoloEnc: null,
 				//
 				//Para buscar por pacientes
 				pacientes: [],
-				pacienteEnc: null,
 				//
 				//Para la barra de busqueda
 				nombre: '',
@@ -209,6 +209,8 @@
 			async cargarDatos() {
 				this.states.length = 0;
 				this.filteredStates.length = 0;
+				this.items.length = 1;
+				this.citasAgregadas.length = 0;
 				if(this.tipoBusqueda == "Pr"){
 					const res = await consultarProtocolosRex('a');
 					this.protocolos = res.data;
@@ -264,7 +266,26 @@
 				if(this.tipoBusqueda == "Pr"){
 					const res = await consultarProtocoloNom(nom);
 					this.protocolo = res.data;
-
+					let Visitas = await obtenerCitasProtocolo(this.protocolo._id);
+					let citas = Visitas.data;
+					console.log(citas);
+					for(let index = 0; index < citas.length; index++){
+						let paci = await consultarPaciente(citas[index].idPaciente);
+						paci = paci.data;
+						for(let index2 = 0; index2 < citas[index].visitas.length; index2++){
+							let id = citas[index].visitas[index2]._id; 
+							let startDate = citas[index].visitas[index2].citaFecha;
+							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo;
+							if(!this.citasAgregadas.includes(title)){
+								this.items.push({
+								id: id,
+								startDate: startDate,
+								title: title
+							});
+							this.citasAgregadas.push(title);
+							}
+						}
+					}
 				}else if(this.tipoBusqueda == "Pa"){
 					let nombre = nom.split("-");
 					const res = await consultarPacienteNom(nombre[0], nombre[1], nombre[2]);
@@ -277,15 +298,17 @@
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
 						let title = nom + " " + proto.nomProtocolo;
-						this.items.push({
+						if(!this.citasAgregadas.includes(title)){
+							this.items.push({
 							id: id,
 							startDate: startDate,
 							title: title
 						});
+						this.citasAgregadas.push(title);
+						}
 					}
 				}
-			}
-			,
+			},
 			periodChanged() {
 				// range, eventSource) {
 				// Demo does nothing with this information, just including the method to demonstrate how
