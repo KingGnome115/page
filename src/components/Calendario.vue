@@ -276,13 +276,13 @@
 							let id = citas[index].visitas[index2]._id; 
 							let startDate = citas[index].visitas[index2].citaFecha;
 							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo;
-							if(!this.citasAgregadas.includes(title)){
+							if(!this.citasAgregadas.includes(id)){
 								this.items.push({
 								id: id,
 								startDate: startDate,
 								title: title
 							});
-							this.citasAgregadas.push(title);
+							this.citasAgregadas.push(id);
 							}
 						}
 					}
@@ -298,13 +298,13 @@
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
 						let title = nom + " " + proto.nomProtocolo;
-						if(!this.citasAgregadas.includes(title)){
+						if(!this.citasAgregadas.includes(id)){
 							this.items.push({
 							id: id,
 							startDate: startDate,
 							title: title
 						});
-						this.citasAgregadas.push(title);
+						this.citasAgregadas.push(id);
 						}
 					}
 				}
