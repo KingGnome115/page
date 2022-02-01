@@ -308,6 +308,8 @@
 						}
 					}
 				}
+				this.nombre = "";
+				this.filterStates();
 			},
 			periodChanged() {
 				// range, eventSource) {
