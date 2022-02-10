@@ -121,9 +121,11 @@
 				citasAgregadas: [],
 				//Para buscar por protocolos
 				protocolos: [],
+				protocolosE: [],
 				//
 				//Para buscar por pacientes
 				pacientes: [],
+				pacientesE: [],
 				//
 				//Para la barra de busqueda
 				nombre: '',
@@ -217,14 +219,12 @@
 					this.protocolos.forEach(element => {
 						this.states.push(element);
 					});
-					console.log(this.states + " Protocolos");
 				} else if(this.tipoBusqueda == "Pa") {
 					const res = await consultarPacientesRex('a');
 					this.pacientes = res.data;
 					this.pacientes.forEach(element => {
 						this.states.push(element);
 					});
-					console.log(this.states + " Pacientes");
 				}
 			},
 			filterStates(){
@@ -248,7 +248,6 @@
 								this.states.push(element);
 							}
 						});
-						console.log(this.states + " Protocolos");
 					} else if(this.tipoBusqueda == "Pa") {
 						const res = await consultarPacientesRex(this.nombre);
 						this.pacientes = res.data;
@@ -257,7 +256,6 @@
 								this.states.push(element);
 							}
 						});
-						console.log(this.states + " Pacientes");
 					}
 					this.filterStates()
 				}
@@ -273,6 +271,7 @@
 						let paci = await consultarPaciente(citas[index].idPaciente);
 						paci = paci.data;
 						for(let index2 = 0; index2 < citas[index].visitas.length; index2++){
+							//console.log(citas[index]._id);
 							let id = citas[index].visitas[index2]._id; 
 							let startDate = citas[index].visitas[index2].citaFecha;
 							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo;
@@ -280,7 +279,8 @@
 								this.items.push({
 								id: id,
 								startDate: startDate,
-								title: title
+								title: title,
+								url: citas[index]._id,
 							});
 							this.citasAgregadas.push(id);
 							}
@@ -295,6 +295,7 @@
 					let proto = await consultarProtocolo(citas.idProtocolo);
 					proto = proto.data;
 					for(let index = 0; index < citas.visitas.length; index++){
+						//console.log(citas._id);
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
 						let title = nom + " " + proto.nomProtocolo;
@@ -302,7 +303,8 @@
 							this.items.push({
 							id: id,
 							startDate: startDate,
-							title: title
+							title: title,
+							url: citas._id,
 						});
 						this.citasAgregadas.push(id);
 						}
@@ -337,6 +339,7 @@
 				this.message = `Dia seleccionado: ${d.toLocaleDateString()}`
 			},
 			onClickItem(e) {
+				console.log(e)
 				this.message = `Evento seleccionado: ${e.title}`
 			},
 			setShowDate(d) {
