@@ -97,16 +97,18 @@
 	import { consultarProtocolosRex } from '../services/ProtocoloServices';
     import { consultarProtocoloNom } from '../services/ProtocoloServices';
     import { consultarProtocolo } from '../services/ProtocoloServices';
-    import { Protocolo } from '../interfaces/Protocolos';
+    //import { Protocolo } from '../interfaces/Protocolos';
 	//Para los pacientes
 	import { consultarPacienteNom } from '../services/PacienteServices'
     import { consultarPacientesRex } from '../services/PacienteServices'
     import { consultarPaciente } from '../services/PacienteServices'
-	import { Paciente } from '../interfaces/Paciente';
+	//import { Paciente } from '../interfaces/Paciente';
 	//Para traer las citas
 	import { obtenerCitasProtocolo } from '../services/CitasServices';
 	import { obtenerCitasPaciente } from '../services/CitasServices';
-	import { Visitas } from '../interfaces/Visitas';
+	import { obtenerCitasId } from '../services/CitasServices';
+	//import { Visitas } from '../interfaces/Visitas';
+import { Citas } from '../interfaces/Citas';
 
 	export default {
 		name: "App",
@@ -172,7 +174,6 @@
 			}
 		},
 		computed: {
-			
 			userLocale() {
 				return CalendarMath.getDefaultBrowserLocale
 			},
@@ -266,7 +267,6 @@
 					this.protocolo = res.data;
 					let Visitas = await obtenerCitasProtocolo(this.protocolo._id);
 					let citas = Visitas.data;
-					console.log(citas);
 					for(let index = 0; index < citas.length; index++){
 						let paci = await consultarPaciente(citas[index].idPaciente);
 						paci = paci.data;
@@ -313,7 +313,7 @@
 				this.nombre = "";
 				this.filterStates();
 			},
-			periodChanged() {
+			periodChanged(){
 				// range, eventSource) {
 				// Demo does nothing with this information, just including the method to demonstrate how
 				// you can listen for changes to the displayed range and react to them (by loading items, etc.)
@@ -339,7 +339,6 @@
 				this.message = `Dia seleccionado: ${d.toLocaleDateString()}`
 			},
 			onClickItem(e) {
-				console.log(e)
 				this.message = `Evento seleccionado: ${e.title}`
 			},
 			setShowDate(d) {
@@ -354,14 +353,52 @@
 				this.setSelection(dateRange)
 				this.message = `Haz seleccionado: ${this.selectionStart.toLocaleDateString()} -${this.selectionEnd.toLocaleDateString()}`
 			},
-			onDrop(item, date) {
+			async onDrop(item, date) { //Aqui se cambia el dia de la cita
 				this.message = `Se ha cambiado ${item.id} a ${date.toLocaleDateString()}`
+
+				let Citas = await obtenerCitasId(item.url);
+				Citas = Citas.data;
+				console.log(item.id)
+				if(this.validarOrden(Citas, item.id, date)){
+					console.log("Se puede cambiar el dia")
+				}else{
+					console.log("No se puede cambiar el dia")
+				}
+				
+
 				// Determine the delta between the old start date and the date chosen,
 				// and apply that delta to both the start and end date to move the item.
 				const eLength = CalendarMath.dayDiff(item.startDate, date)
 				item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
 				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
 			},
+			validarOrden(Citas, idCita, date){
+				
+				for(let index = 0; index < Citas.visitas.length; index++){
+					if(Citas.visitas[index]._id == idCita){
+						Citas.visitas[index].citaFecha = date.toISOString().substring(0, 10);
+						break;
+					}
+				}
+				let length = Citas.visitas.length;
+				let cont = 0;
+				for(let i = 0; i < length; i++){
+					for(let j = 0; j < (length - i - 1); j++){
+						if( cont != length-1 ){
+							let fecha1 = new Date(Citas.visitas[j].citaFecha);
+							let fecha2 = new Date(Citas.visitas[j+1].citaFecha);
+							console.log(`${j}: `+ fecha1.toISOString().substring(0, 10) + `: ${j+1}: `+ fecha2.toISOString().substring(0, 10))
+							if(fecha1 > fecha2){
+								return false;
+							}
+							cont++;
+						}
+					}
+				}
+				console.log(Citas)
+				return true;
+			}
+			,
 			clickTestAddItem() {
 				this.items.push({
 					startDate: this.newItemStartDate,
