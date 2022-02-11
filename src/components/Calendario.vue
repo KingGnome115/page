@@ -423,6 +423,34 @@ import { Citas } from '../interfaces/Citas';
 						return false
 					}
 				}
+				let dia = 1000 * 60 * 60 * 24;
+				let fechaA = new Date(citasBD.visitas[i].citaFecha);
+				let fechaN = new Date(citas.visitas[i].citaFecha);
+				if(protocolo.visitas[i].ventana == '+'){
+					let fechaL = new Date(fechaA.getTime() + (dia * protocolo.visitas[i].dias));
+					if(fechaN >= fechaA && fechaN <= fechaL){
+						return true
+					}else{
+						return false
+					}
+				}
+				if(protocolo.visitas[i].ventana == '-'){
+					let fechaL = new Date(fechaA.getTime() - (dia * protocolo.visitas[i].dias));
+					if(fechaN <= fechaA && fechaN >= fechaL){
+						return true
+					}else{
+						return false
+					}
+				}
+				if(protocolo.visitas[i].ventana == '+/-'){
+					let fechaL = new Date(fechaA.getTime() + (dia * protocolo.visitas[i].dias));
+					let fechaR = new Date(fechaA.getTime() - (dia * protocolo.visitas[i].dias));
+					if(fechaN >= fechaR && fechaN <= fechaL){
+						return true
+					}else{
+						return false
+					}
+				}
 			},
 			clickTestAddItem() {
 				this.items.push({
