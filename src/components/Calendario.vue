@@ -94,9 +94,8 @@
 	import { CalendarView, CalendarViewHeader, CalendarMath } from "vue-simple-calendar" // published version
 	//} from "../../vue-simple-calendar/src/components/bundle.js" // local repo
 	//Para traer los protocolos
-	import { consultarProtocolosRex } from '../services/ProtocoloServices';
+	import { consultarProtocolosRex, consultarProtocolo } from '../services/ProtocoloServices';
     import { consultarProtocoloNom } from '../services/ProtocoloServices';
-    import { consultarProtocolo } from '../services/ProtocoloServices';
     //import { Protocolo } from '../interfaces/Protocolos';
 	//Para los pacientes
 	import { consultarPacienteNom } from '../services/PacienteServices'
@@ -357,23 +356,38 @@ import { Citas } from '../interfaces/Citas';
 				this.message = `Se ha cambiado ${item.id} a ${date.toLocaleDateString()}`
 
 				let Citas = await obtenerCitasId(item.url);
-				Citas = Citas.data;
-				console.log(item.id)
-				if(this.validarOrden(Citas, item.id, date)){
-					console.log("Se puede cambiar el dia")
-				}else{
-					console.log("No se puede cambiar el dia")
-				}
+				Citas = Citas.data; //La que se modificara
 				
-
+				if(this.validarOrden(Citas, item.id, date)){
+					let index;
+					for(let i=0; i<Citas.visitas.length; i++){
+						if(Citas.visitas[i]._id == item.id){
+							index = i;
+							break;
+						}
+					}
+					console.log(index);
+					let protocolo = await consultarProtocolo(Citas.idProtocolo);
+					protocolo = protocolo.data;
+					let citasBD = await obtenerCitasId(item.url);
+					citasBD = citasBD.data; //La que se modificara
+					if(this.validarVentana(Citas, protocolo, citasBD, index)){
+						console.log("Se puede cambiar la ventana")
+						const eLength = CalendarMath.dayDiff(item.startDate, date)
+						item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
+						item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
+					}else{
+						console.log("No se puede cambiar la ventana")
+					}
+				}else{
+					alert("No se puede cambiar el dia")
+				}
 				// Determine the delta between the old start date and the date chosen,
 				// and apply that delta to both the start and end date to move the item.
-				const eLength = CalendarMath.dayDiff(item.startDate, date)
-				item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
-				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
+				//Pasar esto a donde se hara la modificacion
+				
 			},
 			validarOrden(Citas, idCita, date){
-				
 				for(let index = 0; index < Citas.visitas.length; index++){
 					if(Citas.visitas[index]._id == idCita){
 						Citas.visitas[index].citaFecha = date.toISOString().substring(0, 10);
@@ -387,7 +401,7 @@ import { Citas } from '../interfaces/Citas';
 						if( cont != length-1 ){
 							let fecha1 = new Date(Citas.visitas[j].citaFecha);
 							let fecha2 = new Date(Citas.visitas[j+1].citaFecha);
-							console.log(`${j}: `+ fecha1.toISOString().substring(0, 10) + `: ${j+1}: `+ fecha2.toISOString().substring(0, 10))
+							//console.log(`${j}: `+ fecha1.toISOString().substring(0, 10) + `: ${j+1}: `+ fecha2.toISOString().substring(0, 10))
 							if(fecha1 > fecha2){
 								return false;
 							}
@@ -395,10 +409,21 @@ import { Citas } from '../interfaces/Citas';
 						}
 					}
 				}
-				console.log(Citas)
 				return true;
-			}
-			,
+			},
+			validarVentana(citas, protocolo, citasBD, i){
+				if(protocolo.visitas[i].ventana == 'Ninguno'){
+					let fechaN = new Date(citas.visitas[i].citaFecha);
+					let fechaO = new Date(citasBD.visitas[i].citaFecha);
+					console.log(`${i}: `+ fechaN.toISOString().substring(0, 10) + `: ${i}: `+ fechaO.toISOString().substring(0, 10))
+					console.log(fechaN == fechaO)
+					if(fechaN == fechaO){
+						return true
+					}else{
+						return false
+					}
+				}
+			},
 			clickTestAddItem() {
 				this.items.push({
 					startDate: this.newItemStartDate,
