@@ -322,16 +322,7 @@ import { Citas } from '../interfaces/Citas';
 			},
 			thisMonth(d, h, m) {
 				const t = new Date()
-				/*console.log("AQUI ESTAS LO QUE BUSCAS")
-				console.log(t.getFullYear())
-				console.log(t.getMonth())
-				console.log(d)
-				console.log(h)
-				console.log(0, m)
-				console.log(0)
-				console.log("AQUI ESTAS LO QUE BUSCAS")*/
 				return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
-				
 			},
 			onClickDay(d) {
 				this.selectionStart = null
@@ -406,7 +397,7 @@ import { Citas } from '../interfaces/Citas';
 							let fecha1 = new Date(Citas.visitas[j].citaFecha);
 							let fecha2 = new Date(Citas.visitas[j+1].citaFecha);
 							//console.log(`${j}: `+ fecha1.toISOString().substring(0, 10) + `: ${j+1}: `+ fecha2.toISOString().substring(0, 10))
-							if(fecha1 > fecha2){
+							if(fecha1 >= fecha2){
 								return false;
 							}
 							cont++;
