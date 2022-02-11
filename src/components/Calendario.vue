@@ -106,6 +106,7 @@
 	import { obtenerCitasProtocolo } from '../services/CitasServices';
 	import { obtenerCitasPaciente } from '../services/CitasServices';
 	import { obtenerCitasId } from '../services/CitasServices';
+	import { modificarCitas } from '../services/CitasServices';
 	//import { Visitas } from '../interfaces/Visitas';
 import { Citas } from '../interfaces/Citas';
 
@@ -273,7 +274,7 @@ import { Citas } from '../interfaces/Citas';
 							//console.log(citas[index]._id);
 							let id = citas[index].visitas[index2]._id; 
 							let startDate = citas[index].visitas[index2].citaFecha;
-							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo;
+							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo +" "+ this.protocolo.visitas[index].nomeclatura+(index2+1);
 							if(!this.citasAgregadas.includes(id)){
 								this.items.push({
 								id: id,
@@ -297,7 +298,7 @@ import { Citas } from '../interfaces/Citas';
 						//console.log(citas._id);
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
-						let title = nom + " " + proto.nomProtocolo;
+						let title = nom + " " + proto.nomProtocolo + " " + proto.visitas[index].nomeclatura+(index+1);
 						if(!this.citasAgregadas.includes(id)){
 							this.items.push({
 							id: id,
@@ -371,13 +372,16 @@ import { Citas } from '../interfaces/Citas';
 					protocolo = protocolo.data;
 					let citasBD = await obtenerCitasId(item.url);
 					citasBD = citasBD.data; //La que se modificara
+					let bool = true;
 					if(this.validarVentana(Citas, protocolo, citasBD, index)){
 						console.log("Se puede cambiar la ventana")
 						const eLength = CalendarMath.dayDiff(item.startDate, date)
 						item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
 						item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
+						modificarCitas(Citas._id, Citas);
 					}else{
-						console.log("No se puede cambiar la ventana")
+						alert("No se puede cambiar la ventana")
+						bool = false;
 					}
 				}else{
 					alert("No se puede cambiar el dia")
