@@ -94,19 +94,21 @@
 	import { CalendarView, CalendarViewHeader, CalendarMath } from "vue-simple-calendar" // published version
 	//} from "../../vue-simple-calendar/src/components/bundle.js" // local repo
 	//Para traer los protocolos
-	import { consultarProtocolosRex } from '../services/ProtocoloServices';
+	import { consultarProtocolosRex, consultarProtocolo } from '../services/ProtocoloServices';
     import { consultarProtocoloNom } from '../services/ProtocoloServices';
-    import { consultarProtocolo } from '../services/ProtocoloServices';
-    import { Protocolo } from '../interfaces/Protocolos';
+    //import { Protocolo } from '../interfaces/Protocolos';
 	//Para los pacientes
 	import { consultarPacienteNom } from '../services/PacienteServices'
     import { consultarPacientesRex } from '../services/PacienteServices'
     import { consultarPaciente } from '../services/PacienteServices'
-	import { Paciente } from '../interfaces/Paciente';
+	//import { Paciente } from '../interfaces/Paciente';
 	//Para traer las citas
 	import { obtenerCitasProtocolo } from '../services/CitasServices';
 	import { obtenerCitasPaciente } from '../services/CitasServices';
-	import { Visitas } from '../interfaces/Visitas';
+	import { obtenerCitasId } from '../services/CitasServices';
+	import { modificarCitas } from '../services/CitasServices';
+	//import { Visitas } from '../interfaces/Visitas';
+import { Citas } from '../interfaces/Citas';
 
 	export default {
 		name: "App",
@@ -121,9 +123,11 @@
 				citasAgregadas: [],
 				//Para buscar por protocolos
 				protocolos: [],
+				protocolosE: [],
 				//
 				//Para buscar por pacientes
 				pacientes: [],
+				pacientesE: [],
 				//
 				//Para la barra de busqueda
 				nombre: '',
@@ -170,7 +174,6 @@
 			}
 		},
 		computed: {
-			
 			userLocale() {
 				return CalendarMath.getDefaultBrowserLocale
 			},
@@ -217,14 +220,12 @@
 					this.protocolos.forEach(element => {
 						this.states.push(element);
 					});
-					console.log(this.states + " Protocolos");
 				} else if(this.tipoBusqueda == "Pa") {
 					const res = await consultarPacientesRex('a');
 					this.pacientes = res.data;
 					this.pacientes.forEach(element => {
 						this.states.push(element);
 					});
-					console.log(this.states + " Pacientes");
 				}
 			},
 			filterStates(){
@@ -248,7 +249,6 @@
 								this.states.push(element);
 							}
 						});
-						console.log(this.states + " Protocolos");
 					} else if(this.tipoBusqueda == "Pa") {
 						const res = await consultarPacientesRex(this.nombre);
 						this.pacientes = res.data;
@@ -257,7 +257,6 @@
 								this.states.push(element);
 							}
 						});
-						console.log(this.states + " Pacientes");
 					}
 					this.filterStates()
 				}
@@ -268,19 +267,20 @@
 					this.protocolo = res.data;
 					let Visitas = await obtenerCitasProtocolo(this.protocolo._id);
 					let citas = Visitas.data;
-					console.log(citas);
 					for(let index = 0; index < citas.length; index++){
 						let paci = await consultarPaciente(citas[index].idPaciente);
 						paci = paci.data;
 						for(let index2 = 0; index2 < citas[index].visitas.length; index2++){
+							//console.log(citas[index]._id);
 							let id = citas[index].visitas[index2]._id; 
 							let startDate = citas[index].visitas[index2].citaFecha;
-							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo;
+							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo +" "+ this.protocolo.visitas[index].nomeclatura+(index2+1);
 							if(!this.citasAgregadas.includes(id)){
 								this.items.push({
 								id: id,
 								startDate: startDate,
-								title: title
+								title: title,
+								url: citas[index]._id,
 							});
 							this.citasAgregadas.push(id);
 							}
@@ -295,14 +295,16 @@
 					let proto = await consultarProtocolo(citas.idProtocolo);
 					proto = proto.data;
 					for(let index = 0; index < citas.visitas.length; index++){
+						//console.log(citas._id);
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
-						let title = nom + " " + proto.nomProtocolo;
+						let title = nom + " " + proto.nomProtocolo + " " + proto.visitas[index].nomeclatura+(index+1);
 						if(!this.citasAgregadas.includes(id)){
 							this.items.push({
 							id: id,
 							startDate: startDate,
-							title: title
+							title: title,
+							url: citas._id,
 						});
 						this.citasAgregadas.push(id);
 						}
@@ -311,7 +313,7 @@
 				this.nombre = "";
 				this.filterStates();
 			},
-			periodChanged() {
+			periodChanged(){
 				// range, eventSource) {
 				// Demo does nothing with this information, just including the method to demonstrate how
 				// you can listen for changes to the displayed range and react to them (by loading items, etc.)
@@ -320,16 +322,7 @@
 			},
 			thisMonth(d, h, m) {
 				const t = new Date()
-				/*console.log("AQUI ESTAS LO QUE BUSCAS")
-				console.log(t.getFullYear())
-				console.log(t.getMonth())
-				console.log(d)
-				console.log(h)
-				console.log(0, m)
-				console.log(0)
-				console.log("AQUI ESTAS LO QUE BUSCAS")*/
 				return new Date(t.getFullYear(), t.getMonth(), d, h || 0, m || 0)
-				
 			},
 			onClickDay(d) {
 				this.selectionStart = null
@@ -351,13 +344,108 @@
 				this.setSelection(dateRange)
 				this.message = `Haz seleccionado: ${this.selectionStart.toLocaleDateString()} -${this.selectionEnd.toLocaleDateString()}`
 			},
-			onDrop(item, date) {
+			async onDrop(item, date) { //Aqui se cambia el dia de la cita
 				this.message = `Se ha cambiado ${item.id} a ${date.toLocaleDateString()}`
+
+				let Citas = await obtenerCitasId(item.url);
+				Citas = Citas.data; //La que se modificara
+				
+				if(this.validarOrden(Citas, item.id, date)){
+					let index;
+					for(let i=0; i<Citas.visitas.length; i++){
+						if(Citas.visitas[i]._id == item.id){
+							index = i;
+							break;
+						}
+					}
+					console.log(index);
+					let protocolo = await consultarProtocolo(Citas.idProtocolo);
+					protocolo = protocolo.data;
+					let citasBD = await obtenerCitasId(item.url);
+					citasBD = citasBD.data; //La que se modificara
+					let bool = true;
+					if(this.validarVentana(Citas, protocolo, citasBD, index)){
+						console.log("Se puede cambiar la ventana")
+						const eLength = CalendarMath.dayDiff(item.startDate, date)
+						item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
+						item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
+						modificarCitas(Citas._id, Citas);
+					}else{
+						alert("No se puede cambiar la ventana")
+						bool = false;
+					}
+				}else{
+					alert("No se puede cambiar el dia")
+				}
 				// Determine the delta between the old start date and the date chosen,
 				// and apply that delta to both the start and end date to move the item.
-				const eLength = CalendarMath.dayDiff(item.startDate, date)
-				item.originalItem.startDate = CalendarMath.addDays(item.startDate, eLength)
-				item.originalItem.endDate = CalendarMath.addDays(item.endDate, eLength)
+				//Pasar esto a donde se hara la modificacion
+				
+			},
+			validarOrden(Citas, idCita, date){
+				for(let index = 0; index < Citas.visitas.length; index++){
+					if(Citas.visitas[index]._id == idCita){
+						Citas.visitas[index].citaFecha = date.toISOString().substring(0, 10);
+						break;
+					}
+				}
+				let length = Citas.visitas.length;
+				let cont = 0;
+				for(let i = 0; i < length; i++){
+					for(let j = 0; j < (length - i - 1); j++){
+						if( cont != length-1 ){
+							let fecha1 = new Date(Citas.visitas[j].citaFecha);
+							let fecha2 = new Date(Citas.visitas[j+1].citaFecha);
+							//console.log(`${j}: `+ fecha1.toISOString().substring(0, 10) + `: ${j+1}: `+ fecha2.toISOString().substring(0, 10))
+							if(fecha1 >= fecha2){
+								return false;
+							}
+							cont++;
+						}
+					}
+				}
+				return true;
+			},
+			validarVentana(citas, protocolo, citasBD, i){
+				if(protocolo.visitas[i].ventana == 'Ninguno'){
+					let fechaN = new Date(citas.visitas[i].citaFecha);
+					let fechaO = new Date(citasBD.visitas[i].citaFecha);
+					console.log(`${i}: `+ fechaN.toISOString().substring(0, 10) + `: ${i}: `+ fechaO.toISOString().substring(0, 10))
+					console.log(fechaN == fechaO)
+					if(fechaN == fechaO){
+						return true
+					}else{
+						return false
+					}
+				}
+				let dia = 1000 * 60 * 60 * 24;
+				let fechaA = new Date(citasBD.visitas[i].citaFecha);
+				let fechaN = new Date(citas.visitas[i].citaFecha);
+				if(protocolo.visitas[i].ventana == '+'){
+					let fechaL = new Date(fechaA.getTime() + (dia * protocolo.visitas[i].dias));
+					if(fechaN >= fechaA && fechaN <= fechaL){
+						return true
+					}else{
+						return false
+					}
+				}
+				if(protocolo.visitas[i].ventana == '-'){
+					let fechaL = new Date(fechaA.getTime() - (dia * protocolo.visitas[i].dias));
+					if(fechaN <= fechaA && fechaN >= fechaL){
+						return true
+					}else{
+						return false
+					}
+				}
+				if(protocolo.visitas[i].ventana == '+/-'){
+					let fechaL = new Date(fechaA.getTime() + (dia * protocolo.visitas[i].dias));
+					let fechaR = new Date(fechaA.getTime() - (dia * protocolo.visitas[i].dias));
+					if(fechaN >= fechaR && fechaN <= fechaL){
+						return true
+					}else{
+						return false
+					}
+				}
 			},
 			clickTestAddItem() {
 				this.items.push({

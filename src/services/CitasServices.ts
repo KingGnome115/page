@@ -8,6 +8,8 @@ export const obtenerCitasProtocolo = async(id: string): Promise<AxiosResponse<Ci
 
 export const obtenerCitasPaciente = async(id: string): Promise<AxiosResponse<Citas[]>> => await axios.get(`/citas_paciente/${id}`)
 
+export const obtenerCitasId = async(id: string): Promise<AxiosResponse<Citas>> => await axios.get(`/citasC/${id}`)
+
 export const eliminarCitas = async(id: string): Promise<AxiosResponse<Citas>> => await axios.delete(`/citas/${id}`)
 
 export const modificarCitas = async(id: string, citas: Citas): Promise<AxiosResponse<Citas>> => await axios.put(`/citas/${id}`,citas)
