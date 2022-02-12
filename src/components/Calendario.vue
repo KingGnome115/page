@@ -23,6 +23,8 @@
 				</div>
 			</div>
 
+			<br>
+
 			<div class="box">
 				<div class="field">
 					<h4>Ver por</h4>
@@ -33,6 +35,8 @@
 					</select>
 				</div>
 			</div>
+
+			<br>
 
 			<div class="box">
 				<div class="field">
@@ -47,6 +51,24 @@
                     <li v-for="(filt, index) in filteredStates" :key="index" @click="buscaData(filt)"> {{filt}} </li>
                 </ul>
             </div>
+
+			<div class="box">
+				<table class="table table-primary table-hover table-sm table-bordered">
+					<tr>
+						<td>Cita</td>
+						<td>Fecha</td>
+					</tr>
+					<tr v-for="(cita, index) in citasSeleccionadas.visitas" :key="index">
+						<td>{{titulos[index]}}</td>
+						<td>{{cita.citaFecha}}</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="box">
+				<button type="submit" class="btn btn-primary">Eliminar</button>
+			</div>
+
 		</div>
 
 		<div class="calendar-parent">
@@ -108,7 +130,6 @@
 	import { obtenerCitasId } from '../services/CitasServices';
 	import { modificarCitas } from '../services/CitasServices';
 	//import { Visitas } from '../interfaces/Visitas';
-import { Citas } from '../interfaces/Citas';
 
 	export default {
 		name: "App",
@@ -121,14 +142,10 @@ import { Citas } from '../interfaces/Citas';
 				cadenaBusqueda: "",
 				tipoBusqueda: "Pr",
 				citasAgregadas: [],
-				//Para buscar por protocolos
-				protocolos: [],
-				protocolosE: [],
-				//
-				//Para buscar por pacientes
-				pacientes: [],
-				pacientesE: [],
-				//
+
+				citasSeleccionadas: [],
+				titulos: [],
+				
 				//Para la barra de busqueda
 				nombre: '',
                 state:'',
@@ -158,18 +175,6 @@ import { Citas } from '../interfaces/Citas';
 						id: "e0",
 						startDate: "2018-01-05",
 					},
-					/*{
-						id: "e2",//Sera el mismo que el de la base
-						startDate: this.thisMonth(10),//Aqui seleccionamos el dia (partiendo la fecha de cada cita)
-						title: "Evento de referencia",//Aqui Nombre paciente + Protocolo
-					},
-					{
-						id: "61d0bd0b4e6540fb07193b86",
-						startDate: this.thisMonth(16),//Aqui seleccionamos el dia
-						title: "Evento de color",
-						classes: "orange"
-					},*/
-					
 				],
 			}
 		},
@@ -214,6 +219,8 @@ import { Citas } from '../interfaces/Citas';
 				this.filteredStates.length = 0;
 				this.items.length = 1;
 				this.citasAgregadas.length = 0;
+				this.citasSeleccionadas = [];
+				this.titulos.length = 0;
 				if(this.tipoBusqueda == "Pr"){
 					const res = await consultarProtocolosRex('a');
 					this.protocolos = res.data;
@@ -274,7 +281,12 @@ import { Citas } from '../interfaces/Citas';
 							//console.log(citas[index]._id);
 							let id = citas[index].visitas[index2]._id; 
 							let startDate = citas[index].visitas[index2].citaFecha;
-							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo +" "+ this.protocolo.visitas[index].nomeclatura+(index2+1);
+							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo +" "+ this.protocolo.visitas[index2].nomeclatura;
+							//Verificar si hay un numero dentro de nomeclatura
+							let numero = this.protocolo.visitas[index].nomeclatura.match(/\d+/g);
+							if(numero == null){
+								title += (index2+1);
+							}
 							if(!this.citasAgregadas.includes(id)){
 								this.items.push({
 								id: id,
@@ -298,7 +310,12 @@ import { Citas } from '../interfaces/Citas';
 						//console.log(citas._id);
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
-						let title = nom + " " + proto.nomProtocolo + " " + proto.visitas[index].nomeclatura+(index+1);
+						let title = nom + " " + proto.nomProtocolo + " " + proto.visitas[index].nomeclatura;
+						//Verificar si hay un numero dentro de nomeclatura
+						let numero = proto.visitas[index].nomeclatura.match(/\d+/g);
+						if(numero == null){
+							title += (index+1);
+						}
 						if(!this.citasAgregadas.includes(id)){
 							this.items.push({
 							id: id,
@@ -329,8 +346,27 @@ import { Citas } from '../interfaces/Citas';
 				this.selectionEnd = null
 				this.message = `Dia seleccionado: ${d.toLocaleDateString()}`
 			},
-			onClickItem(e) {
-				this.message = `Evento seleccionado: ${e.title}`
+			async onClickItem(e) {
+				//this.message = `Evento seleccionado: ${e.url}`
+				this.titulos = [];
+				let Visitas = await obtenerCitasId(e.url);
+				let citas = Visitas.data;
+				this.citasSeleccionadas = citas;
+				let proto = await consultarProtocolo(citas.idProtocolo);
+				proto = proto.data;
+				let paci = await consultarPaciente(citas.idPaciente);
+				paci = paci.data;
+				console.log(this.citasSeleccionadas);
+				for(let index = 0; index < this.citasSeleccionadas.visitas.length; index++){
+					console.log(this.citasSeleccionadas.visitas[index]);
+					let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + proto.nomProtocolo +" "+ proto.visitas[index].nomeclatura;
+					let numero = proto.visitas[index].nomeclatura.match(/\d+/g);
+					if(numero == null){
+						title += (index+1);
+					}
+					this.titulos.push(title);
+				}
+				console.log(this.titulos);
 			},
 			setShowDate(d) {
 				this.message = `Haz cambiado la vista a ${d.toLocaleDateString()}`
@@ -512,4 +548,10 @@ import { Citas } from '../interfaces/Citas';
 .cv-day.do-you-remember.the-21st .cv-day-number::after {
 	content: "\1F30D\1F32C\1F525";
 }
+
+td, tr{
+	text-align: center;
+	color: black;
+}
+
 </style>
