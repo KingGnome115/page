@@ -23,6 +23,8 @@
 				</div>
 			</div>
 
+			<br>
+
 			<div class="box">
 				<div class="field">
 					<h4>Ver por</h4>
@@ -33,6 +35,8 @@
 					</select>
 				</div>
 			</div>
+
+			<br>
 
 			<div class="box">
 				<div class="field">
@@ -47,6 +51,24 @@
                     <li v-for="(filt, index) in filteredStates" :key="index" @click="buscaData(filt)"> {{filt}} </li>
                 </ul>
             </div>
+
+			<br>
+
+			<div class="box">
+				<button type="submit" class="btn btn-primary">Eliminar</button>
+			</div>
+
+			<br>
+
+			<div class="box">
+				<table class="table table-primary table-hover table-sm table-bordered">
+					<tr>
+						<td>Cita</td>
+						<td>Fecha</td>
+					</tr>
+				</table>
+			</div>
+
 		</div>
 
 		<div class="calendar-parent">
@@ -158,18 +180,6 @@ import { Citas } from '../interfaces/Citas';
 						id: "e0",
 						startDate: "2018-01-05",
 					},
-					/*{
-						id: "e2",//Sera el mismo que el de la base
-						startDate: this.thisMonth(10),//Aqui seleccionamos el dia (partiendo la fecha de cada cita)
-						title: "Evento de referencia",//Aqui Nombre paciente + Protocolo
-					},
-					{
-						id: "61d0bd0b4e6540fb07193b86",
-						startDate: this.thisMonth(16),//Aqui seleccionamos el dia
-						title: "Evento de color",
-						classes: "orange"
-					},*/
-					
 				],
 			}
 		},
@@ -274,7 +284,13 @@ import { Citas } from '../interfaces/Citas';
 							//console.log(citas[index]._id);
 							let id = citas[index].visitas[index2]._id; 
 							let startDate = citas[index].visitas[index2].citaFecha;
-							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo +" "+ this.protocolo.visitas[index].nomeclatura+(index2+1);
+							let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + this.protocolo.nomProtocolo +" "+ this.protocolo.visitas[index2].nomeclatura;
+							//Verificar si hay un numero dentro de nomeclatura
+							let numero = this.protocolo.visitas[index].nomeclatura.match(/\d+/g);
+							if(numero == null){
+								title += (index2+1);
+							}
+							console.log((/[0-9]/.test(this.protocolo.visitas[index].nomeclatura)));
 							if(!this.citasAgregadas.includes(id)){
 								this.items.push({
 								id: id,
@@ -298,7 +314,12 @@ import { Citas } from '../interfaces/Citas';
 						//console.log(citas._id);
 						let id = citas.visitas[index]._id;
 						let startDate = citas.visitas[index].citaFecha;
-						let title = nom + " " + proto.nomProtocolo + " " + proto.visitas[index].nomeclatura+(index+1);
+						let title = nom + " " + proto.nomProtocolo + " " + proto.visitas[index].nomeclatura;
+						//Verificar si hay un numero dentro de nomeclatura
+						let numero = proto.visitas[index].nomeclatura.match(/\d+/g);
+						if(numero == null){
+							title += (index+1);
+						}
 						if(!this.citasAgregadas.includes(id)){
 							this.items.push({
 							id: id,
@@ -512,4 +533,10 @@ import { Citas } from '../interfaces/Citas';
 .cv-day.do-you-remember.the-21st .cv-day-number::after {
 	content: "\1F30D\1F32C\1F525";
 }
+
+td{
+	text-align: center;
+	color: black;
+}
+
 </style>
