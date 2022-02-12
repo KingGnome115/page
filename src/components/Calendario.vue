@@ -52,21 +52,21 @@
                 </ul>
             </div>
 
-			<br>
-
-			<div class="box">
-				<button type="submit" class="btn btn-primary">Eliminar</button>
-			</div>
-
-			<br>
-
 			<div class="box">
 				<table class="table table-primary table-hover table-sm table-bordered">
 					<tr>
 						<td>Cita</td>
 						<td>Fecha</td>
 					</tr>
+					<tr v-for="(cita, index) in citasSeleccionadas.visitas" :key="index">
+						<td>{{titulos[index]}}</td>
+						<td>{{cita.citaFecha}}</td>
+					</tr>
 				</table>
+			</div>
+
+			<div class="box">
+				<button type="submit" class="btn btn-primary">Eliminar</button>
 			</div>
 
 		</div>
@@ -130,7 +130,6 @@
 	import { obtenerCitasId } from '../services/CitasServices';
 	import { modificarCitas } from '../services/CitasServices';
 	//import { Visitas } from '../interfaces/Visitas';
-import { Citas } from '../interfaces/Citas';
 
 	export default {
 		name: "App",
@@ -143,14 +142,10 @@ import { Citas } from '../interfaces/Citas';
 				cadenaBusqueda: "",
 				tipoBusqueda: "Pr",
 				citasAgregadas: [],
-				//Para buscar por protocolos
-				protocolos: [],
-				protocolosE: [],
-				//
-				//Para buscar por pacientes
-				pacientes: [],
-				pacientesE: [],
-				//
+
+				citasSeleccionadas: [],
+				titulos: [],
+				
 				//Para la barra de busqueda
 				nombre: '',
                 state:'',
@@ -224,6 +219,8 @@ import { Citas } from '../interfaces/Citas';
 				this.filteredStates.length = 0;
 				this.items.length = 1;
 				this.citasAgregadas.length = 0;
+				this.citasSeleccionadas = [];
+				this.titulos.length = 0;
 				if(this.tipoBusqueda == "Pr"){
 					const res = await consultarProtocolosRex('a');
 					this.protocolos = res.data;
@@ -290,7 +287,6 @@ import { Citas } from '../interfaces/Citas';
 							if(numero == null){
 								title += (index2+1);
 							}
-							console.log((/[0-9]/.test(this.protocolo.visitas[index].nomeclatura)));
 							if(!this.citasAgregadas.includes(id)){
 								this.items.push({
 								id: id,
@@ -350,8 +346,27 @@ import { Citas } from '../interfaces/Citas';
 				this.selectionEnd = null
 				this.message = `Dia seleccionado: ${d.toLocaleDateString()}`
 			},
-			onClickItem(e) {
-				this.message = `Evento seleccionado: ${e.title}`
+			async onClickItem(e) {
+				//this.message = `Evento seleccionado: ${e.url}`
+				this.titulos = [];
+				let Visitas = await obtenerCitasId(e.url);
+				let citas = Visitas.data;
+				this.citasSeleccionadas = citas;
+				let proto = await consultarProtocolo(citas.idProtocolo);
+				proto = proto.data;
+				let paci = await consultarPaciente(citas.idPaciente);
+				paci = paci.data;
+				console.log(this.citasSeleccionadas);
+				for(let index = 0; index < this.citasSeleccionadas.visitas.length; index++){
+					console.log(this.citasSeleccionadas.visitas[index]);
+					let title = paci.nomPila + " " +paci.primApellido+ " " +paci.segApellido+ " " + proto.nomProtocolo +" "+ proto.visitas[index].nomeclatura;
+					let numero = proto.visitas[index].nomeclatura.match(/\d+/g);
+					if(numero == null){
+						title += (index+1);
+					}
+					this.titulos.push(title);
+				}
+				console.log(this.titulos);
 			},
 			setShowDate(d) {
 				this.message = `Haz cambiado la vista a ${d.toLocaleDateString()}`
@@ -534,7 +549,7 @@ import { Citas } from '../interfaces/Citas';
 	content: "\1F30D\1F32C\1F525";
 }
 
-td{
+td, tr{
 	text-align: center;
 	color: black;
 }
