@@ -8,8 +8,7 @@
 					Calendario
 				</h3>
 
-
-				<div class="field">
+				<div class="field selectorT">
 					<label class="label">Vista por: </label>
 					<div class="control">
 						<div class="select">
@@ -21,22 +20,20 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				
+				<br>
 
-			<br>
-
-			<div class="box">
-				<div class="field">
-					<h4>Ver por</h4>
-					<select v-model="tipoBusqueda">
-						<option @click="cargarDatos" selected value="Pr">Protocolos</option>
-						<option @click="cargarDatos" value="Pa">Pacientes</option>
-						<option value="Dc">Doctores</option>
-					</select>
+				<div class="field selectorT">
+					<label class="label">Ver por: </label>
+					<div class="control">
+						<select v-model="tipoBusqueda">
+							<option @click="cargarDatos" selected value="Pr">Protocolos</option>
+							<option @click="cargarDatos" value="Pa">Pacientes</option>
+							<option value="Dc">Doctores</option>
+						</select>
+					</div>
 				</div>
 			</div>
-
-			<br>
 
 			<div class="box">
 				<div class="field">
@@ -497,61 +494,68 @@
 </script>
 
 <style scoped>
-#app {
-	display: flex;
-	flex-direction: row;
-	font-family: Calibri, sans-serif;
-	width: 95vw;
-	min-width: 30rem;
-	max-width: 100rem;
-	min-height: 40rem;
-	margin-left: auto;
-	margin-right: auto;
-}
-.calendar-controls {
-	margin-right: 1rem;
-	min-width: 14rem;
-	max-width: 14rem;
-}
-.calendar-parent {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	overflow-x: hidden;
-	overflow-y: hidden;
-	max-height: 80vh;
-	background-color: white;
-}
-/* For long calendars, ensure each week gets sufficient height. The body of the calendar will scroll if needed */
-.cv-wrapper.period-month.periodCount-2 .cv-week,
-.cv-wrapper.period-month.periodCount-3 .cv-week,
-.cv-wrapper.period-year .cv-week {
-	min-height: 6rem;
-}
-/* These styles are optional, to illustrate the flexbility of styling the calendar purely with CSS. */
-/* Add some styling for items tagged with the "birthday" class */
-.theme-default .cv-item.birthday {
-	background-color: #e0f0e0;
-	border-color: #d7e7d7;
-}
-.theme-default .cv-item.birthday::before {
-	content: "\1F382"; /* Birthday cake */
-	margin-right: 0.5em;
-}
-/* The following classes style the classes computed in myDateClasses and passed to the component's dateClasses prop. */
-.theme-default .cv-day.ides {
-	background-color: #ffe0e0;
-}
-.ides .cv-day-number::before {
-	content: "\271D";
-}
-.cv-day.do-you-remember.the-21st .cv-day-number::after {
-	content: "\1F30D\1F32C\1F525";
-}
+	#app {
+		display: flex;
+		flex-direction: row;
+		font-family: Calibri, sans-serif;
+		width: 95vw;
+		min-width: 30rem;
+		max-width: 100rem;
+		min-height: 40rem;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.calendar-controls {
+		margin-right: 1rem;
+		min-width: 14rem;
+		max-width: 14rem;
+	}
+	.calendar-parent {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		max-height: 80vh;
+		background-color: white;
+	}
+	/* For long calendars, ensure each week gets sufficient height. The body of the calendar will scroll if needed */
+	.cv-wrapper.period-month.periodCount-2 .cv-week,
+	.cv-wrapper.period-month.periodCount-3 .cv-week,
+	.cv-wrapper.period-year .cv-week {
+		min-height: 6rem;
+	}
+	/* These styles are optional, to illustrate the flexbility of styling the calendar purely with CSS. */
+	/* Add some styling for items tagged with the "birthday" class */
+	.theme-default .cv-item.birthday {
+		background-color: #e0f0e0;
+		border-color: #d7e7d7;
+	}
+	.theme-default .cv-item.birthday::before {
+		content: "\1F382"; /* Birthday cake */
+		margin-right: 0.5em;
+	}
+	/* The following classes style the classes computed in myDateClasses and passed to the component's dateClasses prop. */
+	.theme-default .cv-day.ides {
+		background-color: #ffe0e0;
+	}
+	.ides .cv-day-number::before {
+		content: "\271D";
+	}
+	.cv-day.do-you-remember.the-21st .cv-day-number::after {
+		content: "\1F30D\1F32C\1F525";
+	}
 
-td, tr{
-	text-align: center;
-	color: black;
-}
+	td, tr{
+		text-align: center;
+		color: black;
+	}
+	/*Para que esten uno a lado de otro*/
+	.selectorT{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
 
 </style>
