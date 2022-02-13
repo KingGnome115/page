@@ -558,4 +558,10 @@
 		align-items: center;
 	}
 
+	table{
+		overflow-y:scroll;
+		height:15em;
+		display:block;
+	}
+
 </style>
