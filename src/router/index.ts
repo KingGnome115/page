@@ -49,14 +49,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/components/AltaCitas.vue')
     },
     {
-        path:'/Tcitas/:id',
-        name: 'tabla-citas',
-        component: () => import ('@/components/TablaCitas.vue')
-    },
-    {
         path:'/calendario',
         name: 'calendario',
         component: () => import ('@/components/Calendario.vue')
+    },
+    {
+        path:'/registro',
+        name: 'registro',
+        component: () => import ('@/components/Registro.vue')
     }
 ]
 
