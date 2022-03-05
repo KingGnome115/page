@@ -7,3 +7,5 @@ export const consultarUsuariosP = async(): Promise<AxiosResponse<Usuario[]>> => 
 export const registrarUsuario = async(usuario: Usuario): Promise<AxiosResponse<Usuario>> => await axios.post('/usuarios', usuario)
 
 export const eliminarUP = async(id: string): Promise<AxiosResponse<Usuario>> => await axios.delete(`/usuariosP/${id}`)
+
+export const aceptarUP = async(usuario: Usuario): Promise<AxiosResponse<Usuario>> => await axios.post(`/usuariosN`, usuario)

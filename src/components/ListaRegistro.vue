@@ -24,7 +24,7 @@
                             <label class="form-label" > {{usuario.rol}} </label>
                         </td>
                         <td class="botones" >
-                            <button class="btn btn-success">Aceptar</button>
+                            <button class="btn btn-success" v-on:click="aceptar(index)" >Aceptar</button>
                             <button class="btn btn-danger" v-on:click="eliminarUsuario(index)" >Eliminar</button>
                         </td>
                     </tr>
@@ -37,7 +37,7 @@
 <script lang="ts">
     import {defineComponent} from "vue";
     import { Usuario } from '../interfaces/Usuarios';
-    import { consultarUsuariosP, eliminarUP } from '../services/UsuariosServices';
+    import { consultarUsuariosP, eliminarUP, aceptarUP } from '../services/UsuariosServices';
     export default defineComponent({
         data(){
             return{
@@ -51,10 +51,16 @@
                 this.usuarios = data;
             },
             async eliminarUsuario(index: number){
-                console.log(this.usuarios[index]._id);
                 const response = await eliminarUP(this.usuarios[index]._id);
                 if(response.status == 200){
                     this.usuarios.splice(index, 1);
+                }
+            },
+            async aceptar(index: number){
+                const response = await eliminarUP(this.usuarios[index]._id);
+                if(response.status == 200){
+                    this.usuarios.splice(index, 1);
+                    const newUsuario = aceptarUP(response.data);
                 }
             }
         },
