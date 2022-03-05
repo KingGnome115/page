@@ -25,7 +25,7 @@
                         </td>
                         <td class="botones" >
                             <button class="btn btn-success">Aceptar</button>
-                            <button class="btn btn-danger">Eliminar</button>
+                            <button class="btn btn-danger" v-on:click="eliminarUsuario(index)" >Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -37,11 +37,11 @@
 <script lang="ts">
     import {defineComponent} from "vue";
     import { Usuario } from '../interfaces/Usuarios';
-    import { consultarUsuariosP } from '../services/UsuariosServices';
+    import { consultarUsuariosP, eliminarUP } from '../services/UsuariosServices';
     export default defineComponent({
         data(){
             return{
-                usuarios:[] 
+                usuarios:[] as Usuario[]
             }
         },
         methods: {
@@ -49,6 +49,13 @@
                 const response = await consultarUsuariosP();
                 const data = response.data;
                 this.usuarios = data;
+            },
+            async eliminarUsuario(index: number){
+                console.log(this.usuarios[index]._id);
+                const response = await eliminarUP(this.usuarios[index]._id);
+                if(response.status == 200){
+                    this.usuarios.splice(index, 1);
+                }
             }
         },
         mounted(){
