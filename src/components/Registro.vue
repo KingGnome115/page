@@ -55,10 +55,6 @@
                 </div>
             </form>
 
-            <div class ="col-12 col-md-5 mb3">
-                <button class="btn btn-primary" >Olvide contraseña</button>
-            </div>
-
         </div>
     </div>
 </template>
