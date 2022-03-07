@@ -24,6 +24,7 @@
 <script lang="ts" >
     import {defineComponent} from 'vue'
     import {login} from '../services/UsuariosServices'
+    import store from '../store/index'
 
     export default defineComponent({
         data(){
@@ -41,8 +42,8 @@
                         const user = await login(this.email, this.pass)
                         console.log(user.status)
                         if(user.status == 200){
-                            this.$store.state.usuario = user.data
-                            console.log(this.$store.state.usuario.email)
+                            store.state.usuario = user.data
+                            console.log(store.state.usuario.email)
                         }else{
                             console.log(user)
                         }
