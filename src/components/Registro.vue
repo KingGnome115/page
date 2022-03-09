@@ -24,7 +24,7 @@
 
                 <div class="col-12 col-md-5 mb-3">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" class="form-control" v-model="passwordC" required>
+                    <input type="password" id="password" name="password" class="form-control" v-model="passwordC" title="Una buena contraseña es una frase sin sentido con números y caracteres especiales" required>
                     <div class="invalid-feedback">
                         Porfavor ingrese una contraseña
                     </div>
@@ -32,21 +32,34 @@
 
                 <div class="col-12 col-md-5 mb-3">
                     <label for="password2">Repetir contraseña:</label>
-                    <input type="password" id="password2" name="password2" class="form-control" v-model="this.usuarios.password" required>
+                    <input type="password" id="password2" name="password2" class="form-control" v-model="this.usuarios.password" title="Una buena contraseña es una frase sin sentido con números y caracteres especiales" required>
                     <div class="invalid-feedback">
                         Porfavor ingrese una contraseña
                     </div>
                 </div>
 
                 <div class="col-12 col-md-5 mb-3" >
-                    <select  class="form-select valid" id="ventana" aria-describedby="Rol" v-model="this.usuarios.rol" required >
-                        <option>Paciente</option>
+                    <select  class="form-select valid" v-model="this.usuarios.rol" required >
+                        <option selected >Paciente</option>
                         <option>Doctor</option>
                         <option>Administrador</option>
                         <option>Secretaria</option>
                         <option>Enfermera</option>
                         <option>Laboratorio</option>
                         <option>Coordinador</option>
+                    </select>
+                </div>
+
+                <div class="col-12 col-md-5 mb-3">
+                    <select class="form-select valid" title="No seas honesto con la respuesta, solo algo que recuerdes" >
+                        <option>¿Cuál era tu apodo de niño?</option>
+                        <option>¿Cuál sería tu trabajo ideal?</option>
+                        <option>¿Nombre de tu primera mascota?</option>
+                        <option>¿Cuál fue la ciudad en donde naciste?</option>
+                        <option>¿Cuál es tu comida favorita?</option>
+                        <option>¿Cuál fue tu primer maestro?</option>
+                        <option>¿Si fueras un superhéroe, cuáles serían tus poderes?</option>
+                        <option>¿Qué harías si te dijeran que mañana es el fin de la humanidad?</option>
                     </select>
                 </div>
 
@@ -83,6 +96,9 @@
                 }
                 
             }
+        },
+        mounted() {
+            this.usuarios.rol = "Paciente";
         },
     })
 
