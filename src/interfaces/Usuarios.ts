@@ -4,4 +4,6 @@ export interface Usuario{
     password: string;
     rol: string;
     _id: string;
+    pregunta: string;
+    respuesta: string;
 }

@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="col-12 col-md-5 mb-3">
-                    <select class="form-select valid" title="No seas honesto con la respuesta, solo algo que recuerdes" >
+                    <select class="form-select valid" title="No seas honesto con la respuesta, solo algo que recuerdes" v-model="this.usuarios.pregunta" >
                         <option>¿Cuál era tu apodo de niño?</option>
                         <option>¿Cuál sería tu trabajo ideal?</option>
                         <option>¿Nombre de tu primera mascota?</option>
@@ -62,6 +62,15 @@
                         <option>¿Qué harías si te dijeran que mañana es el fin de la humanidad?</option>
                     </select>
                 </div>
+
+                <div class="col-12 col-md-5 mb-3">
+                    <input type="text" class="form-control" placeholder="Respuesta facil de recordar pero sin sentido" v-model="this.usuarios.respuesta" required>
+                    <div class="invalid-feedback">
+                        Porfavor ingrese una respuesta
+                    </div>
+                </div>
+
+                <div></div>
 
                 <div class="col-12 col-md-5 mb-3">
                     <button type="submit" class="btn btn-primary">Registrar</button>
@@ -99,6 +108,7 @@
         },
         mounted() {
             this.usuarios.rol = "Paciente";
+            this.usuarios.pregunta = "¿Cuál era tu apodo de niño?";
         },
     })
 
