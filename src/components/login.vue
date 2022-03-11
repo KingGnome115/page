@@ -12,7 +12,7 @@
             <br>
             <button type="submit" class="btn btn-primary" v-on:click="login()" >Iniciar Sesion</button>
             <li>
-                <router-link to="/login" class="text-dark">Olvide mi contraseña</router-link>
+                <router-link to="/OlvideCon" class="text-dark">Olvide mi contraseña</router-link>
             </li>
             <li class="text-dark">
                 <router-link to="/registro" class="text-dark">Registrarse</router-link>

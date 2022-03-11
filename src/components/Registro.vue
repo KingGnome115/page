@@ -96,7 +96,7 @@
                 console.log(this.usuarios);
                 if(this.passwordC == this.usuarios.password){
                     const newUsuario = registrarUsuario(this.usuarios);
-                    console.log(newUsuario);
+                    this.$router.push('/login')
                 }else{
                     alert("Las contraseñas no coinciden")
                     this.passwordC = "";
