@@ -37,6 +37,12 @@
                     <li class="nav-item">
                         <router-link class="nav-link" to="/listaR">ListaR</router-link>
                     </li>
+                    <li class="nav-item" >
+                        <router-link class="nav-link" to="/login">login</router-link>
+                    </li>
+                    <li class="nav-item" >
+                        <router-link class="nav-link" to="/OlvideCon">Olvide</router-link>
+                    </li>
                 </ul>
             </div>
         </div>
