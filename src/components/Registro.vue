@@ -1,4 +1,4 @@
-<template lang="">
+<template class="m-0 vh-100 row justify-content-center aling-items-center">
     <div class="container">
         <div class="row mt-3">
             <header class="row text-center">
@@ -76,7 +76,6 @@
                     <button type="submit" class="btn btn-primary">Registrar</button>
                 </div>
             </form>
-
         </div>
     </div>
 </template>
