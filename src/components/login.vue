@@ -43,7 +43,9 @@
                         console.log(user.status)
                         if(user.status == 200){
                             store.state.usuario = user.data
-                            console.log(store.state.usuario.email)
+                            store.state.usuario.password = ""
+                            store.state.usuario.respuesta = ""
+                            console.log(store.state.usuario)
                         }else{
                             console.log(user)
                         }
