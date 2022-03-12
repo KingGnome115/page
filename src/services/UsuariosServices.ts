@@ -16,4 +16,6 @@ export const consultarPreg = async(email: string): Promise<AxiosResponse<string>
 
 export const conRespuesta = async(email: string, respuesta: string): Promise<AxiosResponse<Usuario>> => await axios.post('/respuesta', {email, respuesta})
 
-export const actualizarContra = async(email: string, password: string): Promise<AxiosResponse<Usuario>> => await axios.put('/cambiarContra', {email, password})
+export const actualizarContra = async(email: string, password: string, respuesta: string): Promise<AxiosResponse<Usuario>> => await axios.put('/cambiarContra', {email, password, respuesta})
+
+export const actualizarDatos = async(usuario: Usuario): Promise<AxiosResponse<Usuario>> => await axios.put(`/usuarios/${usuario._id}`, usuario)

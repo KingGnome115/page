@@ -12,7 +12,7 @@
             <br>
             <button type="submit" class="btn btn-primary" v-on:click="login()" >Iniciar Sesion</button>
             <li>
-                <router-link to="/login" class="text-dark">Olvide mi contraseña</router-link>
+                <router-link to="/OlvideCon" class="text-dark">Olvide mi contraseña</router-link>
             </li>
             <li class="text-dark">
                 <router-link to="/registro" class="text-dark">Registrarse</router-link>
@@ -43,7 +43,9 @@
                         console.log(user.status)
                         if(user.status == 200){
                             store.state.usuario = user.data
-                            console.log(store.state.usuario.email)
+                            store.state.usuario.password = ""
+                            store.state.usuario.respuesta = ""
+                            console.log(store.state.usuario)
                         }else{
                             console.log(user)
                         }

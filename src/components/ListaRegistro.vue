@@ -21,7 +21,15 @@
                             <label class="form-label" > {{usuario.email}} </label>
                         </td>
                         <td>
-                            <label class="form-label" > {{usuario.rol}} </label>
+                            <select  class="form-select valid" v-model="usuario.rol" required >
+                                <option selected >Paciente</option>
+                                <option>Doctor</option>
+                                <option>Administrador</option>
+                                <option>Secretaria</option>
+                                <option>Enfermera</option>
+                                <option>Laboratorio</option>
+                                <option>Coordinador</option>
+                            </select>
                         </td>
                         <td class="botones" >
                             <button class="btn btn-success" v-on:click="aceptar(index)" >Aceptar</button>
@@ -59,8 +67,10 @@
             async aceptar(index: number){
                 const response = await eliminarUP(this.usuarios[index]._id);
                 if(response.status == 200){
+                    let nuevoUsuario = this.usuarios[index];
+                    console.log(this.usuarios[index])
+                    aceptarUP(nuevoUsuario);
                     this.usuarios.splice(index, 1);
-                    const newUsuario = aceptarUP(response.data);
                 }
             }
         },

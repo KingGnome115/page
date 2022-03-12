@@ -64,7 +64,7 @@
             return{
                 email: '',
                 pregunta: '',
-                respuesta: '',
+                respuesta:'',
                 contrasenia: '',
                 contrasenia2: '',
                 usuarioB: false,
@@ -74,9 +74,8 @@
         methods: {
             async consultarPregunta(){
                 let pregunta = await consultarPreg(this.email);
-                pregunta = pregunta.data
                 if(pregunta){
-                    this.pregunta = pregunta;
+                    this.pregunta = pregunta.data;
                     this.usuarioB = true;
                     console.log(this.pregunta);
                 }else{
@@ -84,20 +83,19 @@
                 }
             },
             async conRespuesta(){
-                let respuesta = await conRespuesta(this.email, this.respuesta);
-                respuesta = respuesta.data
-                if(respuesta){
+                let respuestas = await conRespuesta(this.email, this.respuesta);
+                let usuario = respuestas.data;
+                if(usuario){
                     this.preguntaB = true;
-                    console.log(this.pregunta);
                 }else{
                     alert("La respuesta es incorrecta");
                 }
             },
             async Actualizar(){
                 if(this.contrasenia == this.contrasenia2){
-                    let respuesta = await actualizarContra(this.email, this.contrasenia);
-                    respuesta = respuesta.data
-                    if(respuesta){
+                    let respu = await actualizarContra(this.email, this.contrasenia, this.respuesta);
+                    let usuario = respu.data
+                    if(usuario){
                         alert("Contraseña actualizada");
                         this.$router.push('/')
                     }else{
