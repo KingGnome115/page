@@ -43,6 +43,9 @@
                     <li class="nav-item" >
                         <router-link class="nav-link" to="/OlvideCon">Olvide</router-link>
                     </li>
+                    <li class="nav-item" >
+                        <router-link class="nav-link" to="/MEUsuarios">MEPU</router-link>
+                    </li>
                 </ul>
             </div>
         </div>

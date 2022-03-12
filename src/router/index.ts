@@ -72,6 +72,11 @@ const routes: RouteRecordRaw[] = [
         path:'/OlvideCon',
         name:'OlvideCon',
         component: () => import('@/components/OlvideCon.vue')
+    },
+    {
+        path:'/MEUsuarios',
+        name:'MEUsuarios',
+        component: () => import('@/components/MEUsuarios.vue')
     }
 ]
 
