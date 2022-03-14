@@ -84,7 +84,7 @@
     import { defineComponent } from "vue";
     import { Doctor } from '../interfaces/Doctor';
     import { Paciente } from "../interfaces/Paciente";
-    import { consultarPacientesRex, consultarPacienteNom } from '../services/PacienteServices';
+    import { consultarPacientesRex, consultarPacienteNom, consultarPaciente } from '../services/PacienteServices';
     import { consultarDoctoresRex, consultarDoctorNom } from '../services/DoctorServices';
     import { actualizarPacientesDoc } from '../services/DoctorServices';
     export default defineComponent({
@@ -167,7 +167,18 @@
                     this.doctor = enc.data as Doctor;
                     this.filterStatesDoctores();
                 }
-                console.log(this.doctor);
+                
+                let listaPaciente = this.doctor.Pacientes
+                if(listaPaciente.length > 0){
+                    this.pacientesCitas = []
+                    for(let i = 0; i < listaPaciente.length; i++){
+                        let paciente = listaPaciente[i]
+                        const res = await consultarPaciente(paciente);
+                        this.pacienteE = res.data as Paciente;
+                        this.pacientesCitas.push(this.pacienteE);
+                    }
+                }
+
             },
             filterStatesDoctores(){
                 if(this.nombreDoctor.length === 0){
