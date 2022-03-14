@@ -44,7 +44,7 @@
         </div>
 
 
-        <form class="row" @submit.prevent="guardarCitas()">
+        <form class="row" @submit.prevent="guardarPacientes()">
             <!--Tabla-->
             <div class="table-responsive">
                 <table class="table table-primary table-hover table-sm table-bordered">
@@ -73,7 +73,7 @@
                 </table>
             </div>
             <div class="d-flex gap-2 justify-content-end mb-3">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary" @click="guardarPacientes()" >Guardar</button>
             </div>
         </form>
     </div>
@@ -221,7 +221,19 @@
             eliminarDato(index : number){
                 this.pacientesCitas.splice(index, 1);
             },
-
+            async guardarPacientes(){
+                let idPacientesCitas = [] as string[];
+                this.pacientesCitas.forEach(paciente => {
+                    idPacientesCitas.push(paciente._id);
+                });
+                console.log(idPacientesCitas);
+                const res = await actualizarPacientesDoc(this.doctor._id, idPacientesCitas);
+                if(res.status === 200){
+                    alert('Pacientes actualizados');
+                }else{
+                    alert('Error al actualizar pacientes');
+                }
+            }
         },
         mounted() {
             this.cargar();

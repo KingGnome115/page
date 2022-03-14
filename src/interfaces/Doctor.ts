@@ -1,6 +1,7 @@
 export interface Doctor{
     id_Usuario: string;
     nombre: string;
-    Protocolos:[{id:string}];
-    Pacientes:[{id:string}];
+    Protocolos:[];
+    Pacientes:[];
+    _id: string;
 }
