@@ -47,7 +47,10 @@
                         <router-link class="nav-link" to="/Configuracion">Configuracion</router-link>
                     </li>
                     <li class="nav-item" >
-                        <router-link class="nav-link" to="/Asignar">Asignar</router-link>
+                        <router-link class="nav-link" to="/AsignarPa">Asignar</router-link>
+                    </li>
+                    <li class="nav-item" >
+                        <router-link class="nav-link" to="/AsignarP">Asignar</router-link>
                     </li>
                 </ul>
             </div>
