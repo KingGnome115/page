@@ -3,15 +3,28 @@
         <div class="row">
             <div class="col-12 col-md-6">
                 <header class="row text-align" >
+                    <h2>Doctores</h2>
+                </header>
+                <form>           
+                    <div class="col-12 mt-3 mb-3">
+                        <input v-model="nombreDoctor" v-on:keypress="reconDo" type="text" autocomplete="off" v-bind="stateDoctor" @input="filterStatesDoctor" class="form-control valid barraBusqueda" placeholder="Nombre del doctor" >
+                    </div>
+
+                    <div>
+                        <ul class="list">
+                            <li v-for="(filt, index) in filteredStatesDoctores" :key="index" @click="buscaDataDoctor(filt)"> {{filt}} </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <header class="row text-align" >
                     <h2>Pacientes</h2>
                 </header>
                 <form>           
                     <div class="col-12 mt-3 mb-3">
                         <input v-model="nombrePaciente" v-on:keypress="reconPa" type="text" autocomplete="off" v-bind="statePaciente" @input="filterStatesPaciente" class="form-control valid barraBusqueda" placeholder="Nombre del paciente" v-on:keyup.enter="buscarDataPaciente">
-                    </div>
-
-                    <div class="col-12 col-md-4 mt-3 mb-3">
-                        <button class="btn btn-primary"  v-on:click="buscarDataPaciente">Buscar</button>
                     </div>
 
                     <div>
@@ -23,7 +36,13 @@
             </div>
         </div>
 
-    <hr>
+        <!--Mostrar como titulo en medio el nombre del doctor-->
+        <div class="row">
+            <div class="col-12">
+                <h2>Asignar paciente al doctor:  {{this.doctor.nombre}} </h2>
+            </div>
+        </div>
+
 
         <form class="row" @submit.prevent="guardarCitas()">
             <!--Tabla-->
@@ -58,7 +77,6 @@
             </div>
         </form>
     </div>
-
     
 </template>
 
@@ -67,6 +85,8 @@
     import { Doctor } from '../interfaces/Doctor';
     import { Paciente } from "../interfaces/Paciente";
     import { consultarPacientesRex, consultarPacienteNom } from '../services/PacienteServices';
+    import { consultarDoctoresRex, consultarDoctorNom } from '../services/DoctorServices';
+    import { actualizarPacientesDoc } from '../services/DoctorServices';
     export default defineComponent({
         data(){
             return {
@@ -78,22 +98,36 @@
 
                 //Lista de pacientes
                 pacientes: [] as string[],
+                //Lista de doctores
+                doctores: [] as string[],
                 //Para la barra de busqueda de pacientes
                 nombrePaciente: '',
                 statePaciente: '',
                 statesPacientes: [] as string[],
                 filteredStatesPaciente: [] as string[],
-                
+                //Para la barra de busqueda de doctores
+                nombreDoctor: '',
+                stateDoctor: '',
+                statesDoctor: [] as string[],
+                filteredStatesDoctores: [] as string[],
             }
         },
         methods: {
-            async cargarPacientes(){
+            async cargar(){
                 const res = await consultarPacientesRex('a');
                 if(typeof res.data !== 'undefined'){
                     this.pacientes = res.data as string[];
                 }
                 this.pacientes.forEach(element => {
                     this.statesPacientes.push(element);
+                });
+
+                const resD = await consultarDoctoresRex('a');
+                if(typeof resD.data !== 'undefined'){
+                    this.doctores = resD.data as string[];
+                }
+                this.statesDoctor.forEach(element => {
+                    this.statesDoctor.push(element);
                 });
             },
             async buscaDataPaciente(nom : string){
@@ -110,15 +144,38 @@
                     let nombre = pacienteB.split('-');
                     const res = await consultarPacienteNom(nombre[0], nombre[1], nombre[2]);
                     this.pacienteE = res.data as Paciente;
-                    console.log(this.pacienteE);
-                    console.log(this.pacientesCitas);
-                    console.log(!this.pacientesCitas.includes(this.pacienteE))
                     if (!this.pacientesCitas.includes(this.pacienteE)) {
                         this.pacientesCitas.push(this.pacienteE);
                         this.nombrePaciente = ''
                         //llamar al metodo filterStatesPaciente()
                         this.filterStatesPaciente();
                     }
+                }
+            },
+            async buscaDataDoctor(nom : string){
+                let doctorB = ""
+                this.doctores.forEach(doctor => {
+                    if(doctor.toLowerCase() == nom.toLowerCase()){
+                        doctorB = doctor;
+                        this.nombreDoctor = ''
+                        //llamar al metodo filterStatesPaciente()
+                        this.filterStatesDoctores();
+                    }
+                });
+                if(doctorB !== ''){
+                    let enc = await consultarDoctorNom(doctorB);
+                    this.doctor = enc.data as Doctor;
+                    this.filterStatesDoctores();
+                }
+                console.log(this.doctor);
+            },
+            filterStatesDoctores(){
+                if(this.nombreDoctor.length === 0){
+                    this.filteredStatesDoctores = []
+                }else{
+                    this.filteredStatesDoctores = this.statesDoctor.filter(state => {
+                        return state.toLowerCase().includes(this.nombreDoctor.toLowerCase());
+                    });
                 }
             },
             filterStatesPaciente() {
@@ -130,6 +187,22 @@
                     })
                 }
             },
+            async reconDo(){
+                if (this.nombreDoctor !== '') {
+                    const res = await consultarDoctoresRex(this.nombreDoctor);
+                    if(typeof res.data !== 'undefined'){
+                        this.doctores = res.data as string[];
+                    }
+
+                    this.doctores.forEach(element => {
+                        if(!this.statesDoctor.includes(element)){
+                            this.statesDoctor.push(element);
+                        }
+                    });
+                    this.filterStatesDoctores();
+                }
+            }
+            ,
             async reconPa(){
                 if(this.nombrePaciente !== ''){
                     const res = await consultarPacientesRex(this.nombrePaciente);
@@ -148,8 +221,13 @@
             eliminarDato(index : number){
                 this.pacientesCitas.splice(index, 1);
             },
+
+        },
+        mounted() {
+            this.cargar();
         },
     })
+    
 
 </script>
 
